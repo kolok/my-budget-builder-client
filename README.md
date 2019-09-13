@@ -33,34 +33,46 @@ You can sign up or use the following access:
 
 ### Architecture
 
-  client                  # frontend folder
-    ├─src                  # frontend src
-    │  ├─api               # api services
-    │  │  └─common         # api common components (used by services)
-    │  ├─components        # Vue components
-    │  │  ├─common         # Vue common component
-    │  │  └─_packages_     # Vue component stored by package
-    │  ├─store             # state management
-    │  │  └─modules
-    │  ├─styles
-    │  ├─view              # app pages
-    │  │  └─_packages_     # pages are stored by packages
-    │  ├─router.js         # app router
-    │  ├─main.js           # main js: start point of the app
-    │  └─App.vue           # Main App page
-    └─_config_files_
+    client                  # frontend folder
+      ├─src                  # frontend src
+      │  ├─api               # api services
+      │  │  └─common         # api common components (used by services)
+      │  ├─components        # Vue components
+      │  │  ├─common         # Vue common component
+      │  │  └─_packages_     # Vue component stored by package
+      │  ├─store             # state management
+      │  │  └─modules
+      │  ├─styles
+      │  ├─view              # app pages
+      │  │  └─_packages_     # pages are stored by packages
+      │  ├─router.js         # app router
+      │  ├─main.js           # main js: start point of the app
+      │  └─App.vue           # Main App page
+      └─_config_files_
 
 ### Run through Docker
 
 install docker and docker-compose
 
+Launch the server:
+
 ```bash
     docker-compose up #(-d)# it will launch server and client side
 ```
 
+And check the log:
+
 ```bash
     docker-compose logs # display the docker's logs
 ```
+
+After adding a npm module (ex : npm i my_lib --save) you'll need to rebuild the docker image and restart it:
+
+```bash
+    docker-compose build --no-cache
+    docker-compose restart
+```
+
 
 ### ESLint
 
