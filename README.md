@@ -73,7 +73,6 @@ After adding a npm module (ex : npm i my_lib --save) you'll need to rebuild the 
     docker-compose restart
 ```
 
-
 ### ESLint
 
 To manage the code quality, eslint is used.
