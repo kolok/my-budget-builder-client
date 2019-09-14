@@ -7,7 +7,7 @@
         <!-- <VueApexCharts width="360" type="donut" :options="dOptions" :series="dSeries"></VueApexCharts>
         <VueApexCharts width="500" height="300" type="bar" :options="options" :series="series"></VueApexCharts>-->
         <div id="donutChart">
-          <DonutChart :donutChartData="donutChartData" />
+          <DonutChart :donutChartData="donutChartData" @send-message="mouseOver" />
         </div>
         <div id="stackedBarChart"></div>
       </div>
@@ -328,6 +328,17 @@ export default {
     };
   },
   methods: {
+    mouseOver(value) {
+      // Our event handler gets the event, as well as any
+      // arguments the child passes to the event
+      this.donutChartData = this.donutChartData.map(d => {
+        return d.name === value ? { ...d, isSelected: true } : d;
+      });
+
+      console.log(this.donutChartData);
+
+      console.log("From_the_donut:", value);
+    },
     handleClick(tab, event) {
       console.log("handleClick2");
       if (this.activeName === "google") {

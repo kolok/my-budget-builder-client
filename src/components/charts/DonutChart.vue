@@ -15,10 +15,10 @@ export default {
     this.chartLayer = svg
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-    // this.arc = d3
+    // this.startingArc = d3
     //   .arc()
-    //   .outerRadius(chartHeight / 2)
-    //   .innerRadius(chartHeight / 5);
+    //   .outerRadius(this.chartHeight / 5)
+    //   .innerRadius(this.chartHeight / 2);
     //.padAngle(0.03);
     //.cornerRadius(8);
     this.pieG = this.chartLayer
@@ -28,17 +28,40 @@ export default {
         `translate(${this.chartWidth / 2}, ${this.chartHeight / 2})`
       );
 
-    console.log(this.donutChartData);
     this.drawChart(this.donutChartData);
   },
-  props: ["donutChartData"],
+  props: {
+    donutChartData: Array,
+    method: { type: Function }
+  },
   watch: {
     donutChartData: function(newData) {
+      //console.log("newData", newData);
       this.drawChart(newData);
     }
   },
   methods: {
     drawChart: function(data) {
+      const startingArc = d3
+        .arc()
+        .outerRadius(this.chartHeight / 5)
+        .innerRadius(this.chartHeight / 2);
+
+      const total = data.reduce((acc, curr) => {
+        return acc + curr.value;
+      }, 0);
+
+      this.pieG.selectAll("*").remove();
+
+      this.pieG
+        .append("text")
+        .text(total)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .style("font-weight", "bold")
+        .style("font-size", 16)
+        .style("fill", "#4A5889");
+
       var arcs = d3
         .pie()
         .sort(null)
@@ -46,7 +69,7 @@ export default {
           return d.value;
         })(data);
       var block = this.pieG.selectAll(".arc").data(arcs);
-      block.select("path").attr("d", this.arc);
+      //block.select("path").attr("d", this.arc);
       var newBlock = block
         .enter()
         .append("g")
@@ -58,7 +81,6 @@ export default {
           d3
             .arc()
             .outerRadius(d => {
-              console.log(d);
               return d.data.isSelected
                 ? this.chartHeight / 1.8
                 : this.chartHeight / 2;
@@ -68,19 +90,32 @@ export default {
         .attr("id", function(d, i) {
           return "arc-" + i;
         })
-        //.attr("stroke", "gray")
-        .attr("fill", d => d.data.color);
-      // newBlock
-      //   .append("text")
-      //   .attr("dx", 10)
-      //   .attr("dy", -5)
-      //   .append("textPath")
-      //   .attr("xlink:href", function(d, i) {
-      //     return "#arc-" + i;
-      //   })
-      //   .text(function(d) {
-      //     return d.data.name;
-      //   });
+        .on("mouseover", d => {
+          console.log("mouseover");
+          this.$emit("send-message", d.data.name);
+        })
+        .on("mouseout", d => {
+          console.log("mouseout");
+        })
+        .attr("stroke", "#fff")
+        .attr("fill", d => d.data.color)
+        .style("opacity", 0)
+        .transition()
+        .duration(500)
+        .style("opacity", 1);
+
+      newBlock
+        .append("text")
+        .attr("transform", function(d) {
+          // console.log(this.startingArc);
+          return "translate(" + startingArc.centroid(d) + ")";
+        })
+        .attr("text-anchor", "middle")
+        .text(function(d, i) {
+          return d.data.value;
+        })
+        .style("fill", "#fff")
+        .style("font-weight", "bold");
     }
   }
 };
