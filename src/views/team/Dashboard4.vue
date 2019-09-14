@@ -1,33 +1,40 @@
 <template>
   <div>
     <div>
-      <ContentMenu activeName="d3"/>
+      <ContentMenu activeName="d3" />
 
       <div class="GoogleChart" style="display:flex;flex-direction:row">
-        <VueApexCharts width="360" type="donut" :options="dOptions" :series="dSeries"></VueApexCharts>
-        <VueApexCharts width="500" height="300" type="bar" :options="options" :series="series"></VueApexCharts>
+        <!-- <VueApexCharts width="360" type="donut" :options="dOptions" :series="dSeries"></VueApexCharts>
+        <VueApexCharts width="500" height="300" type="bar" :options="options" :series="series"></VueApexCharts>-->
+        <div id="donutChart">
+          <DonutChart :donutChartData="donutChartData" />
+        </div>
+        <div id="stackedBarChart"></div>
       </div>
-
     </div>
-    <ChartLegend/>
+    <ChartLegend />
 
     <div style="display:flex;flex-direction:row;justify-content:start;align-items:center;">
       <div style="margin-left:20px;">
         <el-button type="primary" icon="el-icon-plus" @click="updateData">New Hire</el-button>
       </div>
     </div>
-
-
   </div>
 </template>
 
 <script>
+const donutChartData = [
+  { name: "New-York", value: 150, color: "#4A5889", isSelected: true },
+  { name: "Los Angeles", value: 118, color: "#B53446", isSelected: false },
+  { name: "London", value: 46, color: "#FFC300", isSelected: false },
+  { name: "Paris", value: 30, color: "#347F6E", isSelected: false }
+];
+
 // Color for the Graph
 // Bleu: 74/88/137 , #4A5889
 // Rouge: 181/52/70 , #B53446
 // Jaune: 255/195/0 , #FFC300
 // Vert: 54/127/110 , #347F6E
-
 
 /*
 ['JAN 19', 140, 125, 40, 20, 325],
@@ -49,20 +56,17 @@ this.donutChartData = [
 ['Paris', 30],
 */
 
+import VueApexCharts from "vue-apexcharts";
 
-
-
-
-import VueApexCharts from 'vue-apexcharts'
-
-import ContentMenu from '../../components/common/ContentMenu.vue'
-import ChartLegend from '../../components/charts/ChartLegend.vue'
+import DonutChart from "../../components/charts/DonutChart.vue";
+import ContentMenu from "../../components/common/ContentMenu.vue";
+import ChartLegend from "../../components/charts/ChartLegend.vue";
 
 let baseAnnotationsPointsLabel = {
   borderWidth: 0,
   offsetY: 0,
   style: {
-    color: '#606266',
+    color: "#606266"
   }
 };
 
@@ -70,10 +74,12 @@ export default {
   components: {
     VueApexCharts,
     ContentMenu,
-    ChartLegend
+    ChartLegend,
+    DonutChart
   },
-  data () {
+  data() {
     return {
+      donutChartData: donutChartData,
       dataVersion: 1,
       dOptions: {
         plotOptions: {
@@ -83,38 +89,40 @@ export default {
                 show: true,
                 total: {
                   show: true,
-                  color: '#606266',
-                  label: 'Total'
+                  color: "#606266",
+                  label: "Total"
                 },
                 name: {
-                  show: true,
+                  show: true
                 },
                 value: {
-                  show: true,
+                  show: true
                 }
               }
             }
           }
         },
-        colors:['#4A5889', '#B53446', '#FFC300', '#347F6E'],
+        colors: ["#4A5889", "#B53446", "#FFC300", "#347F6E"],
         dataLabels: {
           enabled: true,
-          formatter: function (val, opts) {
-            return opts.w.config.series[opts.seriesIndex]
+          formatter: function(val, opts) {
+            return opts.w.config.series[opts.seriesIndex];
           }
         },
-        labels: ['New York', 'Los Angeles', 'London', 'Paris'],
-        responsive: [{
+        labels: ["New York", "Los Angeles", "London", "Paris"],
+        responsive: [
+          {
             breakpoint: 480,
             options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    show: false
-                }
+              chart: {
+                width: 200
+              },
+              legend: {
+                show: false
+              }
             }
-        }],
+          }
+        ],
         legend: {
           show: false
         }
@@ -123,192 +131,210 @@ export default {
 
       options: {
         chart: {
-            height: 350,
-            type: 'bar',
-            stacked: true,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: true
-            }
+          height: 350,
+          type: "bar",
+          stacked: true,
+          toolbar: {
+            show: false
+          },
+          zoom: {
+            enabled: true
+          }
         },
-        responsive: [{
+        responsive: [
+          {
             breakpoint: 480,
             options: {
-                legend: {
-                    position: 'bottom',
-                    offsetX: -10,
-                    offsetY: 0
-                }
+              legend: {
+                position: "bottom",
+                offsetX: -10,
+                offsetY: 0
+              }
             }
-        }],
+          }
+        ],
         plotOptions: {
-            bar: {
-                horizontal: false,
-            },
+          bar: {
+            horizontal: false
+          }
         },
         grid: {
-          show: false,
+          show: false
         },
 
         xaxis: {
-          categories: ['JAN 19', 'FEV 19', 'MAR 19', 'AVR 19', 'MAI 19', 'JUN 19', 'TODAY', 'JUL 19', 'AGU 19', 'SEP 19'],
+          categories: [
+            "JAN 19",
+            "FEV 19",
+            "MAR 19",
+            "AVR 19",
+            "MAI 19",
+            "JUN 19",
+            "TODAY",
+            "JUL 19",
+            "AGU 19",
+            "SEP 19"
+          ],
           labels: {
-            rotate: 45,
-          },
+            rotate: 45
+          }
         },
         legend: {
           show: false
         },
         fill: {
-            opacity: 1
+          opacity: 1
         },
-        colors:['#4A5889', '#B53446', '#FFC300', '#347F6E'],
+        colors: ["#4A5889", "#B53446", "#FFC300", "#347F6E"],
         dataLabels: {
-          enabled: false,
+          enabled: false
         },
         annotations: {
           points: [
             {
-              x: 'JAN 19',
+              x: "JAN 19",
               y: 325,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
                 ...baseAnnotationsPointsLabel,
-                ...{text: "325"}
+                ...{ text: "325" }
               }
             },
             {
-              x: 'FEV 19',
+              x: "FEV 19",
               y: 328,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "328"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "328" }
               }
             },
 
             {
-              x: 'MAR 19',
+              x: "MAR 19",
               y: 335,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "335"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "335" }
               }
             },
             {
-              x: 'AVR 19',
+              x: "AVR 19",
               y: 338,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "338"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "338" }
               }
             },
             {
-              x: 'MAI 19',
+              x: "MAI 19",
               y: 341,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "341"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "341" }
               }
             },
             {
-              x: 'JUN 19',
+              x: "JUN 19",
               y: 352,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "352"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "352" }
               }
             },
             {
-              x: 'TODAY',
+              x: "TODAY",
               y: 360,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "360"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "360" }
               }
             },
             {
-              x: 'JUL 19',
+              x: "JUL 19",
               y: 368,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "368"}
+                ...baseAnnotationsPointsLabel,
+                ...{ text: "368" }
               }
             },
 
             {
-              x: 'AGU 19',
+              x: "AGU 19",
               y: 377,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
                 ...baseAnnotationsPointsLabel,
-                ...{text: "377"}
+                ...{ text: "377" }
               }
             },
             {
-              x: 'SEP 19',
+              x: "SEP 19",
               y: 406,
               marker: {
-                size: 0,
+                size: 0
               },
               label: {
                 ...baseAnnotationsPointsLabel,
-                ...{text: "406"}
+                ...{ text: "406" }
               }
-            },
+            }
           ]
-        },
+        }
       },
 
-      series: [{
-          name: 'New-York',
-          data: [140,141,144,144,144,145,148,150,152,160]
-      },{
-          name: 'Los Angeles',
-          data: [125,122,121,121,121,125,128,130,130,140]
-      },{
-          name: 'London',
-          data: [40,40,40,41,41,41,42,43,45,46]
-      },{
-          name: 'Paris',
-          data: [20,25,30,32,35,40,42,45,50,60]
-      }]
-    }
+      series: [
+        {
+          name: "New-York",
+          data: [140, 141, 144, 144, 144, 145, 148, 150, 152, 160]
+        },
+        {
+          name: "Los Angeles",
+          data: [125, 122, 121, 121, 121, 125, 128, 130, 130, 140]
+        },
+        {
+          name: "London",
+          data: [40, 40, 40, 41, 41, 41, 42, 43, 45, 46]
+        },
+        {
+          name: "Paris",
+          data: [20, 25, 30, 32, 35, 40, 42, 45, 50, 60]
+        }
+      ]
+    };
   },
   methods: {
     handleClick(tab, event) {
-      console.log('handleClick2');
-      if (this.activeName === 'google') {
-        this.$router.push('/teamDashboard')
+      console.log("handleClick2");
+      if (this.activeName === "google") {
+        this.$router.push("/teamDashboard");
       }
-      if (this.activeName === 'chartjs') {
-        this.$router.push('/teamDashboard2')
+      if (this.activeName === "chartjs") {
+        this.$router.push("/teamDashboard2");
       }
     },
 
@@ -317,270 +343,278 @@ export default {
         borderWidth: 0,
         offsetY: 0,
         style: {
-          color: '#606266',
+          color: "#606266"
         },
 
         text: "356"
       };
 
-      if (this.dataVersion != 2)
-      {
-        this.dataVersion = 2
-        this.series= [{
-            name: 'New-York',
-            data: [130,131,134,134,134,135,138,150,152,160]
-        },{
-            name: 'Los Angeles',
-            data: [125,122,121,121,121,125,128,130,130,140]
-        },{
-            name: 'London',
-            data: [40,40,40,41,41,51,52,53,55,56]
-        },{
-            name: 'Paris',
-            data: [20,25,30,32,35,40,42,45,50,60]
-        }];
+      if (this.dataVersion != 2) {
+        this.dataVersion = 2;
+        this.series = [
+          {
+            name: "New-York",
+            data: [130, 131, 134, 134, 134, 135, 138, 150, 152, 160]
+          },
+          {
+            name: "Los Angeles",
+            data: [125, 122, 121, 121, 121, 125, 128, 130, 130, 140]
+          },
+          {
+            name: "London",
+            data: [40, 40, 40, 41, 41, 51, 52, 53, 55, 56]
+          },
+          {
+            name: "Paris",
+            data: [20, 25, 30, 32, 35, 40, 42, 45, 50, 60]
+          }
+        ];
         this.dSeries = [138, 128, 52, 42];
-        this.options = {...this.options, ...{
-          annotations: {
-            points: [
-            {
-              x: 'JAN 19',
-              y: 315,
-              marker: {
-                size: 0,
-              },
-              label: {
-                ...baseAnnotationsPointsLabel,
-                ...{text: "315"}
-              }
-            },
-            {
-              x: 'FEV 19',
-              y: 318,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "318"}
-              }
-            },
+        this.options = {
+          ...this.options,
+          ...{
+            annotations: {
+              points: [
+                {
+                  x: "JAN 19",
+                  y: 315,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "315" }
+                  }
+                },
+                {
+                  x: "FEV 19",
+                  y: 318,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "318" }
+                  }
+                },
 
-            {
-              x: 'MAR 19',
-              y: 325,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "325"}
-              }
-            },
-            {
-              x: 'AVR 19',
-              y: 328,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "328"}
-              }
-            },
-            {
-              x: 'MAI 19',
-              y: 331,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "331"}
-              }
-            },
-            {
-              x: 'JUN 19',
-              y: 352,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "352"}
-              }
-            },
-            {
-              x: 'TODAY',
-              y: 360,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "360"}
-              }
-            },
-            {
-              x: 'JUL 19',
-              y: 378,
-              marker: {
-                size: 0,
-              },
-              label: {
-              ...baseAnnotationsPointsLabel,
-              ...{text: "378"}
-              }
-            },
+                {
+                  x: "MAR 19",
+                  y: 325,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "325" }
+                  }
+                },
+                {
+                  x: "AVR 19",
+                  y: 328,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "328" }
+                  }
+                },
+                {
+                  x: "MAI 19",
+                  y: 331,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "331" }
+                  }
+                },
+                {
+                  x: "JUN 19",
+                  y: 352,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "352" }
+                  }
+                },
+                {
+                  x: "TODAY",
+                  y: 360,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "360" }
+                  }
+                },
+                {
+                  x: "JUL 19",
+                  y: 378,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "378" }
+                  }
+                },
 
-            {
-              x: 'AGU 19',
-              y: 387,
-              marker: {
-                size: 0,
-              },
-              label: {
-                ...baseAnnotationsPointsLabel,
-                ...{text: "387"}
-              }
-            },
-            {
-              x: 'SEP 19',
-              y: 416,
-              marker: {
-                size: 0,
-              },
-              label: {
-                ...baseAnnotationsPointsLabel,
-                ...{text: "416"}
-              }
-            },            ]
+                {
+                  x: "AGU 19",
+                  y: 387,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "387" }
+                  }
+                },
+                {
+                  x: "SEP 19",
+                  y: 416,
+                  marker: {
+                    size: 0
+                  },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "416" }
+                  }
+                }
+              ]
+            }
           }
-        }}
-      }
-      else {
-        this.dataVersion = 1
+        };
+      } else {
+        this.dataVersion = 1;
 
-        this.options = {...this.options, ...{
-          annotations: {
-            points: [
-              {
-                x: 'JAN 19',
-                y: 325,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "325"}
+        this.options = {
+          ...this.options,
+          ...{
+            annotations: {
+              points: [
+                {
+                  x: "JAN 19",
+                  y: 325,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "325" }
+                  }
+                },
+                {
+                  x: "FEV 19",
+                  y: 328,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "328" }
+                  }
+                },
+                {
+                  x: "MAR 19",
+                  y: 335,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "335" }
+                  }
+                },
+                {
+                  x: "AVR 19",
+                  y: 338,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "338" }
+                  }
+                },
+                {
+                  x: "MAI 19",
+                  y: 341,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "341" }
+                  }
+                },
+                {
+                  x: "JUN 19",
+                  y: 352,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "352" }
+                  }
+                },
+                {
+                  x: "TODAY",
+                  y: 360,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "360" }
+                  }
+                },
+                {
+                  x: "JUL 19",
+                  y: 368,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "368" }
+                  }
+                },
+                {
+                  x: "AGU 19",
+                  y: 377,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "377" }
+                  }
+                },
+                {
+                  x: "SEP 19",
+                  y: 406,
+                  marker: { size: 0 },
+                  label: {
+                    ...baseAnnotationsPointsLabel,
+                    ...{ text: "406" }
+                  }
                 }
-              },
-              {
-                x: 'FEV 19',
-                y: 328,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "328"}
-                }
-              },
-              {
-                x: 'MAR 19',
-                y: 335,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "335"}
-                }
-              },
-              {
-                x: 'AVR 19',
-                y: 338,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "338"}
-                }
-              },
-              {
-                x: 'MAI 19',
-                y: 341,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "341"}
-                }
-              },
-              {
-                x: 'JUN 19',
-                y: 352,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "352"}
-                }
-              },
-              {
-                x: 'TODAY',
-                y: 360,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "360"}
-                }
-              },
-              {
-                x: 'JUL 19',
-                y: 368,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "368"}
-                }
-              },
-              {
-                x: 'AGU 19',
-                y: 377,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "377"}
-                }
-              },
-              {
-                x: 'SEP 19',
-                y: 406,
-                marker: { size: 0 },
-                label: {
-                  ...baseAnnotationsPointsLabel,
-                  ...{text: "406"}
-                }
-              },
-            ]
+              ]
+            }
           }
-        }}
+        };
 
-
-
-        this.series= [{
-            name: 'New-York',
-            data: [140,141,144,144,144,145,148,150,152,160]
-        },{
-            name: 'Los Angeles',
-            data: [125,122,121,121,121,125,128,130,130,140]
-        },{
-            name: 'London',
-            data: [40,40,40,41,41,41,42,43,45,46]
-        },{
-            name: 'Paris',
-            data: [20,25,30,32,35,40,42,45,50,60]
-        }];
+        this.series = [
+          {
+            name: "New-York",
+            data: [140, 141, 144, 144, 144, 145, 148, 150, 152, 160]
+          },
+          {
+            name: "Los Angeles",
+            data: [125, 122, 121, 121, 121, 125, 128, 130, 130, 140]
+          },
+          {
+            name: "London",
+            data: [40, 40, 40, 41, 41, 41, 42, 43, 45, 46]
+          },
+          {
+            name: "Paris",
+            data: [20, 25, 30, 32, 35, 40, 42, 45, 50, 60]
+          }
+        ];
         this.dSeries = [150, 118, 46, 30];
       }
     }
-
-
-
-
-
   }
-}
+};
 </script>
