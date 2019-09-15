@@ -17,7 +17,7 @@ export default {
     this.x = d3
       .scaleBand()
       .range([margin.left, width - margin.right])
-      .padding(0.1);
+      .padding(0.2);
 
     this.y = d3.scaleLinear().rangeRound([height - margin.bottom, margin.top]);
 
@@ -43,8 +43,8 @@ export default {
     }
   },
   methods: {
-    drawChart: function(data) {
-      var keys = d3.keys(data[0]).slice(1);
+    drawChart: function(data0) {
+      var keys = d3.keys(data0[0]).slice(1);
 
       var z = d3
         .scaleOrdinal()
@@ -53,9 +53,14 @@ export default {
 
       var speed = 0;
 
-      data.forEach(function(d) {
-        d.total = d3.sum(keys, k => +d[k]);
-        return d;
+      // data.forEach(function(d) {
+      //   d.total = d3.sum(keys, k => +d[k]);
+      //   return d;
+      // });
+
+      const data = data0.map(function(d) {
+        let total = d3.sum(keys, k => +d[k]);
+        return { ...d, total };
       });
 
       this.y.domain([0, d3.max(data, d => d3.sum(keys, k => +d[k]))]).nice();
@@ -94,11 +99,20 @@ export default {
       bars
         .enter()
         .append("rect")
-        .attr("width", this.x.bandwidth())
+        .attr("width", d => {
+          console.log(d);
+          return d.data.Date === "TODAY"
+            ? this.x.bandwidth() - 10
+            : this.x.bandwidth();
+        })
         .merge(bars)
         .transition()
         .duration(speed)
-        .attr("x", d => this.x(d.data.Date))
+        .attr("x", d => {
+          return d.data.Date === "TODAY"
+            ? this.x(d.data.Date) + 5
+            : this.x(d.data.Date);
+        })
         .attr("y", d => this.y(d[1]))
         .attr("height", d => this.y(d[0]) - this.y(d[1]));
 
