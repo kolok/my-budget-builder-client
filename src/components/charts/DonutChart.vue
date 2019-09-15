@@ -93,11 +93,11 @@ export default {
         })
         .on("mouseover", d => {
           //console.log("mouseover");
-          this.$emit("send-mouseover", d.data.name);
+          //this.$emit("send-mouseover", d.data.name);
         })
         .on("mouseout", d => {
           //console.log("mouseout");
-          this.$emit("send-mouseout", d.data.name);
+          //this.$emit("send-mouseout", d.data.name);
         })
         .attr("stroke", "#fff")
         .attr("fill", d => d.data.color);
