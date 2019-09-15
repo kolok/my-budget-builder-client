@@ -108,6 +108,12 @@ export default {
         .enter()
         .append("g")
         .classed("layer", true)
+        .on("mouseover", d => {
+          this.$emit("send-mouseover", d.key);
+        })
+        .on("mouseout", d => {
+          this.$emit("send-mouseout", d.key);
+        })
         .attr("fill", d => z(d.key));
 
       var bars = this.chartLayer

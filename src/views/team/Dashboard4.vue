@@ -417,24 +417,24 @@ export default {
     mouseOver(value) {
       // Our event handler gets the event, as well as any
       // arguments the child passes to the event
-      this.stackedBarChartData = this.stackedBarChartData.map(d => {
+      this.donutChartData = this.donutChartData.map(d => {
         return d.name === value ? { ...d, isSelected: true } : d;
       });
 
-      console.log(this.stackedBarChartData);
+      // console.log(this.stackedBarChartData);
 
-      console.log("From_the_mouseOver:", value);
+      // console.log("From_the_mouseOver:", value);
     },
     mouseOut(value) {
       // Our event handler gets the event, as well as any
       // arguments the child passes to the event
-      this.stackedBarChartData = this.stackedBarChartData.map(d => {
+      this.donutChartData = this.donutChartData.map(d => {
         return d.name === value ? { ...d, isSelected: false } : d;
       });
 
-      console.log(this.stackedBarChartData);
+      // console.log(this.stackedBarChartData);
 
-      console.log("From_the_mouseOut:", value);
+      // console.log("From_the_mouseOut:", value);
     },
     handleClick(tab, event) {
       console.log("handleClick2");
