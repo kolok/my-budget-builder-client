@@ -7,9 +7,19 @@
         <!-- <VueApexCharts width="360" type="donut" :options="dOptions" :series="dSeries"></VueApexCharts>
         <VueApexCharts width="500" height="300" type="bar" :options="options" :series="series"></VueApexCharts>-->
         <div id="donutChart">
-          <DonutChart :donutChartData="donutChartData" @send-message="mouseOver" />
+          <DonutChart
+            :donutChartData="donutChartData"
+            @send-mouseover="mouseOver"
+            @send-mouseout="mouseOut"
+          />
         </div>
-        <div id="stackedBarChart"></div>
+        <div id="stackedBarChart">
+          <StackedBarChart
+            :stackedBarChartData="stackedBarChartData"
+            @send-mouseover="mouseOver"
+            @send-mouseout="mouseOut"
+          />
+        </div>
       </div>
     </div>
     <ChartLegend />
@@ -24,10 +34,83 @@
 
 <script>
 const donutChartData = [
-  { name: "New-York", value: 150, color: "#4A5889", isSelected: true },
+  { name: "New-York", value: 150, color: "#4A5889", isSelected: false },
   { name: "Los Angeles", value: 118, color: "#B53446", isSelected: false },
   { name: "London", value: 46, color: "#FFC300", isSelected: false },
   { name: "Paris", value: 30, color: "#347F6E", isSelected: false }
+];
+
+const stackedBarChartData = [
+  {
+    Date: "JAN 19",
+    "New-York": "140",
+    "Los Angeles": "125",
+    London: "40",
+    Paris: "20"
+  },
+  {
+    Date: "FEV 19",
+    "New-York": "141",
+    "Los Angeles": "122",
+    London: "40",
+    Paris: "25"
+  },
+  {
+    Date: "MAR 19",
+    "New-York": "144",
+    "Los Angeles": "121",
+    London: "40",
+    Paris: "30"
+  },
+  {
+    Date: "AVR 19",
+    "New-York": "144",
+    "Los Angeles": "121",
+    London: "41",
+    Paris: "32"
+  },
+  {
+    Date: "MAI 19",
+    "New-York": "144",
+    "Los Angeles": "121",
+    London: "41",
+    Paris: "35"
+  },
+  {
+    Date: "JUN 19",
+    "New-York": "146",
+    "Los Angeles": "125",
+    London: "41",
+    Paris: "40"
+  },
+  {
+    Date: "TODAY",
+    "New-York": "148",
+    "Los Angeles": "128",
+    London: "42",
+    Paris: "42"
+  },
+  {
+    Date: "JUL 19",
+    "New-York": "150",
+    "Los Angeles": "130",
+    London: "43",
+    Paris: "45"
+  },
+  {
+    Date: "AGU 19",
+    "New-York": "152",
+    "Los Angeles": "130",
+    London: "45",
+    Paris: "50"
+  },
+  {
+    Date: "SEP 19",
+    "New-York": "160",
+    "Los Angeles": "140",
+    London: "46",
+    Paris: "60"
+  }
 ];
 
 // Color for the Graph
@@ -59,6 +142,7 @@ this.donutChartData = [
 import VueApexCharts from "vue-apexcharts";
 
 import DonutChart from "../../components/charts/DonutChart.vue";
+import StackedBarChart from "../../components/charts/StackedBarChart.vue";
 import ContentMenu from "../../components/common/ContentMenu.vue";
 import ChartLegend from "../../components/charts/ChartLegend.vue";
 
@@ -75,11 +159,13 @@ export default {
     VueApexCharts,
     ContentMenu,
     ChartLegend,
-    DonutChart
+    DonutChart,
+    StackedBarChart
   },
   data() {
     return {
       donutChartData: donutChartData,
+      stackedBarChartData: stackedBarChartData,
       dataVersion: 1,
       dOptions: {
         plotOptions: {
@@ -331,13 +417,24 @@ export default {
     mouseOver(value) {
       // Our event handler gets the event, as well as any
       // arguments the child passes to the event
-      this.donutChartData = this.donutChartData.map(d => {
+      this.stackedBarChartData = this.stackedBarChartData.map(d => {
         return d.name === value ? { ...d, isSelected: true } : d;
       });
 
-      console.log(this.donutChartData);
+      console.log(this.stackedBarChartData);
 
-      console.log("From_the_donut:", value);
+      console.log("From_the_mouseOver:", value);
+    },
+    mouseOut(value) {
+      // Our event handler gets the event, as well as any
+      // arguments the child passes to the event
+      this.stackedBarChartData = this.stackedBarChartData.map(d => {
+        return d.name === value ? { ...d, isSelected: false } : d;
+      });
+
+      console.log(this.stackedBarChartData);
+
+      console.log("From_the_mouseOut:", value);
     },
     handleClick(tab, event) {
       console.log("handleClick2");

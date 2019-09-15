@@ -3,7 +3,7 @@
 </template>
 
 <script>
-const d3 = require("d3");
+import * as d3 from "d3";
 export default {
   mounted: function() {
     var svg = d3.select(this.$el);
@@ -33,6 +33,7 @@ export default {
   props: {
     donutChartData: Array,
     method: { type: Function }
+    // method: { type: Function }
   },
   watch: {
     donutChartData: function(newData) {
@@ -91,18 +92,19 @@ export default {
           return "arc-" + i;
         })
         .on("mouseover", d => {
-          console.log("mouseover");
-          this.$emit("send-message", d.data.name);
+          //console.log("mouseover");
+          this.$emit("send-mouseover", d.data.name);
         })
         .on("mouseout", d => {
-          console.log("mouseout");
+          //console.log("mouseout");
+          this.$emit("send-mouseout", d.data.name);
         })
         .attr("stroke", "#fff")
-        .attr("fill", d => d.data.color)
-        .style("opacity", 0)
-        .transition()
-        .duration(500)
-        .style("opacity", 1);
+        .attr("fill", d => d.data.color);
+      // .style("opacity", 0)
+      // .transition()
+      // .duration(500)
+      // .style("opacity", 1);
 
       newBlock
         .append("text")
@@ -115,7 +117,8 @@ export default {
           return d.data.value;
         })
         .style("fill", "#fff")
-        .style("font-weight", "bold");
+        .style("font-weight", "bold")
+        .style("pointer-events", "none");
     }
   }
 };
