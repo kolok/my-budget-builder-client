@@ -47,6 +47,15 @@ export default {
     drawChart: function(data0) {
       var keys = d3.keys(data0[0]).slice(1);
 
+      function findValue(o, value) {
+        for (var prop in o) {
+          if (o.hasOwnProperty(prop) && +o[prop] === value) {
+            return prop;
+          }
+        }
+        return null;
+      }
+
       var z = d3
         .scaleOrdinal()
         .range(["#4A5889", "#B53446", "#FFC300", "#347F6E"])
@@ -108,24 +117,91 @@ export default {
         .enter()
         .append("g")
         .classed("layer", true)
-        .on("mouseover", d => {
-          this.$emit("send-mouseover", d.key);
-        })
-        .on("mouseout", d => {
-          this.$emit("send-mouseout", d.key);
-        })
         .attr("fill", d => z(d.key));
 
       var bars = this.chartLayer
         .selectAll("g.layer")
         .selectAll("rect")
-        .data(d => d, e => e.data.Date);
+        .data(
+          d => d,
+          e => {
+            return e.data.Date;
+          }
+        );
 
       bars.exit().remove();
 
       bars
         .enter()
         .append("rect")
+        .attr("class", (d, i) => {
+          var desiredKey =
+            d[1] === d.data.total
+              ? keys[keys.length - 1]
+              : findValue(d.data, d[1] - d[0]);
+          //console.log(d);
+          return d.data.Date + desiredKey.split(" ").join("");
+        })
+        .on("mouseover", d => {
+          if (d.data.Date === "TODAY") {
+            //console.log(d);
+            var desiredKey =
+              d[1] === d.data.total
+                ? keys[keys.length - 1]
+                : findValue(d.data, d[1] - d[0]);
+            //console.log(d.data.Date + desiredKey);
+            //this.y.invert(d[1])
+            console.log(desiredKey);
+            //console.log(this.y.invert(this.y(d[1])));
+            d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
+              .style("transform", "scale(1.4,1)")
+              .style("transform-origin", "58% 50%");
+
+            var bbox = d3
+              .select("." + d.data.Date + desiredKey.split(" ").join(""))
+              .node()
+              .getBBox();
+            console.log(bbox);
+
+            this.chartLayer
+              .append("text")
+              .attr(
+                "class",
+                d.data.Date + desiredKey.split(" ").join("") + "_label"
+              )
+              .text(d[1] - d[0])
+              .style("font-weight", "bold")
+              .style("fill", "#fff")
+              .style("pointer-events", "none")
+              .style("text-anchor", "middle")
+              .style("alignment-baseline", "middle")
+              .attr("x", bbox.x + bbox.width / 2)
+              .attr("y", bbox.y + bbox.height / 2);
+
+            this.$emit("send-mouseover", desiredKey);
+          }
+          //this.$emit("send-mouseover", d.key);
+        })
+        .on("mouseout", d => {
+          if (d.data.Date === "TODAY") {
+            //console.log(d);
+            var desiredKey =
+              d[1] === d.data.total
+                ? keys[keys.length - 1]
+                : findValue(d.data, d[1] - d[0]);
+            //console.log(desiredKey);
+
+            d3.select(
+              "." + d.data.Date + desiredKey.split(" ").join("") + "_label"
+            ).remove();
+
+            d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
+              .style("transform", "scale(1,1)")
+              .style("transform-origin", "100% 100%");
+
+            this.$emit("send-mouseout", desiredKey);
+          }
+        })
         .attr("width", d => bandwidth)
         .merge(bars)
         .transition()
