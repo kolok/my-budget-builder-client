@@ -41,7 +41,7 @@ export default {
   methods: {
     drawChart: function(data0) {
       var keys = d3.keys(data0[0]).slice(1);
-
+      d3.select("._label").remove();
       function findValue(o, value) {
         for (var prop in o) {
           if (o.hasOwnProperty(prop) && +o[prop] === value) {
@@ -178,7 +178,6 @@ export default {
 
             this.$emit("send-mouseover", desiredKey);
           }
-          //this.$emit("send-mouseover", d.key);
         })
         .on("mouseout", d => {
           if (d.data.Date === "TODAY") {
@@ -199,13 +198,57 @@ export default {
             this.$emit("send-mouseout", desiredKey);
           }
         })
-        .attr("width", d => bandwidth)
         .merge(bars)
-        .transition()
-        .duration(speed)
         .attr("x", d => x(d.data.Date))
         .attr("y", d => this.y(d[1]))
-        .attr("height", d => this.y(d[0]) - this.y(d[1]));
+        .attr("height", d => this.y(d[0]) - this.y(d[1]))
+        .attr("width", bandwidth)
+        .transition()
+        .attr("x", d => {
+          if (d.data.Date === "TODAY") {
+            var desiredKey =
+              d[1] === d.data.total
+                ? keys[keys.length - 1]
+                : findValue(d.data, d[1] - d[0]);
+
+            if (d.data.selected === desiredKey) {
+              var bbox = d3
+                .select("." + d.data.Date + desiredKey.split(" ").join(""))
+                .node()
+                .getBBox();
+
+              this.chartLayer
+                .append("text")
+                .attr("class", "_label")
+                .text(d[1] - d[0])
+                .style("font-weight", "bold")
+                .style("fill", "#fff")
+                .style("pointer-events", "none")
+                .style("text-anchor", "middle")
+                .style("alignment-baseline", "middle")
+                .attr("x", bbox.x + bbox.width / 2)
+                .attr("y", bbox.y + bbox.height / 2);
+
+              return x(d.data.Date) - bandwidth / 4;
+            }
+          } else {
+          }
+
+          return x(d.data.Date);
+        })
+        .attr("width", d => {
+          if (d.data.Date === "TODAY") {
+            var desiredKey =
+              d[1] === d.data.total
+                ? keys[keys.length - 1]
+                : findValue(d.data, d[1] - d[0]);
+
+            if (d.data.selected === desiredKey) {
+              return bandwidth + bandwidth / 2;
+            }
+          }
+          return bandwidth;
+        });
 
       var text = this.chartLayer.selectAll(".text").data(data, d => d.Date);
 

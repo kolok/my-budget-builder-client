@@ -93,12 +93,14 @@ export default {
             .transition()
             //.duration(200)
             .attr("d", arc2);
+          this.$emit("send-mouseover", d.data.name);
         })
         .on("mouseout", d => {
           d3.select("." + d.data.name.split(" ").join("") + "_arc")
             .transition()
             //.duration(200)
             .attr("d", arc1);
+          this.$emit("send-mouseout", d.data.name);
         })
         .attr("stroke", "#fff")
         .attr("fill", d => d.data.color)
