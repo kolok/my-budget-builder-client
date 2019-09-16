@@ -20,11 +20,6 @@ export default {
       .append("g")
       .attr("transform", `translate(${margin.left},0)`);
 
-    this.x = d3
-      .scaleBand()
-      .range([margin.left, width - margin.right])
-      .padding(0.2);
-
     this.y = d3.scaleLinear().rangeRound([height - margin.bottom, margin.top]);
 
     this.xAxis = svg
@@ -61,6 +56,11 @@ export default {
         .range(["#4A5889", "#B53446", "#FFC300", "#347F6E"])
         .domain(keys);
 
+      let x = d3
+        .scaleBand()
+        .range([this.margin.left, this.width - this.margin.right])
+        .padding(0.2);
+
       var speed = 0;
 
       const data = data0.map(function(d) {
@@ -84,7 +84,7 @@ export default {
 
       var bandwidth = this.width / (data.length * 1.2);
 
-      this.x = d3
+      x = d3
         .scaleOrdinal()
         .domain(data.map(d => d.Date))
         .range(
@@ -105,7 +105,7 @@ export default {
         )
         .transition()
         .duration(speed)
-        .call(d3.axisBottom(this.x).tickSizeOuter(0));
+        .call(d3.axisBottom(x).tickSizeOuter(0));
 
       var group = this.chartLayer
         .selectAll("g.layer")
@@ -153,15 +153,19 @@ export default {
             //this.y.invert(d[1])
             console.log(desiredKey);
             //console.log(this.y.invert(this.y(d[1])));
-            d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
-              .style("transform", "scale(1.4,1)")
-              .style("transform-origin", "58% 50%");
 
             var bbox = d3
               .select("." + d.data.Date + desiredKey.split(" ").join(""))
               .node()
               .getBBox();
             console.log(bbox);
+
+            d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
+              .transition()
+              .attr("x", x(d.data.Date) - bandwidth / 4)
+              .attr("width", d => bandwidth + bandwidth / 2);
+            // .style("transform", "scale(1.4,1)")
+            // .style("transform-origin", "58% 50%");
 
             this.chartLayer
               .append("text")
@@ -196,8 +200,9 @@ export default {
             ).remove();
 
             d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
-              .style("transform", "scale(1,1)")
-              .style("transform-origin", "100% 100%");
+              .transition()
+              .attr("x", x(d.data.Date))
+              .attr("width", d => bandwidth);
 
             this.$emit("send-mouseout", desiredKey);
           }
@@ -206,7 +211,7 @@ export default {
         .merge(bars)
         .transition()
         .duration(speed)
-        .attr("x", d => this.x(d.data.Date))
+        .attr("x", d => x(d.data.Date))
         .attr("y", d => this.y(d[1]))
         .attr("height", d => this.y(d[0]) - this.y(d[1]));
 
@@ -222,7 +227,7 @@ export default {
         .merge(text)
         .transition()
         .duration(speed)
-        .attr("x", d => this.x(d.Date) + bandwidth / 2)
+        .attr("x", d => x(d.Date) + bandwidth / 2)
         .attr("y", d => this.y(d.total) - 5)
         .text(d => d.total);
     }
