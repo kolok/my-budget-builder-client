@@ -15,12 +15,7 @@ export default {
     this.chartLayer = svg
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-    // this.startingArc = d3
-    //   .arc()
-    //   .outerRadius(this.chartHeight / 5)
-    //   .innerRadius(this.chartHeight / 2);
-    //.padAngle(0.03);
-    //.cornerRadius(8);
+
     this.pieG = this.chartLayer
       .append("g")
       .attr(
@@ -33,11 +28,9 @@ export default {
   props: {
     donutChartData: Array,
     method: { type: Function }
-    // method: { type: Function }
   },
   watch: {
     donutChartData: function(newData) {
-      //console.log("newData", newData);
       this.drawChart(newData);
     }
   },
@@ -53,6 +46,16 @@ export default {
       }, 0);
 
       this.pieG.selectAll("*").remove();
+
+      let arc1 = d3
+        .arc()
+        .outerRadius(this.chartHeight / 2)
+        .innerRadius(this.chartHeight / 5);
+
+      let arc2 = d3
+        .arc()
+        .outerRadius(this.chartHeight / 1.8)
+        .innerRadius(this.chartHeight / 5);
 
       this.pieG
         .append("text")
@@ -70,13 +73,37 @@ export default {
           return d.value;
         })(data);
       var block = this.pieG.selectAll(".arc").data(arcs);
-      //block.select("path").attr("d", this.arc);
+
       var newBlock = block
         .enter()
         .append("g")
-        .classed("arc", true);
+        .attr("class", "arc");
+
       newBlock
         .append("path")
+        .attr("class", d => {
+          return d.data.name.split(" ").join("") + "_arc";
+        })
+        .attr("d", arc1)
+        .attr("id", function(d, i) {
+          return "arc-" + i;
+        })
+        .on("mouseover", d => {
+          d3.select("." + d.data.name.split(" ").join("") + "_arc")
+            .transition()
+            //.duration(200)
+            .attr("d", arc2);
+        })
+        .on("mouseout", d => {
+          d3.select("." + d.data.name.split(" ").join("") + "_arc")
+            .transition()
+            //.duration(200)
+            .attr("d", arc1);
+        })
+        .attr("stroke", "#fff")
+        .attr("fill", d => d.data.color)
+        .transition()
+        .duration(200)
         .attr(
           "d",
           d3
@@ -87,29 +114,11 @@ export default {
                 : this.chartHeight / 2;
             })
             .innerRadius(this.chartHeight / 5)
-        )
-        .attr("id", function(d, i) {
-          return "arc-" + i;
-        })
-        .on("mouseover", d => {
-          //console.log("mouseover");
-          //this.$emit("send-mouseover", d.data.name);
-        })
-        .on("mouseout", d => {
-          //console.log("mouseout");
-          //this.$emit("send-mouseout", d.data.name);
-        })
-        .attr("stroke", "#fff")
-        .attr("fill", d => d.data.color);
-      // .style("opacity", 0)
-      // .transition()
-      // .duration(500)
-      // .style("opacity", 1);
+        );
 
       newBlock
         .append("text")
         .attr("transform", function(d) {
-          // console.log(this.startingArc);
           return "translate(" + startingArc.centroid(d) + ")";
         })
         .attr("text-anchor", "middle")

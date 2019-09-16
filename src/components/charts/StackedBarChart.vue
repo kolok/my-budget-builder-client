@@ -139,26 +139,20 @@ export default {
             d[1] === d.data.total
               ? keys[keys.length - 1]
               : findValue(d.data, d[1] - d[0]);
-          //console.log(d);
+
           return d.data.Date + desiredKey.split(" ").join("");
         })
         .on("mouseover", d => {
           if (d.data.Date === "TODAY") {
-            //console.log(d);
             var desiredKey =
               d[1] === d.data.total
                 ? keys[keys.length - 1]
                 : findValue(d.data, d[1] - d[0]);
-            //console.log(d.data.Date + desiredKey);
-            //this.y.invert(d[1])
-            console.log(desiredKey);
-            //console.log(this.y.invert(this.y(d[1])));
 
             var bbox = d3
               .select("." + d.data.Date + desiredKey.split(" ").join(""))
               .node()
               .getBBox();
-            console.log(bbox);
 
             d3.select("." + d.data.Date + desiredKey.split(" ").join(""))
               .transition()
@@ -188,12 +182,10 @@ export default {
         })
         .on("mouseout", d => {
           if (d.data.Date === "TODAY") {
-            //console.log(d);
             var desiredKey =
               d[1] === d.data.total
                 ? keys[keys.length - 1]
                 : findValue(d.data, d[1] - d[0]);
-            //console.log(desiredKey);
 
             d3.select(
               "." + d.data.Date + desiredKey.split(" ").join("") + "_label"
