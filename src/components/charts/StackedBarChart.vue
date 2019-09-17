@@ -202,6 +202,7 @@ export default {
         .attr("x", d => x(d.data.Date))
         .attr("width", bandwidth)
         .transition()
+        .duration(750)
         .attr("y", d => this.y(d[1]))
         .attr("height", d => this.y(d[0]) - this.y(d[1]))
         .attr("x", d => {
