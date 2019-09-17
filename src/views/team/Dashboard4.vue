@@ -4,8 +4,6 @@
       <ContentMenu activeName="d3" />
 
       <div class="GoogleChart" style="display:flex;flex-direction:row">
-        <!-- <VueApexCharts width="360" type="donut" :options="dOptions" :series="dSeries"></VueApexCharts>
-        <VueApexCharts width="500" height="300" type="bar" :options="options" :series="series"></VueApexCharts>-->
         <div id="donutChart">
           <DonutChart
             :donutChartData="donutChartData"
@@ -34,10 +32,10 @@
 
 <script>
 const donutChartData = [
-  { name: "New-York", value: 150, color: "#4A5889", isSelected: false },
-  { name: "Los Angeles", value: 118, color: "#B53446", isSelected: false },
-  { name: "London", value: 46, color: "#FFC300", isSelected: false },
-  { name: "Paris", value: 30, color: "#347F6E", isSelected: false }
+  { name: "New-York", value: 148, color: "#4A5889", isSelected: false },
+  { name: "Los Angeles", value: 128, color: "#B53446", isSelected: false },
+  { name: "London", value: 42, color: "#FFC300", isSelected: false },
+  { name: "Paris", value: 42, color: "#347F6E", isSelected: false }
 ];
 
 const stackedBarChartData = [

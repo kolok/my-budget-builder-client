@@ -63,7 +63,7 @@ export default {
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .style("font-weight", "bold")
-        .style("font-size", 16)
+        .style("font-size", 24)
         .style("fill", "#4A5889");
 
       var arcs = d3
