@@ -82,13 +82,13 @@
             type="text"
             size="mini"
             @click="() => showCreateDialog(data)">
-            Ajouter
+            Add
           </el-button>
           <el-button
             type="text"
             size="mini"
             @click="() => removeTeam(data)">
-            Supprimer
+            Remove
           </el-button>
         </span>
       </span>
@@ -132,10 +132,15 @@
       this.$store.dispatch('getTeams')
     },
     methods: {
-      ...mapActions(['createTeam', 'deleteTeam']),
+      ...mapActions(['createTeam', 'deleteTeam','updateTeam']),
       handleDrop(draggingNode, dropNode, dropType, ev) {
-        console.log('draggingNode: ', draggingNode.label, dropType);
-        console.log('dropNode: ', dropNode.label, dropType);
+        var node = draggingNode.data;
+        if (dropType == "inner") {
+          node.parent_team_id = dropNode.data.id
+        } else if (dropType == "before" || dropType == "after") {
+          node.parent_team_id = dropNode.data.parent_team_id
+        }
+        this.updateTeam(node)
       },
       filterTree(teamTree) {
         var result = [];
