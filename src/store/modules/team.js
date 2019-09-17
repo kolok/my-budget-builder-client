@@ -21,12 +21,15 @@ function buildTreeSelector(teams) {
     teamSelector[i] = {
       value: teams[i].id,
       label: teams[i].name,
-      parent_team_id: teams[i].parent_team_id,
-      children: []
+      parent_team_id: teams[i].parent_team_id
     }
     node_list[teamSelector[i].value] = teamSelector[i];
   }
   for (var i = 0; i < teamSelector.length; i++) {
+    if (node_list[teamSelector[i].parent_team_id || 0 ].children === undefined)
+    {
+      node_list[teamSelector[i].parent_team_id || 0 ].children = [];
+    }
     node_list[teamSelector[i].parent_team_id || 0 ].children.push(node_list[teamSelector[i].value]);
   }
   return root.children;
@@ -62,6 +65,8 @@ export default {
           item = team
         }
       })
+      state.teamTree = buildTree(state.teams);
+      state.teamTreeSelector = buildTreeSelector(state.teams);
     },
     DELETE_TEAM: (state, team) => {
       console.log(team)
