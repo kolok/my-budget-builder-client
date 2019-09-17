@@ -72,18 +72,22 @@
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span :class="data.search">{{ data.name }}</span>
         <span>
-          <el-button
-            type="text"
-            size="mini"
-            @click="() => showCreateDialog(data)">
-            Add
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            @click="() => removeTeam(data)">
-            Remove
-          </el-button>
+          <div class="Content__Button--right">
+            <el-button
+              type="text"
+              size="mini"
+              @click="() => removeTeam(data)">
+              Remove
+            </el-button>
+          </div>
+          <div class="Content__Button--right">
+            <el-button
+              type="text"
+              size="mini"
+              @click="() => showCreateDialog(data)">
+              Add
+            </el-button>
+          </div>
           <TeamEdit :teamForm="data"/>
         </span>
       </span>
@@ -230,5 +234,10 @@
     justify-content: space-between;
     font-size: 14px;
     padding-right: 8px;
+  }
+
+  .Content__Button--right {
+    float:right;
+    margin-left:10px;
   }
 </style>

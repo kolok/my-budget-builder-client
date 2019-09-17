@@ -1,5 +1,5 @@
 <template>
-  <div style="float:right;">
+  <div class="Content__Button--right">
     <el-button
       type="text"
       size="mini"
@@ -87,7 +87,7 @@
         this.editDialog = true;
       },
       handleCancel: function(){
-        this.createDialog = false
+        this.editDialog = false
       },
       handleUpdateTeam: function(formName) { // Create entity
         this.$refs[formName].validate((valid) => {
