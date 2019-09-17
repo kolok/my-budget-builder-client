@@ -200,10 +200,10 @@ export default {
         })
         .merge(bars)
         .attr("x", d => x(d.data.Date))
-        .attr("y", d => this.y(d[1]))
-        .attr("height", d => this.y(d[0]) - this.y(d[1]))
         .attr("width", bandwidth)
         .transition()
+        .attr("y", d => this.y(d[1]))
+        .attr("height", d => this.y(d[0]) - this.y(d[1]))
         .attr("x", d => {
           if (d.data.Date === "TODAY") {
             var desiredKey =
