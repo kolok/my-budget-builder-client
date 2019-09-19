@@ -69,8 +69,8 @@
       @node-drop="handleDrop"
       draggable
       :expand-on-click-node="false">
-      <span class="custom-tree-node" slot-scope="{ node, data }">
-        <span :class="data.search">{{ data.name }}</span>
+      <span class="Content__TreeNode" slot-scope="{ node, data }">
+        <span :class="data.search" v-html="displaySearchedName(data)">{{ displaySearchedName(data) }}</span>
         <span>
           <div class="Content__Button--right">
             <el-button
@@ -130,35 +130,66 @@
       this.$store.dispatch('getTeams')
     },
     methods: {
-      ...mapActions(['createTeam', 'deleteTeam']),
+      ...mapActions(['createTeam', 'deleteTeam', 'updateTeam', 'getTeams']),
       handleDrop(draggingNode, dropNode, dropType, ev) {
-        var node = draggingNode.data;
+        var node = draggingNode.data
         if (dropType == "inner") {
           node.parent_team_id = dropNode.data.id
         } else if (dropType == "before" || dropType == "after") {
           node.parent_team_id = dropNode.data.parent_team_id
         }
+
         this.updateTeam(node)
+        .then( () => {
+          const h = this.$createElement
+          this.$notify({
+            title: 'Team update',
+            message: h('i', { style: 'color: teal' }, 'team ' + node.name + ' was moved'),
+            type: 'success'
+          })
+        })
+        .catch(e => {
+          const h = this.$createElement
+          this.$notify({
+            title: 'Move team',
+            message: h('i', { style: 'color: red' }, 'something went wrong, the team wasn\'t moved'),
+            type: 'error'
+          })
+          this.getTeams();
+          console.log(e)
+        })
+
       },
       filterTree(teamTree) {
-        var result = [];
+        var result = []
         teamTree.forEach( node => {
           if (filterTree(node, this.search)){
-            result.push(node);
+            result.push(node)
           }
-        });
-        return result;
+        })
+        return result
         if (this.search == ""){
-          return teamTree;
+          return teamTree
         }
         teamTree.forEach( data => {
           if (data.name.toLowerCase().includes(this.search.toLowerCase()))
           {
-            result.push(data);
+            result.push(data)
           }
         })
-        return result;
-        //return teamTree.filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()));
+        return result
+        //return teamTree.filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()))
+      },
+      displaySearchedName: function(data){
+        var name = data.name
+        if (this.search.length > 0) {
+          var n = name.toLowerCase().indexOf(this.search.toLowerCase())
+          if (n == -1) {
+            return name
+          }
+          name = name.substring(0,n) + "<b>" + name.substring(n,n+this.search.length) +"</b>"+ name.substring(n+this.search.length, name.length)
+        }
+        return name
       },
 
       //////////////////////////
@@ -169,7 +200,7 @@
         if (data !== undefined) {
           this.teamForm.parent_team_id = data.id
         }
-        this.createDialog = true;
+        this.createDialog = true
       },
 
       handleCreateTeam: function(formName, close) { // Create team
@@ -200,12 +231,12 @@
         this.createDialog = false
       },
       append(data) {
-        console.log('data: ', data);
+        console.log('data: ', data)
       },
       removeTeam(data) {
         this.deleteTeam(data.id).catch(e => {
           console.log(e)
-        });
+        })
       },
     }
   }
@@ -215,29 +246,13 @@
       return treeNode.name.toLowerCase().includes(search.toLowerCase())
     }
     else {
-      var found = false;
+      var found = false
       treeNode.children.forEach( node => {
         if (filterTree( node, search )) {
           found = true
         }
-      });
+      })
       return treeNode.name.toLowerCase().includes(search.toLowerCase()) || found;
     }
   }
 </script>
-
-<style>
-  .custom-tree-node {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px;
-  }
-
-  .Content__Button--right {
-    float:right;
-    margin-left:10px;
-  }
-</style>

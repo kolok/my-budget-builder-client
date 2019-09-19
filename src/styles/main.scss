@@ -129,10 +129,14 @@ $min-sider_width: 200px;
     float: right;
     padding: 3px 0;
   }
-  &__Button{
+  &__Button {
     @extend .Content;
     float: right;
-    padding: 3px 0
+    padding: 3px 0;
+    &--right {
+      @extend .Content__Button;
+      margin-left:10px;
+    }
   }
   &__Form {
     @extend .Content;
@@ -230,6 +234,15 @@ $min-sider_width: 200px;
   &__CardText--Suffix {
     @extend .Content;
     float: left;
+  }
+  &__TreeNode{
+    @extend .Content;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
   }
 }
 
