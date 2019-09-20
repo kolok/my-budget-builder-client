@@ -19,7 +19,7 @@
         :rules="teamRule"
         label-width="250px"
         class="Dialog__Form"
-        @keyup.enter.native="handleCreateTeam('teamForm', false)"
+        @keyup.enter.native="handleUpdateTeam('teamForm', false)"
       >
         <el-form-item
           prop="name"
@@ -82,7 +82,7 @@
       ...mapGetters(['teamTreeSelector'])
     },
     methods: {
-      ...mapActions(['updateTeam']),
+      ...mapActions(['updateTeam', 'getTeams']),
       showEditDialog: function() {
         this.editDialog = true;
       },
@@ -93,13 +93,25 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.updateTeam(this.teamForm)
-              .then(response => {
-                // reset form data
-                this.editDialog = false
+            .then( () => {
+              this.editDialog = false
+              const h = this.$createElement
+              this.$notify({
+                title: 'Update team',
+                message: h('i', { style: 'color: teal' }, 'team ' + this.teamForm.name + ' was updated'),
+                type: 'success'
               })
-              .catch(e => {
-                console.log(e)
+            })
+            .catch(e => {
+              const h = this.$createElement
+              this.$notify({
+                title: 'Update team',
+                message: h('i', { style: 'color: red' }, 'something went wrong, the team wasn\'t moved'),
+                type: 'error'
               })
+              this.getTeams();
+              console.log(e)
+            })
           } else {
             console.log('error submit!!')
             return false

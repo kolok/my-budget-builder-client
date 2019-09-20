@@ -207,7 +207,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.createTeam(this.teamForm)
-              .then(response => {
+              .then(() => {
                 // reset form data
                 if (close) {
                   this.$refs[formName].resetFields()
@@ -217,8 +217,21 @@
                   this.$refs[formName].resetFields()
                   this.teamForm.parent_team_id = parent_team_id
                 }
+                const h = this.$createElement
+                this.$notify({
+                  title: 'Create team',
+                  message: h('i', { style: 'color: teal' }, 'team ' + this.teamForm.name + ' was created'),
+                  type: 'success'
+                })
               })
               .catch(e => {
+                const h = this.$createElement
+                this.$notify({
+                  title: 'Create team',
+                  message: h('i', { style: 'color: red' }, 'something went wrong, the team wasn\'t created'),
+                  type: 'error'
+                })
+                this.getTeams();
                 console.log(e)
               })
           } else {
@@ -234,7 +247,22 @@
         console.log('data: ', data)
       },
       removeTeam(data) {
-        this.deleteTeam(data.id).catch(e => {
+        this.deleteTeam(data.id).then( () => {
+          const h = this.$createElement
+          this.$notify({
+            title: 'Delete team',
+            message: h('i', { style: 'color: teal' }, 'team ' + data.name + ' was deleted'),
+            type: 'success'
+          })
+        })
+        .catch(e => {
+          const h = this.$createElement
+          this.$notify({
+            title: 'Delete team',
+            message: h('i', { style: 'color: red' }, 'something went wrong, the team wasn\'t deleted'),
+            type: 'error'
+          })
+          this.getTeams();
           console.log(e)
         })
       },

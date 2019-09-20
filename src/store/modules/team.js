@@ -93,7 +93,9 @@ export default {
         })
     },
     createTeam: ({commit}, team) => {
-      if (team.parent_team_id !== undefined && team.parent_team_id.length !== undefined){
+      if (team.parent_team_id === undefined || team.parent_team_id === null ) {
+        team.parent_team_id = 0
+      } else if (team.parent_team_id.length !== undefined){
         team.parent_team_id = team.parent_team_id[ team.parent_team_id.length - 1 ]
       }
       return TeamResource.create(team)
@@ -105,8 +107,13 @@ export default {
           throw err
         })
     },
-    updateTeam: ({commit}, payload) => {
-      return TeamResource.update(payload.id, payload)
+    updateTeam: ({commit}, team) => {
+      if (team.parent_team_id === undefined || team.parent_team_id === null ) {
+        team.parent_team_id = 0
+      } else if (team.parent_team_id.length !== undefined){
+        team.parent_team_id = team.parent_team_id[ team.parent_team_id.length - 1 ]
+      }
+      return TeamResource.update(team.id, team)
         .then(response => {
           commit('UPDATE_TEAM', response.data)
         })
