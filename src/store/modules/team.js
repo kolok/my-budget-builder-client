@@ -93,7 +93,7 @@ export default {
         })
     },
     createTeam: ({commit}, team) => {
-      if (team.parent_team_id.length !== undefined){
+      if (team.parent_team_id !== undefined && team.parent_team_id.length !== undefined){
         team.parent_team_id = team.parent_team_id[ team.parent_team_id.length - 1 ]
       }
       return TeamResource.create(team)

@@ -182,7 +182,7 @@
       },
       displaySearchedName: function(data){
         var name = data.name
-        if (this.search.length > 0) {
+        if ( this.search !== undefined && this.search.length > 0) {
           var n = name.toLowerCase().indexOf(this.search.toLowerCase())
           if (n == -1) {
             return name
