@@ -4,6 +4,7 @@
     <el-tab-pane label="ApexChart" name="apex"></el-tab-pane>
     <el-tab-pane label="EChart" name="echarts"></el-tab-pane>
     <el-tab-pane label="D3.js" name="d3"></el-tab-pane>
+    <el-tab-pane label="Next" name="next"></el-tab-pane>
   </el-tabs>
 </template>
 
@@ -29,6 +30,9 @@
         }
         if (this.activeName === 'd3') {
           this.$router.push('/teamDashboard4')
+        }
+        if (this.activeName === 'next') {
+          this.$router.push('/teamDashboard5')
         }
       }
     }
