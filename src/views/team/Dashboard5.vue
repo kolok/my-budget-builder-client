@@ -24,7 +24,7 @@
 
     <div style="display:flex;flex-direction:row;justify-content:start;align-items:center;">
       <div style="margin-left:20px;">
-        <el-button type="primary" icon="el-icon-plus" @click="updateData">New Hire</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="updateData">Update data</el-button>
       </div>
     </div>
   </div>
