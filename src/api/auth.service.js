@@ -1,5 +1,6 @@
 import HTTP from './common/http'
 import UserResource from './user.service'
+import { i18n } from '../i18n/index.js'
 
 /*
  * Service should be singleton,
@@ -17,6 +18,8 @@ let AuthService = {
       return UserResource.get()
     })
     .then(response => {
+      i18n.locale = response.data.user.defaultLanguage
+
       return response.data
     })
     .catch(err => {

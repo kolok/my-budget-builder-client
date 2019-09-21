@@ -12,7 +12,7 @@
 
       <el-form-item label="Fiscal year start month">
         <el-select
-          v-model="companyForm.first_month_fiscal_year"
+          v-model="companyForm.firstMonthFiscalYear"
           placeholder="Select"
         >
           <el-option
@@ -26,7 +26,7 @@
 
       <el-form-item label="Currency">
         <el-select
-          v-model="companyForm.default_currency_id"
+          v-model="companyForm.defaultCurrencyID"
           placeholder="Select a currency"
         >
           <el-option
