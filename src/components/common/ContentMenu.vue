@@ -3,6 +3,7 @@
     <el-tab-pane label="Google Chart" name="google"></el-tab-pane>
     <el-tab-pane label="ApexChart" name="apex"></el-tab-pane>
     <el-tab-pane label="EChart" name="echarts"></el-tab-pane>
+    <el-tab-pane label="D3.js" name="d3"></el-tab-pane>
   </el-tabs>
 </template>
 
@@ -17,7 +18,6 @@
     },
     methods: {
       handleClick(tab, event) {
-        console.log('handleClick1');
         if (this.activeName === 'google') {
           this.$router.push('/teamDashboard')
         }
@@ -26,6 +26,9 @@
         }
         if (this.activeName === 'echarts') {
           this.$router.push('/teamDashboard3')
+        }
+        if (this.activeName === 'd3') {
+          this.$router.push('/teamDashboard4')
         }
       }
     }
