@@ -41,38 +41,6 @@
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item
-          label="Country"
-          prop="country_id"
-        >
-          <el-select
-            v-model="userForm.country_id"
-            placeholder="Select a country"
-          >
-            <el-option
-              v-for="country in countries"
-              :key="country.id"
-              :label="country.name"
-              :value="country.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="Currency"
-          prop="default_currency_id"
-        >
-          <el-select
-            v-model="userForm.default_currency_id"
-            placeholder="Select a currency"
-          >
-            <el-option
-              v-for="currency in currencies"
-              :key="currency.id"
-              :label="currency.longName"
-              :value="currency.id"
-            />
-          </el-select>
-        </el-form-item>
       </el-form>
       <span
         slot="footer"

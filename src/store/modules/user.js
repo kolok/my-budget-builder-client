@@ -8,7 +8,7 @@ export default {
     users: state => state.users
   },
   mutations: {
-    SET_ENTITIES: (state, users) => {
+    SET_USERS: (state, users) => {
       state.users = users
     },
     CREATE_USER: (state, user) => {
