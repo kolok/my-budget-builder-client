@@ -8,3 +8,6 @@ WORKDIR /usr/client
 # node_modules will be ignore because of .dockerignore file
 COPY . .
 RUN npm install --quiet
+
+CMD npm run watch
+
