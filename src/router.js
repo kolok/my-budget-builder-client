@@ -237,7 +237,7 @@ let router = new VueRouter({
       path: '/users',
       name: 'Users',
       component: () => import(
-        './views/account/Users.vue'
+        './views/account/users/Users.vue'
       ),
       meta: {
         roles: ['client_admin'],
@@ -304,7 +304,7 @@ router.beforeEach((to, from, next) => {
     return next()
   }
   // If page defines roles, check if user type is included in the roles.
-  if (to.meta.roles.includes(store.getters.getCurrentUser.role)) {
+  if (to.meta.roles.includes(store.getters.getCurrentUserCompany.role)) {
     return next()
   }
   // Otherwise, denied.

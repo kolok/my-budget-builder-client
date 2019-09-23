@@ -9,9 +9,10 @@ import currency from './modules/currency'
 import entity from './modules/entity'
 import menu from './modules/menu'
 import team from './modules/team'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth, company, entity, country, currency, menu, team}
+  modules: { auth, company, entity, country, currency, menu, team, user}
 })
