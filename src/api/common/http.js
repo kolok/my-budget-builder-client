@@ -14,9 +14,11 @@ import store from '../../store'
 /** Router **/
 import router from '../../router'
 
+console.log( 'process.env.API_URL', process.env.API_URL, process.env.API_URL || 'https://komber-komber-server.k8s.komber.io/api/v1/' )
 // A new instance of axios with a custom config.
 let HTTP = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/'
+  baseURL: process.env.API_URL || 'https://komber-komber-server.k8s.komber.io/api/v1/'
+  //development: 'http://localhost:3000/api/v1/'
 })
 
 // Add a request interceptor

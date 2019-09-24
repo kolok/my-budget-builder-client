@@ -14,7 +14,8 @@ services:
     ports:
       - "5000:5000"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
+      API_URL: http://localhost:3000/api/v1/
 # Mount root to taken into account code updates
 # ignore /usr/server/node_modules
     volumes:
@@ -22,4 +23,4 @@ services:
       - /usr/client/node_modules
 # Waiting for server
 # Run nodemon using "npm run watch"
-    command: ["npm", "run", "watch"]
+    command: ["npm", "run", "watch", "--", "--env.API_URL=http://localhost:3000/api/v1"]

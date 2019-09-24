@@ -4,9 +4,10 @@
   "description": "Komber frontend client",
   "author": "Nicolas Oudard",
   "license": "private",
+  "private": true,
   "main": "src/main.js",
   "scripts": {
-    "watch": "webpack-dev-server --env=dev --host 0.0.0.0 --inline --content-base --port=5000",
+    "watch": "webpack-dev-server --env.NODE_ENV=development --host 0.0.0.0 --inline --content-base --port=5000",
     "start": "webpack-dev-server --env=dev",
     "build": "rm -rf dist && webpack --env=prod",
     "analyse": "webpack --json > stats.json",
