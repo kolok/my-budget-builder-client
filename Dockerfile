@@ -9,5 +9,4 @@ WORKDIR /usr/client
 COPY . .
 RUN npm install --quiet
 
-CMD npm run watch -- --env.API_URL=https://komber-komber-client.k8s.komber.io/users/signin
-
+CMD npm run watch -- --env.API_URL=https://komber-komber-server.k8s.komber.io/users/signin
