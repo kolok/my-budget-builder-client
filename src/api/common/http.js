@@ -16,7 +16,7 @@ import router from '../../router'
 
 // A new instance of axios with a custom config.
 let HTTP = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/'
+  baseURL: process.env.API_URL //'http://localhost:3000/api/v1/'
 })
 
 // Add a request interceptor

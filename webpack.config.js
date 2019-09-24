@@ -73,27 +73,31 @@ module.exports = function(env) {
     }
   }
 
-  switch (env) {
-  case 'dev':
+  if (env.NODE_ENV == 'development') {
     console.log('=== In the development mode ===')
     CONFIG.mode = 'development'
     CONFIG.plugins.push(new webpack.HotModuleReplacementPlugin())
+    CONFIG.plugins.push(new webpack.DefinePlugin({
+      'process.env.API_URL': JSON.stringify(env.API_URL)
+    }))
     CONFIG.devServer = {
       // contentBase: '', # Confuse
       hot: true,
       disableHostCheck: true,
-      // historyApiFallback: true
+      historyApiFallback: true,
+      noInfo: true,
+      overlay: true
     }
-    break
-  case 'prod':
+  }
+  if (env.NODE_ENV == 'production') {
     console.log('=== In the production mode ===')
     CONFIG.mode = 'production'
     // Turn on Production Mode
     CONFIG.plugins.push(new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }))
-    break
   }
+
 
   return CONFIG
 }
