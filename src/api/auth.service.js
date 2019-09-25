@@ -15,7 +15,7 @@ let AuthService = {
     .then(res => {
       localStorage.setItem('accessToken', res.data.accessToken)
       localStorage.setItem('refreshToken', res.data.refreshToken)
-      return UserResource.get()
+      return UserResource.getMe()
     })
     .then(response => {
       i18n.locale = response.data.user.defaultLanguage
@@ -35,7 +35,7 @@ let AuthService = {
     .then(res => {
       localStorage.setItem('accessToken', res.data.accessToken)
       localStorage.setItem('refreshToken', res.data.refreshToken)
-      return UserResource.get()
+      return UserResource.getMe()
     })
     .then(response => {
       return response.data

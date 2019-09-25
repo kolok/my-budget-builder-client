@@ -5,7 +5,7 @@ import HTTP from './common/http'
  * hence we could declare a simple object literal.
  */
 let UserResource = {
-  get() { // Get current user
+  getMe() { // Get current user
     return HTTP.get('users/me')
   },
 
