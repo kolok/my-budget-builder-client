@@ -31,14 +31,14 @@ export default {
      */
     CREATE_OFFICE: (state, office) => {
       state.entities.forEach(item => {
-        if (item.id === office.entity_id) {
+        if (item.id === office.entityID) {
           item.offices.push(office)
         }
       })
     },
     UPDATE_OFFICE: (state, office) => {
       state.entities.forEach(item => {
-        if (item.id === office.entity_id) {
+        if (item.id === office.entityID) {
           var offices = []
           item.offices.forEach(entityOffice => {
             if (entityOffice.id === office.id) {
@@ -50,7 +50,7 @@ export default {
     },
     async DELETE_OFFICE (state, office) {
       state.entities.forEach(item => {
-        if (item.id === office.entity_id) {
+        if (item.id === office.entityID) {
           item.offices = item.offices.filter(off => off.id !== office.id)
         }
       })

@@ -37,7 +37,7 @@
       </el-card>
     </div>
     <div class="Content__CardContainer--Small">
-      <CreateOffice :entityID="entity.id" :countryID="entity.country_id"/>
+      <CreateOffice :entityID="entity.id" :countryID="entity.countryID"/>
     </div>
   </div>
 </template>

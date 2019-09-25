@@ -24,7 +24,7 @@
         sortable
       >
         <template slot-scope="props">
-          {{ getCountry(props.row.country_id) }}
+          {{ getCountry(props.row.countryID) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -79,8 +79,8 @@ export default {
     })
   },
   methods: {
-    getCountry: function(country_id) {
-      return this.$store.getters.getCountryById(country_id).name
+    getCountry: function(countryID) {
+      return this.$store.getters.getCountryById(countryID).name
     },
     getCurrency: function(currency_id) {
       var currency = this.$store.getters.getCurrencyById(currency_id)

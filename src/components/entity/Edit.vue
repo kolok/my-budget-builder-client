@@ -43,10 +43,10 @@
         </el-form-item>
         <el-form-item
           label="Country"
-          prop="country_id"
+          prop="countryID"
         >
           <el-select
-            v-model="entityForm.country_id"
+            v-model="entityForm.countryID"
             placeholder="Select a country"
           >
             <el-option
@@ -108,7 +108,7 @@ export default {
           { max:25, message: 'Too long'},
           { min:3, message: 'Too short'}
         ],
-        country_id: [
+        countryID: [
           { required: true, message: 'A country should be selected' }
         ],
         defaultCurrencyID: [

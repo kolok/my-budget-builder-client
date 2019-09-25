@@ -56,10 +56,10 @@
         </el-form-item>
         <el-form-item
           label="Country"
-          prop="country_id"
+          prop="countryID"
         >
           <el-select
-            v-model="officeForm.country_id"
+            v-model="officeForm.countryID"
             placeholder="Select a country"
             filterable
           >

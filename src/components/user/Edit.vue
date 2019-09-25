@@ -76,7 +76,7 @@ export default {
           { max:25, message: 'Too long'},
           { min:3, message: 'Too short'}
         ],
-        country_id: [
+        countryID: [
           { required: true, message: 'A country should be selected' }
         ],
         defaultCurrencyID: [

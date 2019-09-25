@@ -69,10 +69,10 @@
         </el-form-item>
         <el-form-item
           label="Country"
-          prop="country_id"
+          prop="countryID"
         >
           <el-select
-            v-model="officeForm.country_id"
+            v-model="officeForm.countryID"
             placeholder="Select a country"
             filterable
           >
@@ -117,8 +117,8 @@ export default {
     return {
       officeForm: {
         name:'',
-        country_id: this.countryID,
-        entity_id: this.entityID
+        countryID: this.countryID,
+        entityID: this.entityID
       },
       addOfficeDialog: false,
       officeRule: {
@@ -146,7 +146,7 @@ export default {
     }
   },
   created(){
-    //this.officeForm.country_id = this.countryID
+    //this.officeForm.countryID = this.countryID
   },
   computed: {
     ...mapGetters(['countries'])
