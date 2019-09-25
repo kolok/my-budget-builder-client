@@ -47,10 +47,10 @@
         </el-form-item>
         <el-form-item
           label="Currency"
-          prop="default_currency_id"
+          prop="defaultCurrencyID"
         >
           <el-select
-            v-model="entityForm.default_currency_id"
+            v-model="entityForm.defaultCurrencyID"
             placeholder="Select a currency"
           >
             <el-option
@@ -86,7 +86,7 @@ export default {
       entityForm: {
         name: '',
         country_id:'',
-        default_currency_id: ''
+        defaultCurrencyID: ''
       },
       entityRule: {
         name: [
@@ -97,7 +97,7 @@ export default {
         country_id: [
           { required: true, message: 'A country should be selected' }
         ],
-        default_currency_id: [
+        defaultCurrencyID: [
           { required: true, message: 'A currency should be selected' }
         ]
       }

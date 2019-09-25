@@ -32,7 +32,7 @@
         sortable
       >
         <template slot-scope="props">
-          {{ getCurrency(props.row.default_currency_id) }}
+          {{ getCurrency(props.row.defaultCurrencyID) }}
         </template>
       </el-table-column>
       <el-table-column

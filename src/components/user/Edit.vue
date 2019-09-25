@@ -79,7 +79,7 @@ export default {
         country_id: [
           { required: true, message: 'A country should be selected' }
         ],
-        default_currency_id: [
+        defaultCurrencyID: [
           { required: true, message: 'A currency should be selected' }
         ]
       }
