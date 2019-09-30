@@ -54,118 +54,21 @@ let router = new VueRouter({
     },
     {
       path: '/',
-      redirect: '/teamDashboard'
+      redirect: '/hiringPlan'
     },
-
-// Team menu
-
     {
-      path: '/teamDashboard',
-      name: 'Dashboard',
+      path: '/hiringPlan',
+      name: 'HiringPlan',
       component: () => import(
-        './views/team/Dashboard.vue'
+        './views/HiringPlan.vue'
       ),
       meta: {
         requiresAuth: true,
-        title: 'Komber - Team Dashboard'
-      }
-    },
-    {
-      path: '/teamDashboard2',
-      name: 'Dashboard2',
-      component: () => import(
-        './views/team/Dashboard2.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team Dashboard'
-      }
-    },
-    {
-      path: '/teamDashboard3',
-      name: 'Dashboard3',
-      component: () => import(
-        './views/team/Dashboard3.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team Dashboard'
-      }
-    },
-    {
-      path: '/teamDashboard4',
-      name: 'Dashboard4',
-      component: () => import(
-        './views/team/Dashboard4.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team Dashboard'
-      }
-    },
-    {
-      path: '/teamDashboard5',
-      name: 'Dashboard5',
-      component: () => import(
-        './views/team/Dashboard5.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team Dashboard'
-      }
-    },
-    {
-      path: '/teamMovements',
-      name: 'Movements',
-      component: () => import(
-        './views/team/Movements.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team movements'
-      }
-    },
-    {
-      path: '/teamIndividual',
-      name: 'Individual',
-      component: () => import(
-        './views/team/Individual.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Team Individual'
+        title: 'PiPauls - HiringPlan'
       }
     },
 
-// Budget menu
-
-    {
-      path: '/budgetDashboard',
-      name: 'Budget',
-      component: () => import(
-        './views/budget/Dashboard.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Budget Dashboard'
-      }
-    },
-
-// Execution menu
-
-    {
-      path: '/executionDashboard',
-      name: 'Execution',
-      component: () => import(
-        './views/execution/Dashboard.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Execution Dashboard'
-      }
-    },
-
-// Execution menu
+// Settings menu
 
     {
       path: '/settingsCompany',
@@ -204,11 +107,7 @@ let router = new VueRouter({
       }
     },
 
-
-
-
-
-
+// Profile related routes
 
     {
       path: '/profile',
@@ -233,11 +132,26 @@ let router = new VueRouter({
         title: 'Komber - Profile'
       }
     },
+
+// User routes
+
     {
       path: '/users',
       name: 'Users',
       component: () => import(
         './views/account/users/Users.vue'
+      ),
+      meta: {
+        roles: ['client_admin'],
+        requiresAuth: true,
+        title: 'Komber - Users'
+      }
+    },
+    {
+      path: '/users/:id',
+      name: 'Edit Users',
+      component: () => import(
+        './views/account/users/Edit.vue'
       ),
       meta: {
         roles: ['client_admin'],
@@ -256,6 +170,20 @@ let router = new VueRouter({
         title: 'Komber - Account'
       }
     },
+    {
+      path: '/userCreate',
+      name: 'userCreate',
+      component: () => import(
+        './views/account/users/Create.vue'
+      ),
+      meta: {
+        requiresAuth: true,
+        title: 'Komber - Create user'
+      }
+    },
+
+// Denied route
+
     {
       path: '/denied',
       name: 'Denied',

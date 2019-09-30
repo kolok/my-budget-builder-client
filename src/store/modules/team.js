@@ -9,7 +9,7 @@ function buildTree(teams) {
     node_list[teams[i].id].children = [];
   }
   for (var i = 0; i < teams.length; i++) {
-    node_list[teams[i].parent_team_id || 0 ].children.push(node_list[teams[i].id]);
+    node_list[teams[i].parentTeamID || 0 ].children.push(node_list[teams[i].id]);
   }
   return root.children;
 }
@@ -21,16 +21,16 @@ function buildTreeSelector(teams) {
     teamSelector[i] = {
       value: teams[i].id,
       label: teams[i].name,
-      parent_team_id: teams[i].parent_team_id
+      parentTeamID: teams[i].parentTeamID
     }
     node_list[teamSelector[i].value] = teamSelector[i];
   }
   for (var i = 0; i < teamSelector.length; i++) {
-    if (node_list[teamSelector[i].parent_team_id || 0 ].children === undefined)
+    if (node_list[teamSelector[i].parentTeamID || 0 ].children === undefined)
     {
-      node_list[teamSelector[i].parent_team_id || 0 ].children = [];
+      node_list[teamSelector[i].parentTeamID || 0 ].children = [];
     }
-    node_list[teamSelector[i].parent_team_id || 0 ].children.push(node_list[teamSelector[i].value]);
+    node_list[teamSelector[i].parentTeamID || 0 ].children.push(node_list[teamSelector[i].value]);
   }
   return root.children;
 }
@@ -71,8 +71,8 @@ export default {
     DELETE_TEAM: (state, team) => {
       console.log(team)
       state.teams.forEach( node => {
-        if (node.parent_team_id == team.id) {
-          node.parent_team_id = team.parent_team_id
+        if (node.parentTeamID == team.id) {
+          node.parentTeamID = team.parentTeamID
         }
       })
       state.teams = state.teams.filter(item => item.id !== team.id)
@@ -93,10 +93,10 @@ export default {
         })
     },
     createTeam: ({commit}, team) => {
-      if (team.parent_team_id === undefined || team.parent_team_id === null ) {
-        team.parent_team_id = 0
-      } else if (team.parent_team_id.length !== undefined){
-        team.parent_team_id = team.parent_team_id[ team.parent_team_id.length - 1 ]
+      if (team.parentTeamID === undefined || team.parentTeamID === null ) {
+        team.parentTeamID = 0
+      } else if (team.parentTeamID.length !== undefined){
+        team.parentTeamID = team.parentTeamID[ team.parentTeamID.length - 1 ]
       }
       return TeamResource.create(team)
         .then(response => {
@@ -108,10 +108,10 @@ export default {
         })
     },
     updateTeam: ({commit}, team) => {
-      if (team.parent_team_id === undefined || team.parent_team_id === null ) {
-        team.parent_team_id = 0
-      } else if (team.parent_team_id.length !== undefined){
-        team.parent_team_id = team.parent_team_id[ team.parent_team_id.length - 1 ]
+      if (team.parentTeamID === undefined || team.parentTeamID === null ) {
+        team.parentTeamID = 0
+      } else if (team.parentTeamID.length !== undefined){
+        team.parentTeamID = team.parentTeamID[ team.parentTeamID.length - 1 ]
       }
       return TeamResource.update(team.id, team)
         .then(response => {

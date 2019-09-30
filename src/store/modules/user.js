@@ -36,6 +36,12 @@ export default {
           throw err
         })
     },
+    getUser: ({ commit }, userID) => {
+      return UserResource.get(userID)
+        .catch(err => {
+          throw err
+        })
+    },
     createUser: ({commit}, user) => {
       return UserResource.create(user)
         .then(response => {

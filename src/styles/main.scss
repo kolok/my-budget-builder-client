@@ -31,6 +31,7 @@ $min-sider_width: 200px;
   align-content: flex-start;
   // BoxModel
   height: 100%;
+  width: 100%;
   // Typography
   // Visual
   // OtherProperties
@@ -70,7 +71,7 @@ $min-sider_width: 200px;
     float: left;
     // BoxModel
     padding-top: 0px;
-    width: 100px;
+    width: 90px;
     height: 30px;
     border: 0 none;
     // Typography
@@ -117,9 +118,7 @@ $min-sider_width: 200px;
 
 .ContentContainer {
   width: 100%;
-  margin: 20px;
   padding: 20px;
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 }
 
 .Content {

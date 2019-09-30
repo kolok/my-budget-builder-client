@@ -32,10 +32,10 @@
         </el-form-item>
         <el-form-item
           label="Parent Team"
-          prop="parent_team_id"
+          prop="parentTeamID"
         >
           <el-cascader
-            v-model="teamForm.parent_team_id"
+            v-model="teamForm.parentTeamID"
             :options="teamTreeSelector"
             :props="{ checkStrictly: true }"
             placeholder="Select a parent team"

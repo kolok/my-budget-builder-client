@@ -2,9 +2,19 @@
   <div class="Header">
     <div class="Header--Left">
       <div class="Header__LogoContainer">
-        <a href="/">
-          <img class="Header__Logo" src="/static/images/pipauls-logo.png"/>
+        <a href="#">
+          <img class="Header__Logo" src="/static/images/komber-logo.png"/>
         </a>
+      </div>
+      <div
+        v-if="isAuthenticated"
+      >
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item
+            v-for="item in breadcrumbItems"
+            :key=item.name
+          ><i :class="item.icon" v-if="item.icon"/>{{ item.name }}</el-breadcrumb-item>
+        </el-breadcrumb>
       </div>
     </div>
     <div

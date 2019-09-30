@@ -37,10 +37,10 @@
         </el-form-item>
         <el-form-item
           label="Parent Team"
-          prop="parent_team_id"
+          prop="parentTeamID"
         >
           <el-cascader
-            v-model="teamForm.parent_team_id"
+            v-model="teamForm.parentTeamID"
             :options="teamTreeSelector"
             :props="{ checkStrictly: true }"
             placeholder="Select a parent team"
@@ -111,7 +111,7 @@
         createDialog: false,
         teamForm: {
           name: '',
-          parent_team_id:''
+          parentTeamID:''
         },
         teamRule: {
           name: [
@@ -134,9 +134,9 @@
       handleDrop(draggingNode, dropNode, dropType, ev) {
         var node = draggingNode.data
         if (dropType == "inner") {
-          node.parent_team_id = dropNode.data.id
+          node.parentTeamID = dropNode.data.id
         } else if (dropType == "before" || dropType == "after") {
-          node.parent_team_id = dropNode.data.parent_team_id
+          node.parentTeamID = dropNode.data.parentTeamID
         }
 
         this.updateTeam(node)
@@ -198,7 +198,7 @@
 
       showCreateDialog(data) {
         if (data !== undefined) {
-          this.teamForm.parent_team_id = data.id
+          this.teamForm.parentTeamID = data.id
         }
         this.createDialog = true
       },
@@ -213,9 +213,9 @@
                   this.$refs[formName].resetFields()
                   this.createDialog = false
                 } else {
-                  var parent_team_id = this.teamForm.parent_team_id
+                  var parentTeamID = this.teamForm.parentTeamID
                   this.$refs[formName].resetFields()
-                  this.teamForm.parent_team_id = parent_team_id
+                  this.teamForm.parentTeamID = parentTeamID
                 }
               })
               .catch(e => {

@@ -1,18 +1,18 @@
 <template>
   <div>
     <UserList />
-    <UserCreate />
+    <UserCreateButton />
   </div>
 </template>
 
 <script>
   import UserList from '../../../components/user/List.vue'
-  import UserCreate from '../../../components/user/Create.vue'
+  import UserCreateButton from '../../../components/user/CreateButton.vue'
 
   export default {
     components: {
       UserList,
-      UserCreate
+      UserCreateButton
     }
   }
 </script>

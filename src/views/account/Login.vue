@@ -82,7 +82,7 @@ export default {
         if (valid) {
           this.login(this.loginForm)
             .then(() => {
-              this.$router.push('/teamDashboard')
+              this.$router.push('/hiringPlan')
             })
             .catch(err => {
               this.$Message.error(err.message)
