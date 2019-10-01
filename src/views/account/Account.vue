@@ -3,7 +3,7 @@
     <div v-if="userCompanyExists">
 
 
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane :label='$t("Company")' name="company">
           <CompanyEdit :id="getCurrentCompany.id" />
         </el-tab-pane>
