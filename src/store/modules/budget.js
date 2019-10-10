@@ -4,13 +4,18 @@ import OfficeResource from '../../api/office.service'
 export default {
   state: {
     budgets: [],
+    activeBudgetID: 0,
   },
   getters: {
     budgets: state => state.budgets,
+    activeBudgetID: state => state.activeBudgetID,
   },
   mutations: {
     SET_BUDGETS: (state, budgets) => {
       state.budgets = budgets
+    },
+    SET_ACTIVEBUDGETID: (state, id) => {
+      state.activeBudgetID = id
     },
     CREATE_BUDGET: (state, budget) => {
       state.budgets.push(budget)
@@ -41,6 +46,10 @@ export default {
         .catch(err => {
           throw err
         })
+    },
+    setActiveBudgetID: ({ commit, state }, budgetID) => {
+      commit('SET_ACTIVEBUDGETID', budgetID)
+      return state.activeBudgetID
     },
     createBudget: ({commit}, budget) => {
       return BudgetResource.create(budget)

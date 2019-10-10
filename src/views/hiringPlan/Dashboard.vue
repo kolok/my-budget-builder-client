@@ -3,10 +3,10 @@
     <BudgetCreate :existsBudgets="existsBudgets" v-on:budgetCreated="setNewBudget($event)"/>
     <div v-if="existsBudgets" class="Content__Select">
       <el-select
-        v-model="activeBudgetID"
-        @change="handleSelectBudget()"
+        @input="handleSelectBudget"
         placeholder="Select a budget"
         no-data-text="No budget"
+        :value="activeBudgetID"
       >
         <el-option
           v-for="budget in budgets"
@@ -15,6 +15,7 @@
           :value="budget.id">
         </el-option>
       </el-select>
+
     </div>
     <div class="Content__ButtonContainer" v-if="existsBudgets">
       <el-button
@@ -68,7 +69,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import BudgetCreate from '../components/budget/Create.vue'
+  import BudgetCreate from '../../components/budget/Create.vue'
 
   export default {
     components: {
@@ -78,24 +79,25 @@
       this.setActiveBudget()
     },
     computed: {
-      ...mapGetters(['budgets']),
+      ...mapGetters(['budgets', 'activeBudgetID']),
       existsBudgets: function() {
         return this.budgets.length > 0;
-      }
+      },
     },
     methods: {
       ...mapActions(['updateBudget', 'getBudget', 'getBudgets', 'deleteBudget']),
       setActiveBudget: function() {
         this.getBudgets().then( budgets => {
           if (budgets !== undefined && budgets.length > 0) {
-            this.activeBudgetID = budgets[0].id
+            this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
           }
         })
       },
       setNewBudget: function(budget) {
-        this.activeBudgetID = budget.id
+        this.$store.commit('SET_ACTIVEBUDGETID', budget.id)
       },
-      handleSelectBudget: function() {
+      handleSelectBudget: function(val) {
+        this.$store.commit('SET_ACTIVEBUDGETID', val)
       },
       handleDeleteBudget: function() {
         this.$confirm('Do you really want to delete this Budget?', 'Warning', {
@@ -104,7 +106,11 @@
           type: 'warning'
         }).then(() => {
           this.deleteBudget(this.activeBudgetID).then( () => {
-            this.activeBudgetID = null
+            this.getBudgets().then( budgets => {
+              if (budgets !== undefined && budgets.length > 0) {
+                this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
+              }
+            })
           })
         })
       },
@@ -143,7 +149,6 @@
     },
     data() {
       return {
-        'activeBudgetID': 0,
         'updateDialog': false,
         'currentBudgetForm': {},
         'budgetRule': {

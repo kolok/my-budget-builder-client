@@ -60,7 +60,7 @@ let router = new VueRouter({
       path: '/hiringPlan',
       name: 'HiringPlan',
       component: () => import(
-        './views/HiringPlan.vue'
+        './views/hiringPlan/Dashboard.vue'
       ),
       meta: {
         requiresAuth: true,
