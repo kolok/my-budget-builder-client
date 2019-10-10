@@ -28,6 +28,7 @@
         :rules="budgetRule"
         label-width="250px"
         class="Dialog__Form"
+        @keyup.enter.native="handleCreateBudget('budgetForm')"
       >
         <el-form-item
           prop="name"
@@ -85,7 +86,7 @@
                 // reset form data
                 this.$refs[formName].resetFields()
                 this.createDialog = false
-                this.$emit('budgetCreated', response)
+                this.$store.commit('SET_ACTIVEBUDGETID', response.id)
               })
               .catch(e => {
                 console.log(e)

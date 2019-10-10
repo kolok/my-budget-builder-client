@@ -1,22 +1,7 @@
 <template>
   <div class="Content__ObjectManagement">
-    <BudgetCreate :existsBudgets="existsBudgets" v-on:budgetCreated="setNewBudget($event)"/>
-    <div v-if="existsBudgets" class="Content__Select">
-      <el-select
-        @input="handleSelectBudget"
-        placeholder="Select a budget"
-        no-data-text="No budget"
-        :value="activeBudgetID"
-      >
-        <el-option
-          v-for="budget in budgets"
-          :key="budget.id"
-          :label="budget.name"
-          :value="budget.id">
-        </el-option>
-      </el-select>
-
-    </div>
+    <BudgetCreate :existsBudgets="existsBudgets"/>
+    <BudgetSelector v-if="existsBudgets"/>
     <div class="Content__ButtonContainer" v-if="existsBudgets">
       <el-button
         class="Content__Button"
@@ -41,6 +26,8 @@
           :rules="budgetRule"
           label-width="250px"
           class="Dialog__Form"
+          @keyup.enter.native="handleUpdateBudget('currentBudgetForm')"
+
         >
           <el-form-item
             prop="name"
@@ -70,10 +57,12 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import BudgetCreate from '../../components/budget/Create.vue'
+  import BudgetSelector from '../../components/budget/Selector.vue'
 
   export default {
     components: {
-      BudgetCreate
+      BudgetCreate,
+      BudgetSelector,
     },
     created(){
       this.setActiveBudget()
