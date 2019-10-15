@@ -4,6 +4,12 @@ import VueRouter from 'vue-router'
 /** Route **/
 import { routesEmployee } from './routes/employee'
 import { routesUser } from './routes/user'
+import { routesDenied } from './routes/denied'
+import { routesDefault } from './routes/default'
+import { routesHiringPlan } from './routes/hiringPlan'
+import { routesAuth } from './routes/auth'
+import { routesProfile } from './routes/profile'
+
 /** Store **/
 import store from './store/'
 
@@ -11,146 +17,14 @@ import store from './store/'
 Vue.use(VueRouter)
 
 let router = new VueRouter({
-  /*
-   * The default mode for vue-router is hash mode - it uses the URL hash to
-   * simulate a full URL so that the page won't be reloaded when
-   * the URL changes. To get rid of the hash, we can use the router's
-   * history mode.
-   */
-  // mode: 'history',
   routes: [
     ...routesEmployee,
     ...routesUser,
-    {
-      path: '/login',
-      component: () => import(
-        /* webpackChunkName: "group-account" */
-        './views/account/Login.vue'
-      ),
-      beforeEnter: (to, from, next) => {
-        if (store.getters.isAuthenticated) {
-          next('/hiringPlan')
-        } else {
-          next()
-        }
-      },
-      meta: {
-        requiresAuth: false,
-        title: 'Komber - Sign in'
-      }
-    },
-    {
-      path: '/signup',
-      component: () => import(
-        /* webpackChunkName: "group-account" */
-        './views/account/Signup.vue'
-      ),
-      beforeEnter: (to, from, next) => {
-        if (store.getters.isAuthenticated) {
-          next('/hiringPlan')
-        } else {
-          next()
-        }
-      },
-      meta: {
-        requiresAuth: false,
-        title: 'Komber - Sign up'
-      }
-    },
-    {
-      path: '/',
-      redirect: '/hiringPlan'
-    },
-    {
-      path: '/hiringPlan',
-      name: 'HiringPlan',
-      component: () => import(
-        './views/hiringPlan/Dashboard.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'PiPauls - HiringPlan'
-      }
-    },
-
-// Settings menu
-
-    {
-      path: '/settingsCompany',
-      name: 'Company',
-      component: () => import(
-        /* webpackChunkName: "group-common" */
-        './views/settings/Company.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Settings Company'
-      }
-    },
-    {
-      path: '/settingsEntities',
-      name: 'Entities',
-      component: () => import(
-        /* webpackChunkName: "group-common" */
-        './views/settings/Entities.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Settings Entities'
-      }
-    },
-    {
-      path: '/settingsTeams',
-      name: 'Teams',
-      component: () => import(
-        /* webpackChunkName: "group-common" */
-        './views/settings/Teams.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Settings Teams'
-      }
-    },
-
-// Profile related routes
-
-    {
-      path: '/profile',
-      name: 'Your Profile',
-      component: () => import(
-        /* webpackChunkName: "group-account" */
-        './views/account/Profile.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Profile'
-      }
-    },
-    {
-      path: '/credentials',
-      name: 'Credentials',
-      component: () => import(
-        './views/account/ChangePassword.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Profile'
-      }
-    },
-
-// Denied route
-
-    {
-      path: '/denied',
-      name: 'Denied',
-      component: () => import(
-        './views/account/Denied.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Denied'
-      }
-    }
+    ...routesDenied,
+    ...routesDefault,
+    ...routesHiringPlan,
+    ...routesAuth,
+    ...routesProfile,
   ]
 })
 
@@ -160,20 +34,6 @@ router.beforeEach((to, from, next) => {
 
   // To set the title of each route
   document.title = to.meta.title
-
-/* FIXME: Manage tokens
-  // Grab the accessToken and refreshToken. Dealing with the localStorage and Vuex has been tricky,
-  // so we'll just set everything here at the top of the waterfall.
-  let accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null
-  let refreshToken = localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null
-
-  // What we're accounting for is the instance of a reload, because up until then the user object will be
-  // present if they've already logged in. So if an accessToken is present let's set the user object
-  // and their access/refresh tokens.
-  if (accessToken) {
-      router.app.$options.store.dispatch('auth/setUserAndTokens', {accessToken: accessToken, refreshToken: refreshToken})
-  }
-*/
 
   // If doesn't require authentication, accept.
   if (!to.meta.requiresAuth) {

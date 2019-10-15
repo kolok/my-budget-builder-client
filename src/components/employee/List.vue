@@ -5,8 +5,7 @@
       class="Content__Table"
       :default-sort="{prop: 'name', order: 'descending'}"
       row-key="id"
-      border
-      default-collapse-all
+      stripe
       empty-text="No employee..."
     >
       <el-table-column
