@@ -10,14 +10,11 @@
 </template>
 
 <script>
-import Header from './components/common/Header.vue'
+  import Header from './components/common/Header.vue'
 
-export default {
-  components: {
-    Header,
+  export default {
+    components: {
+      Header,
+    }
   }
-}
 </script>
-
-<style>
-</style>

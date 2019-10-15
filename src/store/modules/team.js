@@ -1,6 +1,7 @@
 import TeamResource from '../../api/team.service'
 import OfficeResource from '../../api/office.service'
 
+// Build the team tree to display it as a tree
 function buildTree(teams) {
   var root = {id:0, parent_id: null, children: []}
   var node_list = { 0 : root};
@@ -13,6 +14,8 @@ function buildTree(teams) {
   }
   return root.children;
 }
+
+// Build the team tree to display it in the selectbox
 function buildTreeSelector(teams) {
   var root = {value:0, children: []}
   var node_list = { 0 : root}

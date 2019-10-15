@@ -8,7 +8,7 @@ export const routesEmployee = [
         meta: {
           roles: ['client_admin'],
           requiresAuth: true,
-          title: 'Komber - Employees'
+          title: 'Pipauls - Employees'
         }
       },
       {
@@ -20,7 +20,7 @@ export const routesEmployee = [
         meta: {
           roles: ['client_admin'],
           requiresAuth: true,
-          title: 'Komber - Employees'
+          title: 'Pipauls - Employees'
         }
       },
       {
@@ -31,7 +31,7 @@ export const routesEmployee = [
         ),
         meta: {
           requiresAuth: true,
-          title: 'Komber - Create employee'
+          title: 'Pipauls - Create employee'
         }
       } 
     ]

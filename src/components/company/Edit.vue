@@ -40,7 +40,7 @@
 
       <el-form-item
         prop="subdomain"
-        label="Komber sub-domain"
+        label="Pipauls sub-domain"
       >
         <el-input
           v-model="companyForm.subdomain"
@@ -48,7 +48,7 @@
           class="Content__Input--Inactive"
           :disabled="true"
         />
-        <span class="Content__Text--Suffix">.komber.io</span>
+        <span class="Content__Text--Suffix">.pipauls.com</span>
       </el-form-item>
 
       <el-form-item>

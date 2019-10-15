@@ -8,7 +8,7 @@ export const routesUser = [
         meta: {
           roles: ['client_admin'],
           requiresAuth: true,
-          title: 'Komber - Users'
+          title: 'Pipauls - Users'
         }
       },
       {
@@ -20,7 +20,7 @@ export const routesUser = [
         meta: {
           roles: ['client_admin'],
           requiresAuth: true,
-          title: 'Komber - Users'
+          title: 'Pipauls - Users'
         }
       },
       {
@@ -31,7 +31,7 @@ export const routesUser = [
         ),
         meta: {
           requiresAuth: true,
-          title: 'Komber - Account'
+          title: 'Pipauls - Account'
         }
       },
       {
@@ -42,7 +42,7 @@ export const routesUser = [
         ),
         meta: {
           requiresAuth: true,
-          title: 'Komber - Create user'
+          title: 'Pipauls - Create user'
         }
       } 
     ]

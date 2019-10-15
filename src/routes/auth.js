@@ -17,7 +17,7 @@ export const routesAuth = [
     },
     meta: {
       requiresAuth: false,
-      title: 'Komber - Sign in'
+      title: 'Pipauls - Sign in'
     }
   },
   {
@@ -35,7 +35,7 @@ export const routesAuth = [
     },
     meta: {
       requiresAuth: false,
-      title: 'Komber - Sign up'
+      title: 'Pipauls - Sign up'
     }
   },
 ]

@@ -7,7 +7,7 @@ export const routesDenied = [
     ),
     meta: {
       requiresAuth: true,
-      title: 'Komber - Denied'
+      title: 'Pipauls - Denied'
     }
   },
 ]

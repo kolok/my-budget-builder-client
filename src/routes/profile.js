@@ -10,7 +10,7 @@ export const routesProfile = [
     ),
     meta: {
       requiresAuth: true,
-      title: 'Komber - Profile'
+      title: 'Pipauls - Profile'
     }
   },
   {
@@ -21,7 +21,7 @@ export const routesProfile = [
     ),
     meta: {
       requiresAuth: true,
-      title: 'Komber - Profile'
+      title: 'Pipauls - Profile'
     }
   },
 ]

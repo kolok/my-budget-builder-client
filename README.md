@@ -1,6 +1,6 @@
-# Komber client side
+# Pipauls client side
 
-Komber is a SAAS product to manage Hiring planning and budget. It allows CEO, CFO and HR to plan, share and execute their Hiring plan.
+Pipauls is a SAAS product to manage Hiring planning and budget. It allows CEO, CFO and HR to plan, share and execute their Hiring plan.
 
 This repository is the client side of the App and is linked to another repository :
 https://gitlab.com/komber/komber-server
@@ -22,11 +22,11 @@ Specific to Client
 
 ### Demo:
 The Demo is not available yet.
-TODO: Click [here](http://demo.komber.io) to see our demo website.
+TODO: Click [here](http://demo.pipauls.com) to see our demo website.
 
 You can sign up or use the following access:
 <pre>
-  email: admin1@komber.io
+  email: admin1@pipauls.com
   password: azerty
 </pre>
 

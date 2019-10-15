@@ -1,4 +1,4 @@
-# Komber naming convention
+# Pipauls naming convention
 
 ## Vuejs naming convention
 

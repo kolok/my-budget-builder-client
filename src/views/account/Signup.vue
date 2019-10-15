@@ -28,14 +28,14 @@
           </el-form-item>
           <el-form-item
             prop="subdomain"
-            label="Komber sub-domain"
+            label="Pipauls sub-domain"
           >
             <el-input
               v-model="signupForm.subdomain"
               placeholder="subdomain"
               class="Content__CardInput--Shorter"
             />
-            <span class="Content__CardText--Suffix">.komber.io</span>
+            <span class="Content__CardText--Suffix">.pipauls.com</span>
           </el-form-item>
           <el-form-item
             prop="name"

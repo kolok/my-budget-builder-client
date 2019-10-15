@@ -4,7 +4,7 @@ services:
 
 # Client docker
   client:
-    container_name: komber-client
+    container_name: pipauls-client
 # server sources are locatted into ./client, we need to set the root ./client for the Docker builder
     build:
       context: .

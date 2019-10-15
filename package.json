@@ -1,7 +1,7 @@
 {
-  "name": "Komber-client",
+  "name": "Pipauls-client",
   "version": "1.0.0",
-  "description": "Komber frontend client",
+  "description": "Pipauls frontend client",
   "author": "Nicolas Oudard",
   "license": "private",
   "private": true,
