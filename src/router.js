@@ -24,7 +24,7 @@ let router = new VueRouter({
       ),
       beforeEnter: (to, from, next) => {
         if (store.getters.isAuthenticated) {
-          next('/teamDashboard')
+          next('/hiringPlan')
         } else {
           next()
         }
@@ -42,7 +42,7 @@ let router = new VueRouter({
       ),
       beforeEnter: (to, from, next) => {
         if (store.getters.isAuthenticated) {
-          next('/teamDashboard')
+          next('/hiringPlan')
         } else {
           next()
         }

@@ -17,21 +17,47 @@
       :visible.sync="updateDialog"
     >
       <el-form
-        ref="currentBudgetForm"
-        :model="currentBudgetForm"
+        ref="budgetForm"
+        :model="budgetForm"
         :rules="budgetRule"
         label-width="250px"
         class="Dialog__Form"
-        @keyup.enter.native="handleUpdateBudget('currentBudgetForm')"
+        @keyup.enter.native="handleUpdateBudget('budgetForm')"
       >
         <el-form-item
           prop="name"
           label="Budget"
         >
           <el-input
-            v-model="currentBudgetForm.name"
+            v-model="budgetForm.name"
             autocomplete="off"
           />
+        </el-form-item>
+        <el-form-item
+          prop="dates"
+          label="From"
+        >
+          <el-date-picker
+            v-model="budgetForm.startDate"
+            type="date"
+            @change="startDateChanged($event)"
+            placeholder="Pick a day"
+            format="yyyy/MM/dd"
+            value-format="yyyy-MM-dd">
+          </el-date-picker>
+    
+        </el-form-item>
+        <el-form-item
+          prop="dates"
+          label="To"
+        >
+          <el-date-picker
+            v-model="budgetForm.endDate"
+            type="date"
+            placeholder="Pick a day"
+            format="yyyy/MM/dd"
+            value-format="yyyy-MM-dd">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <span
@@ -40,7 +66,7 @@
         <el-button @click="handleCancel">Cancel</el-button>
         <el-button
           type="primary"
-          @click="handleUpdateBudget('currentBudgetForm')"
+          @click="handleUpdateBudget('budgetForm')"
         >Save</el-button>
       </span>
     </el-dialog>
@@ -74,19 +100,20 @@
       },
       handleEditBudget: function() {
         this.getBudget(this.activeBudgetID).then(response => {
-          this.currentBudgetForm = response.data
+          this.budgetForm = response.data
           this.updateDialog = true
         })
       },
       handleUpdateBudget: function(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.updateBudget(this.currentBudgetForm)
+            console.log(this.budgetForm.startDate)
+            this.updateBudget(this.budgetForm)
               .then(response => {
                 const h = this.$createElement
                 this.$notify({
                   title: 'Update budget',
-                  message: h('i', { style: 'color: teal' }, 'user ' + this.currentBudgetForm.name + ' was updated'),
+                  message: h('i', { style: 'color: teal' }, 'user ' + this.budgetForm.name + ' was updated'),
                   type: 'success'
                 })
                 this.updateDialog = false
@@ -103,12 +130,16 @@
       handleCancel: function(){
         this.updateDialog = false
       },
-
+      startDateChanged: function(startDate) {
+        var date = new Date(startDate)
+        var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
+        this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+      },
     },
     data() {
       return {
         'updateDialog': false,
-        'currentBudgetForm': {},
+        'budgetForm': {},
         'budgetRule': {
           'name': [
             { required: true, message: 'Budget name can\'t be blank' },

@@ -85,7 +85,7 @@ export default {
               this.$router.push('/hiringPlan')
             })
             .catch(err => {
-              this.$Message.error(err.message)
+              console.log(err)
             })
         } else {
           console.log('error submit!!')

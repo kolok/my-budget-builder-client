@@ -39,6 +39,32 @@
             autocomplete="off"
           />
         </el-form-item>
+        <el-form-item
+          prop="dates"
+          label="From"
+        >
+          <el-date-picker
+            v-model="budgetForm.startDate"
+            type="date"
+            @change="startDateChanged($event)"
+            placeholder="Pick a day"
+            format="yyyy/MM/dd"
+            value-format="yyyy-MM-dd">
+          </el-date-picker>
+    
+        </el-form-item>
+        <el-form-item
+          prop="dates"
+          label="To"
+        >
+          <el-date-picker
+            v-model="budgetForm.endDate"
+            type="date"
+            placeholder="Pick a day"
+            format="yyyy/MM/dd"
+            value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
       </el-form>
       <span
         slot="footer"
@@ -66,6 +92,8 @@
         createDialog: false,
         budgetForm: {
           name: '',
+          startDate: '',
+          endDate: '',
         },
         budgetRule: {
           name: [
@@ -96,6 +124,11 @@
             return false
           }
         })
+      },
+      startDateChanged: function(startDate) {
+        var date = new Date(startDate)
+        var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
+        this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
       },
       handleCancel: function(){
         this.createDialog = false
