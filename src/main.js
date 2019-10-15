@@ -12,16 +12,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 /** Google Chart library **/
-import VueGoogleCharts from 'vue-google-charts'
-Vue.use(VueGoogleCharts)
+//import VueGoogleCharts from 'vue-google-charts'
+//Vue.use(VueGoogleCharts)
 
 /** EChart library **/
-import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
+//import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
 
 // import ECharts modules manually to reduce bundle size
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/chart/pie'
-import 'echarts/lib/component/tooltip'
+//import 'echarts/lib/chart/bar'
+//import 'echarts/lib/chart/pie'
+//import 'echarts/lib/component/tooltip'
 
 // Create VueI18n instance with options
 import { i18n } from './i18n/index.js'
@@ -30,9 +30,10 @@ import { i18n } from './i18n/index.js'
 import App from './App.vue'
 
 /** Router **/
+//import router from './routes/index'
 import router from './router'
 
-/** Store **/
+/** Store and Authentication API **/
 import store from './store/'
 import AuthService from './api/auth.service'
 
@@ -43,7 +44,12 @@ import style from './styles/main.scss';
  * FIXME: Babel could be updated
  * FIXME: use babel plugin : https://element.eleme.io/#/fr-FR/component/quickstart
  */
+
+/** Manage ElementUI loading and locale **/
 Vue.use(ElementUI);
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
+locale.use(lang)
 
 function initialisation() {
   new Vue({

@@ -1,6 +1,9 @@
 import Vue from 'vue'
 /** Router **/
 import VueRouter from 'vue-router'
+/** Route **/
+import { routesEmployee } from './routes/employee'
+import { routesUser } from './routes/user'
 /** Store **/
 import store from './store/'
 
@@ -16,6 +19,8 @@ let router = new VueRouter({
    */
   // mode: 'history',
   routes: [
+    ...routesEmployee,
+    ...routesUser,
     {
       path: '/login',
       component: () => import(
@@ -24,7 +29,7 @@ let router = new VueRouter({
       ),
       beforeEnter: (to, from, next) => {
         if (store.getters.isAuthenticated) {
-          next('/teamDashboard')
+          next('/hiringPlan')
         } else {
           next()
         }
@@ -42,7 +47,7 @@ let router = new VueRouter({
       ),
       beforeEnter: (to, from, next) => {
         if (store.getters.isAuthenticated) {
-          next('/teamDashboard')
+          next('/hiringPlan')
         } else {
           next()
         }
@@ -60,7 +65,7 @@ let router = new VueRouter({
       path: '/hiringPlan',
       name: 'HiringPlan',
       component: () => import(
-        './views/HiringPlan.vue'
+        './views/hiringPlan/Dashboard.vue'
       ),
       meta: {
         requiresAuth: true,
@@ -130,55 +135,6 @@ let router = new VueRouter({
       meta: {
         requiresAuth: true,
         title: 'Komber - Profile'
-      }
-    },
-
-// User routes
-
-    {
-      path: '/users',
-      name: 'Users',
-      component: () => import(
-        './views/account/users/Users.vue'
-      ),
-      meta: {
-        roles: ['client_admin'],
-        requiresAuth: true,
-        title: 'Komber - Users'
-      }
-    },
-    {
-      path: '/users/:id',
-      name: 'Edit Users',
-      component: () => import(
-        './views/account/users/Edit.vue'
-      ),
-      meta: {
-        roles: ['client_admin'],
-        requiresAuth: true,
-        title: 'Komber - Users'
-      }
-    },
-    {
-      path: '/account',
-      name: 'Account',
-      component: () => import(
-        './views/account/Account.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Account'
-      }
-    },
-    {
-      path: '/userCreate',
-      name: 'userCreate',
-      component: () => import(
-        './views/account/users/Create.vue'
-      ),
-      meta: {
-        requiresAuth: true,
-        title: 'Komber - Create user'
       }
     },
 
