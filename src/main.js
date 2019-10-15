@@ -30,6 +30,7 @@ import { i18n } from './i18n/index.js'
 import App from './App.vue'
 
 /** Router **/
+//import router from './routes/index'
 import router from './router'
 
 /** Store and Authentication API **/

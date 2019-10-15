@@ -1,67 +1,38 @@
 <template>
   <div>
     <el-form
-      ref="userForm"
-      :model="userForm"
-      :rules="userRule"
+      ref="employeeForm"
+      :model="employeeForm"
+      :rules="employeeRule"
       label-width="250px"
       class="Dialog__Form"
     >
       <el-form-item
         prop="name"
-        label="User"
+        label="Employee"
       >
         <el-input
-          v-model="userForm.name"
+          v-model="employeeForm.name"
           autocomplete="off"
         />
       </el-form-item>
-
       <el-form-item
         prop="email"
         label="Email"
       >
         <el-input
-          v-model="userForm.email"
+          v-model="employeeForm.email"
           autocomplete="off"
         />
       </el-form-item>
-
-      <el-form-item
-        prop="defaultLanguage"
-        label="Default Language"
-      >
-        <el-select
-          v-model="userForm.defaultLanguage"
-          placeholder="Select a defaultLanguage"
-        >
-          <el-option
-            v-for="language in ['en','fr']"
-            :key="language"
-            :label="language"
-            :value="language"
-          />
-        </el-select>
-      </el-form-item>
-
-      <el-form-item
-        prop="role"
-      >
-        <el-switch
-          v-model="isAdmin"
-          active-text="Admin"
-          inactive-text="User">
-        </el-switch>
-      </el-form-item>
-
     </el-form>
     <span
       slot="footer"
     >
-      <el-button @click="handleCancel('userForm')">Cancel</el-button>
+      <el-button @click="handleCancel('employeeForm')">Cancel</el-button>
       <el-button
         type="primary"
-        @click="handleEdit('userForm')"
+        @click="handleEdit('employeeForm')"
       >
         Save
       </el-button>
@@ -75,15 +46,11 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      userForm: {},
-      isAdmin: false,
-      userRule: {
+      employeeForm: {},
+      employeeRule: {
         name: [
-          { required: true, message: 'User name can\'t be blank' },
+          { required: true, message: 'Employee name can\'t be blank' },
           { max:255, message: 'Too long'}
-        ],
-        defaultLanguage: [
-          { required: true, message: 'defaultLanguage is required' }
         ],
         email: [
           { required: true, message: 'You cannot use a blank email' },
@@ -93,40 +60,30 @@ export default {
     }
   },
   created(){
-    this.initUser()
+    this.initEmployee()
   },
   methods: {
-    ...mapActions(['getUser', 'updateUser']),
+    ...mapActions(['getEmployee', 'updateEmployee']),
 
-    initUser: function() {
-      this.getUser(this.$route.params.id).then(response => {
-        console.log('Get user ',response.data)
-        this.userForm = response.data
-        this.isAdmin = response.data.userCompanies[0].role == "client_admin"
+    initEmployee: function() {
+      this.getEmployee(this.$route.params.id).then(response => {
+        console.log('Get employee ',response.data)
+        this.employeeForm = response.data
       })
     },
-    handleEdit: function(formName) { // Create user
+    handleEdit: function(formName) { // Create employee
       this.$refs[formName].validate((valid) => {
         if (valid) {
 
-          if (this.isAdmin) {
-            this.userForm.userCompanies[0].role = "client_admin"
-            this.userForm.role = "client_admin"
-          }
-          else {
-            this.userForm.userCompanies[0].role = "client_user"
-            this.userForm.role = "client_user"
-          }
-
-          this.updateUser(this.userForm)
+          this.updateEmployee(this.employeeForm)
             .then(response => {
               const h = this.$createElement
               this.$notify({
-                title: 'Update user',
-                message: h('i', { style: 'color: teal' }, 'user ' + this.userForm.name + ' was updated'),
+                title: 'Update employee',
+                message: h('i', { style: 'color: teal' }, 'employee ' + this.employeeForm.name + ' was updated'),
                 type: 'success'
               })
-              this.$router.push('/users')
+              this.$router.push('/hiringPlan')
             })
             .catch(e => {
               console.log(e)
@@ -138,7 +95,7 @@ export default {
       })
     },
     handleCancel: function(){
-      this.$router.push('/users')
+      this.$router.push('/hiringPlan')
     }
   }
 }
