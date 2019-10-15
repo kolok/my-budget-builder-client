@@ -40,12 +40,11 @@
           <el-date-picker
             v-model="budgetForm.startDate"
             type="date"
-            @change="startDateChanged($event)"
             placeholder="Pick a day"
             format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd">
-          </el-date-picker>
-    
+            value-format="yyyy-MM-dd"
+            @change="startDateChanged($event)"
+          />
         </el-form-item>
         <el-form-item
           prop="dates"
@@ -56,8 +55,8 @@
             type="date"
             placeholder="Pick a day"
             format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd">
-          </el-date-picker>
+            value-format="yyyy-MM-dd"
+          />
         </el-form-item>
       </el-form>
       <span
@@ -70,85 +69,84 @@
         >Save</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-  export default {
-    computed: {
-      ...mapGetters(['activeBudgetID']),
-    },
-    methods: {
-      ...mapActions(['updateBudget', 'getBudget', 'getBudgets','deleteBudget']),
-      handleDeleteBudget: function() {
-        this.$confirm('Do you really want to delete this Budget?', 'Warning', {
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No',
-          type: 'warning'
-        }).then(() => {
-          this.deleteBudget(this.activeBudgetID).then( () => {
-            this.getBudgets().then( budgets => {
-              if (budgets !== undefined && budgets.length > 0) {
-                this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
-              }
-            })
+export default {
+  data() {
+    return {
+      'updateDialog': false,
+      'budgetForm': {},
+      'budgetRule': {
+        'name': [
+          { required: true, message: 'Budget name can\'t be blank' },
+          { max:25, message: 'Too long'},
+          { min:3, message: 'Too short'}
+        ]
+      }
+
+    }
+  },
+  computed: {
+    ...mapGetters(['activeBudgetID']),
+  },
+  methods: {
+    ...mapActions(['updateBudget', 'getBudget', 'getBudgets','deleteBudget']),
+    handleDeleteBudget: function() {
+      this.$confirm('Do you really want to delete this Budget?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        type: 'warning'
+      }).then(() => {
+        this.deleteBudget(this.activeBudgetID).then( () => {
+          this.getBudgets().then( budgets => {
+            if (budgets !== undefined && budgets.length > 0) {
+              this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
+            }
           })
         })
-      },
-      handleEditBudget: function() {
-        this.getBudget(this.activeBudgetID).then(response => {
-          this.budgetForm = response.data
-          this.updateDialog = true
-        })
-      },
-      handleUpdateBudget: function(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            console.log(this.budgetForm.startDate)
-            this.updateBudget(this.budgetForm)
-              .then(response => {
-                const h = this.$createElement
-                this.$notify({
-                  title: 'Update budget',
-                  message: h('i', { style: 'color: teal' }, 'user ' + this.budgetForm.name + ' was updated'),
-                  type: 'success'
-                })
-                this.updateDialog = false
-              })
-              .catch(e => {
-                console.log(e)
-              })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      handleCancel: function(){
-        this.updateDialog = false
-      },
-      startDateChanged: function(startDate) {
-        var date = new Date(startDate)
-        var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
-        this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
-      },
+      })
     },
-    data() {
-      return {
-        'updateDialog': false,
-        'budgetForm': {},
-        'budgetRule': {
-          'name': [
-            { required: true, message: 'Budget name can\'t be blank' },
-            { max:25, message: 'Too long'},
-            { min:3, message: 'Too short'}
-          ]
+    handleEditBudget: function() {
+      this.getBudget(this.activeBudgetID).then(response => {
+        this.budgetForm = response.data
+        this.updateDialog = true
+      })
+    },
+    handleUpdateBudget: function(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          console.log(this.budgetForm.startDate)
+          this.updateBudget(this.budgetForm)
+            .then( () => {
+              const h = this.$createElement
+              this.$notify({
+                title: 'Update budget',
+                message: h('i', { style: 'color: teal' }, 'user ' + this.budgetForm.name + ' was updated'),
+                type: 'success'
+              })
+              this.updateDialog = false
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        } else {
+          console.log('error submit!!')
+          return false
         }
-
-      }
+      })
     },
-  }
+    handleCancel: function(){
+      this.updateDialog = false
+    },
+    startDateChanged: function(startDate) {
+      var date = new Date(startDate)
+      var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
+      this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+    },
+  },
+}
 </script>

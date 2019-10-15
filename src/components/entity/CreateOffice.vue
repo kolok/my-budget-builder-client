@@ -145,15 +145,12 @@ export default {
       }
     }
   },
-  created(){
-    //this.officeForm.countryID = this.countryID
-  },
   computed: {
     ...mapGetters(['countries'])
   },
   methods: {
     ...mapActions(['createOffice']),
-    handleAddOffice: function(id) {
+    handleAddOffice: function() {
       // display the form to add an office
       this.addOfficeDialog = true
     },

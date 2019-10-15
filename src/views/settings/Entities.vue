@@ -6,13 +6,13 @@
 </template>
 
 <script>
-  import EntityList from '../../components/entity/List.vue'
-  import EntityCreate from '../../components/entity/Create.vue'
+import EntityList from '../../components/entity/List.vue'
+import EntityCreate from '../../components/entity/Create.vue'
 
-  export default {
-    components: {
-      EntityList,
-      EntityCreate
-    }
+export default {
+  components: {
+    EntityList,
+    EntityCreate
   }
+}
 </script>

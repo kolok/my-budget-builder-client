@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import UserEditForm from '../../../components/user/EditForm.vue'
+import UserEditForm from '../../../components/user/EditForm.vue'
 
-  export default {
-    components: {
-      UserEditForm,
-    }
+export default {
+  components: {
+    UserEditForm,
   }
+}
 </script>

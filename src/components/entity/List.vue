@@ -16,7 +16,7 @@
       />
       <el-table-column type="expand">
         <template slot-scope="props">
-          <ListOffice :entity="props.row"/>
+          <ListOffice :entity="props.row" />
         </template>
       </el-table-column>
       <el-table-column
@@ -53,10 +53,11 @@
     </el-table>
   </div>
 </template>
+
 <script>
 import EntityEdit from './Edit.vue'
 import ListOffice from './ListOffices.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {

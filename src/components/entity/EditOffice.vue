@@ -4,7 +4,7 @@
       class="Content__Button"
       type="text"
       icon="el-icon-edit"
-      @click="handleEditOffice(officeForm)"
+      @click="handleEditOffice"
     />
 
     <el-dialog
@@ -123,15 +123,13 @@ export default {
       }
     }
   },
-  created(){
-  },
   computed: {
     ...mapGetters(['countries'])
   },
   methods: {
     ...mapActions(['updateOffice']),
-    handleEditOffice(office) {
-      // display the form to add an office
+    handleEditOffice() {
+      // display the form to edit an office
       this.editOfficeDialog = true
     },
     handleUpdateOffice: function(formName) { // Create office

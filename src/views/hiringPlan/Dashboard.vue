@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="Content__ObjectManagement">
-      <BudgetCreate :existsBudgets="existsBudgets"/>
-        <BudgetSelector v-if="existsBudgets"/>
-        <BudgetActions v-if="existsBudgets"/>
+      <BudgetCreate :exists-budgets="existsBudgets" />
+      <BudgetSelector v-if="existsBudgets" />
+      <BudgetActions v-if="existsBudgets" />
     </div>
     <div v-if="existsBudgets">
       <EmployeeList />
@@ -13,41 +13,41 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
-  import BudgetCreate from '../../components/budget/Create.vue'
-  import BudgetSelector from '../../components/budget/Selector.vue'
-  import BudgetActions from '../../components/budget/Actions.vue'
-  import EmployeeList from '../../components/employee/List.vue'
-  import EmployeeCreateButton from '../../components/employee/CreateButton.vue'
+import { mapGetters, mapActions } from 'vuex'
+import BudgetCreate from '../../components/budget/Create.vue'
+import BudgetSelector from '../../components/budget/Selector.vue'
+import BudgetActions from '../../components/budget/Actions.vue'
+import EmployeeList from '../../components/employee/List.vue'
+import EmployeeCreateButton from '../../components/employee/CreateButton.vue'
 
-  export default {
-    components: {
-      BudgetCreate,
-      BudgetSelector,
-      BudgetActions,
-      EmployeeList,
-      EmployeeCreateButton,
+export default {
+  components: {
+    BudgetCreate,
+    BudgetSelector,
+    BudgetActions,
+    EmployeeList,
+    EmployeeCreateButton,
+  },
+  computed: {
+    ...mapGetters(['budgets']),
+    existsBudgets: function() {
+      return this.budgets.length > 0
     },
-    created(){
-      this.setActiveBudget()
+  },
+  created(){
+    this.setActiveBudget()
+  },
+  methods: {
+    ...mapActions(['getBudgets']),
+    setActiveBudget: function() {
+      this.getBudgets().then( budgets => {
+        if (budgets !== undefined && budgets.length > 0) {
+          this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
+        }
+      })
     },
-    computed: {
-      ...mapGetters(['budgets']),
-      existsBudgets: function() {
-        return this.budgets.length > 0;
-      },
-    },
-    methods: {
-      ...mapActions(['getBudgets']),
-      setActiveBudget: function() {
-        this.getBudgets().then( budgets => {
-          if (budgets !== undefined && budgets.length > 0) {
-            this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
-          }
-        })
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style>

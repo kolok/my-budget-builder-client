@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import EmployeeCreateForm from '../../components/employee/CreateForm.vue'
+import EmployeeCreateForm from '../../components/employee/CreateForm.vue'
 
-  export default {
-    components: {
-      EmployeeCreateForm,
-    }
+export default {
+  components: {
+    EmployeeCreateForm,
   }
+}
 </script>

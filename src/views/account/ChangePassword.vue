@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h1 class="Content__Head1">Change your password</h1>
+    <h1 class="Content__Head1">
+      Change your password
+    </h1>
     <el-form
-      class="Content__Form"
       ref="changePwdForm"
+      class="Content__Form"
       :model="changePwdForm"
       label-width="250px"
     >

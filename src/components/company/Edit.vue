@@ -1,8 +1,8 @@
 <template>
   <div class="Content__FormContainer">
     <el-form
-      class="Content__Form"
       ref="companyForm"
+      class="Content__Form"
       :model="companyForm"
       label-width="250px"
     >

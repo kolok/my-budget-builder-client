@@ -50,10 +50,9 @@
         <el-switch
           v-model="isAdmin"
           active-text="Admin"
-          inactive-text="User">
-        </el-switch>
+          inactive-text="User"
+        />
       </el-form-item>
-
     </el-form>
     <span
       slot="footer"
@@ -70,7 +69,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -102,7 +101,7 @@ export default {
       this.getUser(this.$route.params.id).then(response => {
         console.log('Get user ',response.data)
         this.userForm = response.data
-        this.isAdmin = response.data.userCompanies[0].role == "client_admin"
+        this.isAdmin = response.data.userCompanies[0].role == 'client_admin'
       })
     },
     handleEdit: function(formName) { // Create user
@@ -110,16 +109,16 @@ export default {
         if (valid) {
 
           if (this.isAdmin) {
-            this.userForm.userCompanies[0].role = "client_admin"
-            this.userForm.role = "client_admin"
+            this.userForm.userCompanies[0].role = 'client_admin'
+            this.userForm.role = 'client_admin'
           }
           else {
-            this.userForm.userCompanies[0].role = "client_user"
-            this.userForm.role = "client_user"
+            this.userForm.userCompanies[0].role = 'client_user'
+            this.userForm.role = 'client_user'
           }
 
           this.updateUser(this.userForm)
-            .then(response => {
+            .then( () => {
               const h = this.$createElement
               this.$notify({
                 title: 'Update user',

@@ -3,7 +3,10 @@
     <div class="Header--Left">
       <div class="Header__LogoContainer">
         <a href="/">
-          <img class="Header__Logo" src="/static/images/pipauls-logo.png"/>
+          <img
+            class="Header__Logo"
+            src="/static/images/pipauls-logo.png"
+          >
         </a>
       </div>
     </div>
@@ -13,15 +16,20 @@
     >
       <el-dropdown @command="handleClickDropdown">
         <div class="Header__Dorpdown">
-          <div><el-avatar size="medium" :src="avatarURL"></el-avatar></div>
-          <div><i class="el-icon-arrow-down el-icon--right"></i></div>
+          <div>
+            <el-avatar
+              size="medium"
+              :src="avatarURL"
+            />
+          </div>
+          <div><i class="el-icon-arrow-down el-icon--right" /></div>
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
             v-for="adminMenuItem in adminMenuItems"
+            :key="adminMenuItem.index"
             :command="adminMenuItem.path"
             :icon="adminMenuItem.icon"
-            :key="adminMenuItem.index"
             :index="adminMenuItem.index"
           >
             {{ adminMenuItem.name }}
@@ -40,7 +48,7 @@ export default {
   },
   data() {
     return {
-      avatarURL: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+      avatarURL: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   },
   computed: {
@@ -52,7 +60,7 @@ export default {
       this.$router.push('/login')
     },
     handleClickDropdown: function(name) {
-    console.log(name)
+      console.log(name)
       if (name === '/logout') {
         this.logout()
       } else {

@@ -4,10 +4,9 @@
       <el-button
         type="text"
         icon="el-icon-circle-plus-outline"
-        @click="createDialog = true"
         style="font-size:30px;"
-      >
-      </el-button>
+        @click="createDialog = true"
+      />
     </div>
     <div v-else>
       <el-button
@@ -15,7 +14,8 @@
         type="primary"
         icon="el-icon-circle-plus-outline"
         @click="createDialog = true"
-      > Create your first budget
+      >
+        Create your first budget
       </el-button>
     </div>
     <el-dialog
@@ -46,12 +46,11 @@
           <el-date-picker
             v-model="budgetForm.startDate"
             type="date"
-            @change="startDateChanged($event)"
             placeholder="Pick a day"
             format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd">
-          </el-date-picker>
-    
+            value-format="yyyy-MM-dd"
+            @change="startDateChanged($event)"
+          />
         </el-form-item>
         <el-form-item
           prop="dates"
@@ -62,8 +61,8 @@
             type="date"
             placeholder="Pick a day"
             format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd">
-          </el-date-picker>
+            value-format="yyyy-MM-dd"
+          />
         </el-form-item>
       </el-form>
       <span
@@ -76,65 +75,64 @@
         >Save</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
-  export default {
-    props: {
-      existsBudgets: Boolean,
-    },
-    data () {
-      return {
-        createDialog: false,
-        budgetForm: {
-          name: '',
-          startDate: '',
-          endDate: '',
-        },
-        budgetRule: {
-          name: [
-            { required: true, message: 'Budget name can\'t be blank' },
-            { max:25, message: 'Too long'},
-            { min:3, message: 'Too short'}
-          ]
-        },
-      }
-    },
-    methods: {
-      ...mapActions(['createBudget']),
-      handleCreateBudget: function(formName) { // Create budget
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.createBudget(this.budgetForm)
-              .then(response => {
-                // reset form data
-                this.$refs[formName].resetFields()
-                this.createDialog = false
-                this.$store.commit('SET_ACTIVEBUDGETID', response.id)
-              })
-              .catch(e => {
-                console.log(e)
-              })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+export default {
+  props: {
+    existsBudgets: Boolean,
+  },
+  data () {
+    return {
+      createDialog: false,
+      budgetForm: {
+        name: '',
+        startDate: '',
+        endDate: '',
       },
-      startDateChanged: function(startDate) {
-        var date = new Date(startDate)
-        var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
-        this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+      budgetRule: {
+        name: [
+          { required: true, message: 'Budget name can\'t be blank' },
+          { max:25, message: 'Too long'},
+          { min:3, message: 'Too short'}
+        ]
       },
-      handleCancel: function(){
-        this.createDialog = false
-      }
+    }
+  },
+  methods: {
+    ...mapActions(['createBudget']),
+    handleCreateBudget: function(formName) { // Create budget
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.createBudget(this.budgetForm)
+            .then(response => {
+              // reset form data
+              this.$refs[formName].resetFields()
+              this.createDialog = false
+              this.$store.commit('SET_ACTIVEBUDGETID', response.id)
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    startDateChanged: function(startDate) {
+      var date = new Date(startDate)
+      var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
+      this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
+    },
+    handleCancel: function(){
+      this.createDialog = false
     }
   }
+}
 </script>
 
 <style>

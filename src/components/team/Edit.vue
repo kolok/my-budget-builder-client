@@ -39,8 +39,8 @@
             :options="teamTreeSelector"
             :props="{ checkStrictly: true }"
             placeholder="Select a parent team"
-            clearable>
-          </el-cascader>
+            clearable
+          />
         </el-form-item>
       </el-form>
       <span
@@ -57,42 +57,42 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-  export default {
-    props: {
-      teamForm: {
-        type: Object,
-        required: true
-      }
-    },
-    data() {
-      return {
-        editDialog: false,
-        teamRule: {
-          name: [
-            { required: true, message: 'Entity name can\'t be blank' },
-            { max:25, message: 'Too long'},
-            { min:3, message: 'Too short'}
-          ]
-        },
-      }
-    },
-    computed: {
-      ...mapGetters(['teamTreeSelector'])
-    },
-    methods: {
-      ...mapActions(['updateTeam', 'getTeams']),
-      showEditDialog: function() {
-        this.editDialog = true;
+export default {
+  props: {
+    teamForm: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      editDialog: false,
+      teamRule: {
+        name: [
+          { required: true, message: 'Entity name can\'t be blank' },
+          { max:25, message: 'Too long'},
+          { min:3, message: 'Too short'}
+        ]
       },
-      handleCancel: function(){
-        this.editDialog = false
-      },
-      handleUpdateTeam: function(formName) { // Create entity
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.updateTeam(this.teamForm)
+    }
+  },
+  computed: {
+    ...mapGetters(['teamTreeSelector'])
+  },
+  methods: {
+    ...mapActions(['updateTeam', 'getTeams']),
+    showEditDialog: function() {
+      this.editDialog = true
+    },
+    handleCancel: function(){
+      this.editDialog = false
+    },
+    handleUpdateTeam: function(formName) { // Create entity
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.updateTeam(this.teamForm)
             .then( () => {
               this.editDialog = false
               const h = this.$createElement
@@ -109,17 +109,17 @@
                 message: h('i', { style: 'color: red' }, 'something went wrong, the team wasn\'t moved'),
                 type: 'error'
               })
-              this.getTeams();
+              this.getTeams()
               console.log(e)
             })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-  }
+  },
+}
 
 
 </script>

@@ -50,10 +50,9 @@
         <el-switch
           v-model="isAdmin"
           active-text="Admin"
-          inactive-text="User">
-        </el-switch>
+          inactive-text="User"
+        />
       </el-form-item>
-
     </el-form>
     <span
       slot="footer"
@@ -68,7 +67,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -103,14 +102,14 @@ export default {
         if (valid) {
 
           if (this.isAdmin) {
-            this.userForm.role = "client_admin"
+            this.userForm.role = 'client_admin'
           }
           else {
-            this.userForm.role = "client_user"
+            this.userForm.role = 'client_user'
           }
           console.log('this.userForm',this.userForm)
           this.createUser(this.userForm)
-            .then(response => {
+            .then( () => {
               // reset form data
               this.$refs[formName].resetFields()
               this.$router.push('/users')

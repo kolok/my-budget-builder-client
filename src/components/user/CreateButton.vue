@@ -12,18 +12,16 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
-
-  export default {
-    data() {
-      return {
-      }
-    },
-    methods: {
-      /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-      handleAddUser: function() {
-        this.$router.push('/userCreate')
-      },
+export default {
+  data() {
+    return {
     }
+  },
+  methods: {
+    /*eslint no-unused-vars: ["error", { "args": "none" }]*/
+    handleAddUser: function() {
+      this.$router.push('/userCreate')
+    },
   }
+}
 </script>

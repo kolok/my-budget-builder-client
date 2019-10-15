@@ -21,7 +21,7 @@
               @click="handleDeleteOffice(item)"
             />
           </div>
-          <EditOffice :officeForm="item"/>
+          <EditOffice :office-form="item" />
         </div>
         <div
           class="Card__Body"
@@ -37,44 +37,47 @@
       </el-card>
     </div>
     <div class="Content__CardContainer--Small">
-      <CreateOffice :entityID="entity.id" :countryID="entity.countryID"/>
+      <CreateOffice
+        :entity-i-d="entity.id"
+        :country-i-d="entity.countryID"
+      />
     </div>
   </div>
 </template>
 
 <script>
-  import CreateOffice from '../../components/entity/CreateOffice.vue'
-  import EditOffice from '../../components/entity/EditOffice.vue'
-  import { mapGetters, mapActions } from 'vuex'
+import CreateOffice from '../../components/entity/CreateOffice.vue'
+import EditOffice from '../../components/entity/EditOffice.vue'
+import { mapActions } from 'vuex'
 
-  export default {
-    props: {
-      entity: {
-        type: Object,
-        required: true
-      }
-    },
-    components: {
-      CreateOffice,
-      EditOffice
-    },
-    data() {
-      return {
-      }
-    },
-    computed: {
-    },
-    methods: {
-      ...mapActions(['deleteOffice']),
-      handleDeleteOffice(office) {
-        this.$confirm('Do you really want to delete this Office?', 'Warning', {
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No',
-          type: 'warning'
-        }).then(() => {
-          this.deleteOffice(office.id)
-        })
-      }
+export default {
+  components: {
+    CreateOffice,
+    EditOffice
+  },
+  props: {
+    entity: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+    }
+  },
+  computed: {
+  },
+  methods: {
+    ...mapActions(['deleteOffice']),
+    handleDeleteOffice(office) {
+      this.$confirm('Do you really want to delete this Office?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        type: 'warning'
+      }).then(() => {
+        this.deleteOffice(office.id)
+      })
     }
   }
+}
 </script>

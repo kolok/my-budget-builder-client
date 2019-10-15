@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -68,7 +68,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.createEmployee(this.employeeForm)
-            .then(response => {
+            .then( () => {
               // reset form data
               this.$refs[formName].resetFields()
               this.$router.push('/hiringPlan')

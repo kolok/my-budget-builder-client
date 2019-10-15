@@ -12,18 +12,16 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
-
-  export default {
-    data() {
-      return {
-      }
-    },
-    methods: {
-      /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-      handleAddEmployee: function() {
-        this.$router.push('/employeeCreate')
-      },
+export default {
+  data() {
+    return {
     }
+  },
+  methods: {
+    /*eslint no-unused-vars: ["error", { "args": "none" }]*/
+    handleAddEmployee: function() {
+      this.$router.push('/employeeCreate')
+    },
   }
+}
 </script>

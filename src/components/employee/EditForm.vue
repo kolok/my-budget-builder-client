@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -76,7 +76,7 @@ export default {
         if (valid) {
 
           this.updateEmployee(this.employeeForm)
-            .then(response => {
+            .then( () => {
               const h = this.$createElement
               this.$notify({
                 title: 'Update employee',
