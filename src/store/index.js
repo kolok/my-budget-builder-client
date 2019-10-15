@@ -11,9 +11,10 @@ import entity from './modules/entity'
 import menu from './modules/menu'
 import team from './modules/team'
 import user from './modules/user'
+import employee from './modules/employee'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth, budget, company, entity, country, currency, menu, team, user}
+  modules: { auth, budget, company, entity, country, currency, menu, team, user, employee}
 })
