@@ -2,13 +2,13 @@ import Vue from 'vue'
 /** Router **/
 import VueRouter from 'vue-router'
 /** Route **/
-import { routesEmployee } from './routes/employee'
-import { routesUser } from './routes/user'
-import { routesDenied } from './routes/denied'
-import { routesDefault } from './routes/default'
-import { routesHiringPlan } from './routes/hiringPlan'
 import { routesAuth } from './routes/auth'
+import { routesDefault } from './routes/default'
+import { routesDenied } from './routes/denied'
+import { routesEmployee } from './routes/employee'
+import { routesHiringPlan } from './routes/hiringPlan'
 import { routesProfile } from './routes/profile'
+import { routesUser } from './routes/user'
 
 /** Store **/
 import store from './store/'
@@ -18,13 +18,13 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
   routes: [
-    ...routesEmployee,
-    ...routesUser,
-    ...routesDenied,
-    ...routesDefault,
-    ...routesHiringPlan,
     ...routesAuth,
+    ...routesDefault,
+    ...routesDenied,
+    ...routesEmployee,
+    ...routesHiringPlan,
     ...routesProfile,
+    ...routesUser,
   ]
 })
 
