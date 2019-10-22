@@ -1,20 +1,20 @@
 <template>
   <div>
-    <el-form-item prop="dates" label="From">
+    <el-form-item prop="dates" :label="$t('From')">
       <el-date-picker
         v-model="budgetForm.startDate"
         type="date"
-        placeholder="Pick a day"
+        :placeholder="$t('Pick a day')"
         format="yyyy/MM/dd"
         value-format="yyyy-MM-dd"
         @change="startDateChanged($event)"
       />
     </el-form-item>
-    <el-form-item prop="dates" label="To">
+    <el-form-item prop="dates" :label="$t('To')">
       <el-date-picker
         v-model="budgetForm.endDate"
         type="date"
-        placeholder="Pick a day"
+        :placeholder="$t('Pick a day')"
         format="yyyy/MM/dd"
         value-format="yyyy-MM-dd"
       />

@@ -1,5 +1,8 @@
 {
   "hiringplan": {
     "title": "Plan d'embauche"
-  }
+  },
+  "From": "Début",
+  "To": "Fin",
+  "Pick a day": "Choisir une date"
 }

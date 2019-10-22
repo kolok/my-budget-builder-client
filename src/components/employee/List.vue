@@ -7,7 +7,14 @@
       row-key="id"
       stripe
       empty-text="No employee..."
+      @selection-change="handleSelectionChange"
     >
+      <el-table-column
+        type="selection"
+        width="55"
+        fixed
+      >
+      </el-table-column>
       <el-table-column
         label="Employee"
         prop="name"
@@ -20,36 +27,29 @@
       />
       <el-table-column
         label="Actions"
+        fixed="right"
+        width="120"
       >
         <template slot-scope="scope">
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            size="mini"
-            @click="handleEdit(scope.row.id)"
-          >
-            Edit
-          </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row.id)"
-          >
-            Delete
-          </el-button>
+          <employeeActions :employeeID="scope.row.id" />
         </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
+
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import employeeActions from './Actions.vue'
+import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    employeeActions,
+  },
   data() {
     return {
       loading: true,
+      multipleSelection: [],
     }
   },
   computed: {
@@ -61,19 +61,10 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['deleteEmployee']),
-    handleEdit: function(employeeID) {
-      this.$router.push('employees/' + employeeID)
-    },
-    handleDelete: function(employeeID) {
-      this.$confirm('Do you really want to delete this Employee?', 'Warning', {
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        type: 'warning'
-      }).then(() => {
-        this.deleteEmployee(employeeID)
-      })
-    },
+    handleSelectionChange: function(val) {
+      this.multipleSelection = val
+      console.log(val)
+    }
   }
 }
 </script>

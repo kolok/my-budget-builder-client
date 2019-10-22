@@ -1,5 +1,9 @@
 {
   "hiringplan": {
     "title": "Hiring Plan"
-  }
+  },
+  "From": "From",
+  "To": "To",
+  "Pick a day": "Pick a day"
+
 }
