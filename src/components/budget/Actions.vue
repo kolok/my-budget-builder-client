@@ -122,11 +122,6 @@ export default {
     handleCancel: function(){
       this.updateDialog = false
     },
-    startDateChanged: function(startDate) {
-      var date = new Date(startDate)
-      var endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate() -1)
-      this.budgetForm.endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate()
-    },
   },
 }
 </script>
