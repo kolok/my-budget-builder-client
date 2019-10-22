@@ -33,31 +33,7 @@
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item
-          prop="dates"
-          label="From"
-        >
-          <el-date-picker
-            v-model="budgetForm.startDate"
-            type="date"
-            placeholder="Pick a day"
-            format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd"
-            @change="startDateChanged($event)"
-          />
-        </el-form-item>
-        <el-form-item
-          prop="dates"
-          label="To"
-        >
-          <el-date-picker
-            v-model="budgetForm.endDate"
-            type="date"
-            placeholder="Pick a day"
-            format="yyyy/MM/dd"
-            value-format="yyyy-MM-dd"
-          />
-        </el-form-item>
+        <budgetDatesForm :budgetForm="budgetForm" />
       </el-form>
       <span
         slot="footer"
@@ -73,9 +49,13 @@
 </template>
 
 <script>
+import budgetDatesForm from './DatesForm.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  components: {
+    budgetDatesForm,
+  },
   data() {
     return {
       'updateDialog': false,

@@ -1,6 +1,4 @@
 import AuthService from '../../api/auth.service'
-//import HTTP from '../../api/common/http'
-//import store from '../../store'
 
 export default {
   state: {
