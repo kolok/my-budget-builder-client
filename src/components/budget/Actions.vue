@@ -1,33 +1,37 @@
 <template>
-  <div class="Content__ButtonContainer">
+  <div class="Content__ButtonContainer--left">
     <el-button
+      @click="handleEditBudget()"
+      circle
       class="Content__Button"
-      type="text"
-      icon="el-icon-delete"
-      @click="handleDeleteBudget()"
+      icon="el-icon-edit"
+      size="mini"
+      type="primary"
     />
     <el-button
+      @click="handleDeleteBudget()"
+      circle
       class="Content__Button"
-      type="text"
-      icon="el-icon-edit"
-      @click="handleEditBudget()"
+      icon="el-icon-delete"
+      size="mini"
+      type="danger"
     />
     <el-dialog
-      title="Update budget"
       :visible.sync="updateDialog"
+      :title="$t('Update budget')"
     >
       <budgetForm
         :budgetForm="budgetForm"
-        @submitBudget="handleUpdateBudget"
         @cancel="handleCancel"
+        @submitBudget="handleUpdateBudget"
       />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import budgetForm from "./form/Form.vue";
 import { mapGetters, mapActions } from "vuex";
+import budgetForm from "./form/Form.vue";
 
 export default {
   components: {
@@ -35,8 +39,8 @@ export default {
   },
   data() {
     return {
-      updateDialog: false,
       budgetForm: {},
+      updateDialog: false,
     };
   },
   computed: {
@@ -45,9 +49,9 @@ export default {
   methods: {
     ...mapActions(["updateBudget", "getBudget", "getBudgets", "deleteBudget"]),
     handleDeleteBudget: function() {
-      this.$confirm("Do you really want to delete this Budget?", "Warning", {
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+      this.$confirm(this.$t("Do you really want to delete this Budget?"), this.$t("Warning"), {
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
         type: "warning"
       }).then(() => {
         this.deleteBudget(this.activeBudgetID).then(() => {
@@ -70,11 +74,12 @@ export default {
         .then(() => {
           const h = this.$createElement;
           this.$notify({
-            title: "Update budget",
+            title: this.$t('Update budget'),
             message: h(
               "i",
               { style: "color: teal" },
-              "user " + this.budgetForm.name + " was updated"
+              this.$t('Budget {name} was updated', {name: this.budgetForm.name})
+              
             ),
             type: "success"
           });

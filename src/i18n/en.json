@@ -2,8 +2,20 @@
   "hiringplan": {
     "title": "Hiring Plan"
   },
+  "Update budget": "Update budget",
+  "Do you really want to delete this Budget?": "Do you really want to delete this Budget?",
+  "Budget {name} was updated": "Budget {name} was updated",
+  "Create an new budget": "Create an new budget",
+  "Warning": "Warning",
+  "Yes": "Yes",
+  "No": "No",
   "From": "From",
   "To": "To",
-  "Pick a day": "Pick a day"
-
+  "Pick a day": "Pick a day",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Budget": "Budget",
+  "Budget name can't be blank": "Budget name can't be blank",
+  "Too long": "Too long",
+  "Too short": "Too short"
 }

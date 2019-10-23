@@ -11,12 +11,12 @@
     <div v-else>
       <el-button
         type="primary"
-        class="Content__Button--Big"
+        class="Content__Button--big"
         icon="el-icon-circle-plus-outline"
         @click="createDialog = true"
       >Create your first budget</el-button>
     </div>
-    <el-dialog title="Create an new budget" :visible.sync="createDialog">
+    <el-dialog :title="$t('Create an new budget')" :visible.sync="createDialog">
       <budgetForm
         :budgetForm="budgetForm"
         @submitBudget="handleCreateBudget"
@@ -69,7 +69,4 @@ export default {
 </script>
 
 <style>
-.Content__Button--Big {
-  font-size: 30px;
-}
 </style>

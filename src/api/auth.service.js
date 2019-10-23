@@ -19,7 +19,6 @@ let AuthService = {
     })
     .then(response => {
       i18n.locale = response.data.user.defaultLanguage
-
       return response.data
     })
     .catch(err => {
@@ -38,6 +37,7 @@ let AuthService = {
       return UserResource.getMe()
     })
     .then(response => {
+      i18n.locale = response.data.user.defaultLanguage
       return response.data
     })
     .catch(err => {
@@ -71,6 +71,11 @@ let AuthService = {
     .then(response => {
       localStorage.setItem('accessToken', response.data.accessToken)
       localStorage.setItem('refreshToken', response.data.refreshToken)
+      //FIXME: the user can be retrieved in the storage ?
+      return UserResource.getMe()
+    })
+    .then(response => {
+      i18n.locale = response.data.user.defaultLanguage
       return response.data
     })
     .catch(err => {

@@ -2,7 +2,19 @@
   "hiringplan": {
     "title": "Plan d'embauche"
   },
+  "Update budget": "Mise à jour du budget",
+  "Do you really want to delete this Budget?": "Souhaitez vous vraiment supprimer ce budget ?",
+  "Budget {name} was updated": "Le budget {name} a été mis à jour",
+  "Warning": "Attention",
+  "Yes": "Oui",
+  "No": "Non",
   "From": "Début",
   "To": "Fin",
-  "Pick a day": "Choisir une date"
+  "Save": "Enregistrer",
+  "Cancel": "Annuler",
+  "Pick a day": "Choisir une date",
+  "Budget": "Budget",
+  "Budget name can't be blank": "Le budget doit être nommé",
+  "Too long": "Trop long",
+  "Too short": "Trop court"
 }

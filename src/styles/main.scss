@@ -124,18 +124,28 @@ $min-sider_width: 200px;
 .Content {
   color: #606266;
   &__ButtonContainer {
+    color: white;
     @extend .Content;
-    float: right;
     padding: 3px 0;
+    &--left {
+      @extend .Content__ButtonContainer;
+      margin-left: 15px;
+    }
   }
   &__Button {
+    color: white;
     @extend .Content;
-    float: right;
     padding: 3px 0;
     &--right {
       @extend .Content__Button;
       margin-left:10px;
     }
+    &--big {
+      @extend .Content__Button;
+      font-size: 30px;
+      padding: 10px;
+    }
+    
   }
   &__Form {
     @extend .Content;

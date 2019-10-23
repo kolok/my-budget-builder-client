@@ -1,8 +1,6 @@
 <template>
   <div class="Content__Select">
     <el-select
-      placeholder="Select a budget"
-      no-data-text="No budget"
       :value="activeBudgetID"
       @input="handleSelectBudget"
     >
