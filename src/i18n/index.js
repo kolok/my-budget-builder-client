@@ -16,9 +16,20 @@ const languages = {
   fr: fr,
 }
 
+class MyI18n extends VueI18n {
+  constructor(args) {
+    super(args)
+  }
+  
+  setLocale(locale) {
+    console.log("this",this)
+    this.locale = locale
+  }
+}
+
 const messages = Object.assign(languages)
 
-export const i18n = new VueI18n({
+export const i18n = new MyI18n({
   locale: defaultLocale, // set locale
   messages, // set locale messages
 })

@@ -5,7 +5,7 @@
         type="primary"
         @click="handleAddEmployee"
       >
-        Create a new employee
+        {{ $t('Create a new employee') }}
       </el-button>
     </template>
   </div>
@@ -18,7 +18,6 @@ export default {
     }
   },
   methods: {
-    /*eslint no-unused-vars: ["error", { "args": "none" }]*/
     handleAddEmployee: function() {
       this.$router.push('/employeeCreate')
     },

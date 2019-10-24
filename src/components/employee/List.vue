@@ -6,7 +6,7 @@
       :default-sort="{prop: 'name', order: 'descending'}"
       row-key="id"
       stripe
-      empty-text="No employee..."
+      :empty-text="$t('No employee...')"
       @selection-change="handleSelectionChange"
     >
       <el-table-column
@@ -16,17 +16,17 @@
       >
       </el-table-column>
       <el-table-column
-        label="Employee"
+        :label="$t('Employee')"
         prop="name"
         sortable
       />
       <el-table-column
-        label="Email"
+        :label="$t('Email')"
         prop="email"
         sortable
       />
       <el-table-column
-        label="Actions"
+        :label="$t('Actions')"
         fixed="right"
         width="120"
       >

@@ -1,6 +1,5 @@
 import HTTP from './common/http'
 import UserResource from './user.service'
-import { i18n } from '../i18n/index.js'
 
 /*
  * Service should be singleton,
@@ -15,10 +14,10 @@ let AuthService = {
     .then(res => {
       localStorage.setItem('accessToken', res.data.accessToken)
       localStorage.setItem('refreshToken', res.data.refreshToken)
+      //FIXME: the user can be retrieved in the storage ?
       return UserResource.getMe()
     })
     .then(response => {
-      i18n.locale = response.data.user.defaultLanguage
       return response.data
     })
     .catch(err => {
@@ -34,10 +33,10 @@ let AuthService = {
     .then(res => {
       localStorage.setItem('accessToken', res.data.accessToken)
       localStorage.setItem('refreshToken', res.data.refreshToken)
+      //FIXME: the user can be retrieved in the storage ?
       return UserResource.getMe()
     })
     .then(response => {
-      i18n.locale = response.data.user.defaultLanguage
       return response.data
     })
     .catch(err => {
@@ -75,7 +74,6 @@ let AuthService = {
       return UserResource.getMe()
     })
     .then(response => {
-      i18n.locale = response.data.user.defaultLanguage
       return response.data
     })
     .catch(err => {

@@ -16,7 +16,7 @@
           <EntityCreate />
         </el-tab-pane>
         <el-tab-pane
-          :label="$t('Manage teams')"
+          :label="$t('Teams')"
           name="teams"
         >
           <TeamTree />

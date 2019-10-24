@@ -49,7 +49,7 @@ export default {
   methods: {
     ...mapActions(["updateBudget", "getBudget", "getBudgets", "deleteBudget"]),
     handleDeleteBudget: function() {
-      this.$confirm(this.$t("Do you really want to delete this Budget?"), this.$t("Warning"), {
+      this.$confirm(this.$t("Do you really want to delete this budget?"), this.$t("Warning"), {
         confirmButtonText: this.$t("Yes"),
         cancelButtonText: this.$t("No"),
         type: "warning"

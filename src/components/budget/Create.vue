@@ -16,7 +16,7 @@
         @click="createDialog = true"
       >Create your first budget</el-button>
     </div>
-    <el-dialog :title="$t('Create an new budget')" :visible.sync="createDialog">
+    <el-dialog :title="$t('Create a new budget')" :visible.sync="createDialog">
       <budgetForm
         :budgetForm="budgetForm"
         @submitBudget="handleCreateBudget"

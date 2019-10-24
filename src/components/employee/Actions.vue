@@ -33,9 +33,9 @@ export default {
       this.$router.push("employees/" + employeeID);
     },
     handleDelete: function(employeeID) {
-      this.$confirm("Do you really want to delete this Employee?", "Warning", {
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+      this.$confirm(this.$t("Do you really want to delete this employee?"), this.$t("Warning"), {
+        confirmButtonText: this.$t("Yes"),
+        cancelButtonText: this.$t("No"),
         type: "warning"
       }).then(() => {
         this.deleteEmployee(employeeID);

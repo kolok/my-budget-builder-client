@@ -6,14 +6,14 @@
       :model="companyForm"
       label-width="250px"
     >
-      <el-form-item label="Company name">
+      <el-form-item :label="$t('Company name')">
         <el-input v-model="companyForm.name" />
       </el-form-item>
 
-      <el-form-item label="Fiscal year start month">
+      <el-form-item :label="$t('Fiscal year start month')">
         <el-select
           v-model="companyForm.firstMonthFiscalYear"
-          placeholder="Select"
+          :placeholder="$t('Select')"
         >
           <el-option
             v-for="item in options"
@@ -24,10 +24,10 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Currency">
+      <el-form-item :label="$t('Currency')">
         <el-select
           v-model="companyForm.defaultCurrencyID"
-          placeholder="Select a currency"
+          :placeholder="$t('Select a currency')"
         >
           <el-option
             v-for="currency in currencies"
@@ -40,11 +40,11 @@
 
       <el-form-item
         prop="subdomain"
-        label="Pipauls sub-domain"
+        :label="$t('Pipauls sub-domain')"
       >
         <el-input
           v-model="companyForm.subdomain"
-          placeholder="subdomain"
+          :placeholder="$t('sub-domain')"
           class="Content__Input--Inactive"
           :disabled="true"
         />
@@ -79,40 +79,40 @@ export default {
       'companyForm': {},
       options: [{
         value: '1',
-        label: 'January'
+        label: this.$t('January'),
       }, {
         value: '2',
-        label: 'February'
+        label: this.$t('February'),
       }, {
         value: '3',
-        label: 'March'
+        label: this.$t('March'),
       }, {
         value: '4',
-        label: 'April'
+        label: this.$t('April'),
       }, {
         value: '5',
-        label: 'May'
+        label: this.$t('May'),
       }, {
         value: '6',
-        label: 'June'
+        label: this.$t('June'),
       }, {
         value: '7',
-        label: 'July'
+        label: this.$t('July'),
       }, {
         value: '8',
-        label: 'August'
+        label: this.$t('August'),
       }, {
         value: '9',
-        label: 'September'
+        label: this.$t('September'),
       }, {
         value: '10',
-        label: 'October'
+        label: this.$t('October'),
       }, {
         value: '11',
-        label: 'November'
+        label: this.$t('November'),
       }, {
         value: '12',
-        label: 'December'
+        label: this.$t('December'),
       }],
       value: ''
     }
@@ -144,16 +144,16 @@ export default {
         .then(() => {
           const h = this.$createElement
           this.$notify({
-            title: 'Company update',
-            message: h('i', { style: 'color: teal' }, 'company ' + this.companyForm.name + ' was updated'),
+            title: this.$t('Company update'),
+            message: h('i', { style: 'color: teal' }, this.$t('company {name} was updated', this.companyForm.name)),
             type: 'success'
           })
         })
         .catch(e => {
           const h = this.$createElement
           this.$notify({
-            title: 'Company update',
-            message: h('i', { style: 'color: red' }, 'something went wrong, the company wasn\'t updated'),
+            title: this.$t('Company update'),
+            message: h('i', { style: 'color: red' }, this.$t('something went wrong, the company wasn\'t updated')),
             type: 'error'
           })
           console.log(e)

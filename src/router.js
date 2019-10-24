@@ -28,9 +28,12 @@ let router = new VueRouter({
   ]
 })
 
+import { i18n } from './i18n/index.js'
+
 router.beforeEach((to, from, next) => {
   // FIXME: Start our vue-progressbar ?
   //router.app.$Progress.start()
+
 
   // To set the title of each route
   document.title = to.meta.title
@@ -43,6 +46,11 @@ router.beforeEach((to, from, next) => {
   if (!store.getters.isAuthenticated) {
     return next('/login')
   }
+
+  // FIXME: take the browser language by default
+  // Set the language to use
+  i18n.setLocale(store.getters.getCurrentUser.defaultLanguage)
+
   // If user is authenticated and page doesn't define roles, accept.
   if(!to.meta.roles) {
     return next()
