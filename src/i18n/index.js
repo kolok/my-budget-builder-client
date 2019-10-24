@@ -6,6 +6,10 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 
+import elementFR from 'element-ui/lib/locale/lang/fr';
+import elementEN from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
+
 import en from './en.json'
 import fr from './fr.json'
 
@@ -21,9 +25,14 @@ class MyI18n extends VueI18n {
     super(args)
   }
   
-  setLocale(locale) {
-    console.log("this",this)
-    this.locale = locale
+  setLocale(newLocale) {
+    this.locale = newLocale
+    switch (newLocale) {
+      case 'fr':
+        locale.use(elementFR)
+      default:
+        locale.use(elementEN)
+    }
   }
 }
 
