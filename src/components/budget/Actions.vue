@@ -1,26 +1,12 @@
 <template>
   <div class="Content__ButtonContainer--left">
-    <el-button
-      @click="handleEditBudget()"
-      circle
-      class="Content__Button"
-      icon="el-icon-edit"
-      size="mini"
-      type="primary"
-    />
-    <el-button
-      @click="handleDeleteBudget()"
-      circle
-      class="Content__Button"
-      icon="el-icon-delete"
-      size="mini"
-      type="danger"
-    />
+    <mini-edit-button :actionFunc="handleEditBudget" />
+    <mini-delete-button :actionFunc="handleDeleteBudget" />
     <el-dialog
       :visible.sync="updateDialog"
       :title="$t('Update budget')"
     >
-      <budgetForm
+      <BudgetForm
         :budgetForm="budgetForm"
         @cancel="handleCancel"
         @submitBudget="handleUpdateBudget"
@@ -31,11 +17,15 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import budgetForm from "./form/Form.vue";
+import BudgetForm from "./Form.vue";
+import MiniEditButton from "../button/miniEdit.vue";
+import MiniDeleteButton from "../button/miniDelete.vue";
 
 export default {
   components: {
-    budgetForm
+    BudgetForm,
+    MiniEditButton,
+    MiniDeleteButton,
   },
   data() {
     return {

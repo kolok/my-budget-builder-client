@@ -2,13 +2,18 @@
   <div>
     <el-table
       :data="users"
-      class="Content__Table"
       :default-sort="{prop: 'name', order: 'descending'}"
-      row-key="id"
-      border
-      default-collapse-all
+      @selection-change="handleSelectionChange"
+      class="Content__Table"
       empty-text="No user..."
+      row-key="id"
+      stripe
     >
+      <el-table-column
+        fixed
+        type="selection"
+        width="55"
+      />
       <el-table-column
         label="User"
         prop="name"
@@ -20,12 +25,12 @@
         sortable
       />
       <el-table-column
-        label="Default Language"
+        label="Language"
         prop="defaultLanguage"
         sortable
       />
       <el-table-column
-        label="nb of login"
+        label="Nb of login"
         prop="loginCount"
         sortable
       />
@@ -38,37 +43,30 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Actions"
+        :label="$t('Actions')"
+        fixed="right"
+        width="120"
       >
         <template slot-scope="scope">
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            size="mini"
-            @click="handleEdit(scope.row.id)"
-          >
-            Edit
-          </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row.id)"
-          >
-            Delete
-          </el-button>
+          <user-actions :userID="scope.row.id" />
         </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
+
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import UserActions from './Actions.vue'
 
 export default {
+  components: {
+    UserActions,
+  },
   data() {
     return {
       loading: true,
+      multipleSelection: [],
     }
   },
   computed: {
@@ -80,21 +78,17 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['deleteUser']),
     getRole: function(userCompanies) {
-      return userCompanies[0].role
+      switch (userCompanies[0].role) {
+        case "client_admin": 
+          return "Administrator"
+        default: 
+         return "Client user"
+      }
     },
-    handleEdit: function(userID) {
-      this.$router.push('users/' + userID)
-    },
-    handleDelete: function(userID) {
-      this.$confirm('Do you really want to delete this User?', 'Warning', {
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        type: 'warning'
-      }).then(() => {
-        this.deleteUser(userID)
-      })
+    handleSelectionChange: function(val) {
+      this.multipleSelection = val
+      console.log(val)
     },
   }
 }

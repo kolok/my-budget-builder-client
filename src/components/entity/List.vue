@@ -2,13 +2,18 @@
   <div>
     <el-table
       :data="entities"
-      class="Content__Table"
       :default-sort="{prop: 'name', order: 'descending'}"
-      row-key="id"
-      border
-      default-collapse-all
       :empty-text="$t('No entity...')"
+      @selection-change="handleSelectionChange"
+      class="Content__Table"
+      row-key="id"
+      stripe
     >
+      <el-table-column
+        fixed
+        type="selection"
+        width="55"
+      />
       <el-table-column
         :label="$t('Entity')"
         prop="name"
@@ -45,6 +50,8 @@
       </el-table-column>
       <el-table-column
         :label="$t('Actions')"
+        fixed="right"
+        width="120"
       >
         <template slot-scope="scope">
           <EntityEdit :entity-form="scope.row" />
@@ -67,6 +74,7 @@ export default {
   data() {
     return {
       loading: true,
+      multipleSelection: [],
     }
   },
   computed: {
@@ -89,7 +97,11 @@ export default {
     },
     getOfficeNames: function(offices) {
       return offices.map( office => office.name).join(', ')
-    }
+    },
+    handleSelectionChange: function(val) {
+      this.multipleSelection = val
+      console.log(val)
+    },
   }
 }
 </script>

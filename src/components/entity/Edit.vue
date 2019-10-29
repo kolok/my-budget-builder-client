@@ -1,30 +1,8 @@
 <template>
   <div>
-    <template>
-      <el-button
-        type="primary"
-        icon="el-icon-edit"
-        size="mini"
-        @click="addDialog = true"
-      >
-        {{ $t('Edit') }}
-      </el-button>
-    </template>
-    <template>
-      <el-button
-        size="mini"
-        type="danger"
-        icon="el-icon-delete"
-        @click="handleDelete()"
-      >
-        {{ $t('Delete') }}
-      </el-button>
-    </template>
-
-    <el-dialog
-      :title="$t('Create an entity')"
-      :visible.sync="addDialog"
-    >
+    <mini-edit-button :actionFunc="displayAddDialog" />
+    <mini-delete-button :actionFunc="handleDelete" />
+    <el-dialog :title="$t('Create an entity')" :visible.sync="addDialog">
       <el-form
         ref="entityForm"
         :model="entityForm"
@@ -32,67 +10,34 @@
         label-width="250px"
         class="Dialog__Form"
       >
-        <el-form-item
-          prop="name"
-          :label="$t('Entity')"
-        >
-          <el-input
-            v-model="entityForm.name"
-            autocomplete="off"
-          />
+        <el-form-item prop="name" :label="$t('Entity')">
+          <el-input v-model="entityForm.name" autocomplete="off" />
         </el-form-item>
-        <el-form-item
-          :label="$t('Country')"
-          prop="countryID"
-        >
-          <el-select
-            v-model="entityForm.countryID"
-            :placeholder="$t('Select a country')"
-          >
-            <el-option
-              v-for="country in countries"
-              :key="country.id"
-              :label="country.name"
-              :value="country.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="$t('Currency')"
-          prop="defaultCurrencyID"
-        >
-          <el-select
-            v-model="entityForm.defaultCurrencyID"
-            :placeholder="$t('Select a currency')"
-          >
-            <el-option
-              v-for="currency in currencies"
-              :key="currency.id"
-              :label="currency.longName"
-              :value="currency.id"
-            />
-          </el-select>
-        </el-form-item>
+        <CountrySelect :form="entityForm" />
+        <CurrencySelect :form="entityForm" />
       </el-form>
-      <span
-        slot="footer"
-      >
+      <span slot="footer">
         <el-button @click="handleCancel('entityForm')">{{ $t('Cancel') }}</el-button>
-        <el-button
-          type="primary"
-          @click="handleEdit('entityForm')"
-        >
-          {{ $t('Save') }}
-        </el-button>
+        <el-button type="primary" @click="handleEdit('entityForm')">{{ $t('Save') }}</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
+import CountrySelect from "../form/countrySelect.vue";
+import CurrencySelect from "../form/currencySelect.vue";
+import MiniEditButton from "../button/miniEdit.vue";
+import MiniDeleteButton from "../button/miniDelete.vue";
 
 export default {
+  components: {
+    CountrySelect,
+    CurrencySelect,
+    MiniEditButton,
+    MiniDeleteButton
+  },
   props: {
     entityForm: {
       type: Object,
@@ -104,54 +49,62 @@ export default {
       addDialog: false,
       entityRule: {
         name: [
-          { required: true, message: this.$t('Entity name can\'t be blank') },
-          { max:25, message: this.$t('Too long')},
-          { min:3, message: this.$t('Too short')}
+          { required: true, message: this.$t("Entity name can't be blank") },
+          { max: 25, message: this.$t("Too long") },
+          { min: 3, message: this.$t("Too short") }
         ],
         countryID: [
-          { required: true, message: this.$t('A country should be selected') }
+          { required: true, message: this.$t("A country should be selected") }
         ],
         defaultCurrencyID: [
-          { required: true, message: this.$t('A currency should be selected') }
+          { required: true, message: this.$t("A currency should be selected") }
         ]
       }
-    }
+    };
   },
   computed: {
-    ...mapGetters(['currencies', 'countries'])
+    ...mapGetters(["currencies", "countries"])
   },
   methods: {
-    ...mapActions(['updateEntity', 'deleteEntity']),
+    ...mapActions(["updateEntity", "deleteEntity"]),
     /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-    handleEdit: function(formName) { // Create entity
-      this.$refs[formName].validate((valid) => {
+    handleEdit: function(formName) {
+      // Create entity
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.updateEntity(this.entityForm)
             .then(response => {
-              this.addDialog = false
+              this.addDialog = false;
             })
             .catch(e => {
-              console.log(e)
-            })
+              console.log(e);
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     },
-    handleCancel: function(formName){
-      this.$refs[formName].resetFields()
-      this.addDialog = false
+    handleCancel: function(formName) {
+      this.$refs[formName].resetFields();
+      this.addDialog = false;
     },
     handleDelete() {
-      this.$confirm(this.$t('Do you really want to delete this Entity?'), this.$t('Warning'), {
-        confirmButtonText: this.$t('Yes'),
-        cancelButtonText: this.$t('No'),
-        type: 'warning'
-      }).then(() => {
-        this.deleteEntity(this.entityForm.id)
-      })
+      this.$confirm(
+        this.$t("Do you really want to delete this Entity?"),
+        this.$t("Warning"),
+        {
+          confirmButtonText: this.$t("Yes"),
+          cancelButtonText: this.$t("No"),
+          type: "warning"
+        }
+      ).then(() => {
+        this.deleteEntity(this.entityForm.id);
+      });
+    },
+    displayAddDialog() {
+      this.addDialog = true;
     }
   }
-}
+};
 </script>

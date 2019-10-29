@@ -29,38 +29,8 @@
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item
-          :label="$t('Country')"
-          prop="countryID"
-        >
-          <el-select
-            v-model="entityForm.countryID"
-            :placeholder="$t('Select a country')"
-          >
-            <el-option
-              v-for="country in countries"
-              :key="country.id"
-              :label="country.name"
-              :value="country.id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="$t('Currency')"
-          prop="defaultCurrencyID"
-        >
-          <el-select
-            v-model="entityForm.defaultCurrencyID"
-            :placeholder="$t('Select a currency')"
-          >
-            <el-option
-              v-for="currency in currencies"
-              :key="currency.id"
-              :label="currency.longName"
-              :value="currency.id"
-            />
-          </el-select>
-        </el-form-item>
+        <CountrySelect :form="entityForm"/>
+        <CurrencySelect :form="entityForm"/>
       </el-form>
       <span
         slot="footer"
@@ -77,8 +47,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import CountrySelect from '../form/countrySelect.vue'
+import CurrencySelect from '../form/currencySelect.vue'
 
 export default {
+  components: {
+    CountrySelect,
+    CurrencySelect,
+  },
   data() {
     return {
       currencyList: [],

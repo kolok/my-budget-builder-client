@@ -24,19 +24,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('Currency')">
-        <el-select
-          v-model="companyForm.defaultCurrencyID"
-          :placeholder="$t('Select a currency')"
-        >
-          <el-option
-            v-for="currency in currencies"
-            :key="currency.id"
-            :label="currency.longName"
-            :value="currency.id"
-          />
-        </el-select>
-      </el-form-item>
+      <CurrencySelect :form="companyForm" />
 
       <el-form-item
         prop="subdomain"
@@ -64,10 +52,14 @@
 </template>
 
 <script>
-import CompanyResource from '../../api/company.service'
 import { mapActions, mapGetters } from 'vuex'
+import CompanyResource from '../../api/company.service'
+import CurrencySelect from '../form/currencySelect.vue'
 
 export default {
+  components: {
+    CurrencySelect,
+  },
   props: {
     'id': {
       type: Number,
@@ -145,7 +137,7 @@ export default {
           const h = this.$createElement
           this.$notify({
             title: this.$t('Company update'),
-            message: h('i', { style: 'color: teal' }, this.$t('company {name} was updated', this.companyForm.name)),
+            message: h('i', { style: 'color: teal' }, this.$t("company {name} was updated", { name: this.companyForm.name } )),
             type: 'success'
           })
         })

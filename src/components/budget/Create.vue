@@ -1,12 +1,7 @@
 <template>
   <div class="Content__Button--light">
     <div v-if="existsBudgets">
-      <el-button
-        type="text"
-        icon="el-icon-circle-plus-outline"
-        style="font-size:30px;"
-        @click="createDialog = true"
-      />
+      <mini-add-button :actionFunc="displayCreateDialog" />
     </div>
     <div v-else>
       <el-button
@@ -14,10 +9,10 @@
         class="Content__Button--big"
         icon="el-icon-circle-plus-outline"
         @click="createDialog = true"
-      >Create your first budget</el-button>
+      >{{ $t('Create your first budget') }}</el-button>
     </div>
     <el-dialog :title="$t('Create a new budget')" :visible.sync="createDialog">
-      <budgetForm
+      <budget-form
         :budgetForm="budgetForm"
         @submitBudget="handleCreateBudget"
         @cancel="handleCancel"
@@ -27,12 +22,14 @@
 </template>
 
 <script>
-import budgetForm from "./form/Form.vue";
+import BudgetForm from "./Form.vue";
 import { mapActions } from "vuex";
+import MiniAddButton from "../button/miniAdd.vue";
 
 export default {
   components: {
-    budgetForm
+    BudgetForm,
+    MiniAddButton,
   },
   props: {
     existsBudgets: Boolean
@@ -63,10 +60,10 @@ export default {
     },
     handleCancel: function() {
       this.createDialog = false;
-    }
+    },
+    displayCreateDialog: function() {
+      this.createDialog = true
+    },
   }
 };
 </script>
-
-<style>
-</style>

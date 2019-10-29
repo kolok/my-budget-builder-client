@@ -31,7 +31,7 @@
         width="120"
       >
         <template slot-scope="scope">
-          <employeeActions :employeeID="scope.row.id" />
+          <employee-actions :employeeID="scope.row.id" />
         </template>
       </el-table-column>
     </el-table>
@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import employeeActions from './Actions.vue'
 import { mapGetters } from 'vuex'
+import EmployeeActions from './Actions.vue'
 
 export default {
   components: {
-    employeeActions,
+    EmployeeActions,
   },
   data() {
     return {
@@ -64,7 +64,7 @@ export default {
     handleSelectionChange: function(val) {
       this.multipleSelection = val
       console.log(val)
-    }
+    },
   }
 }
 </script>

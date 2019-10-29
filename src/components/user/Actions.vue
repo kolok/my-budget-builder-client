@@ -16,7 +16,7 @@ export default {
     MiniDeleteButton,
   },
   props: {
-    employeeID: {
+    userID: {
       type: Number,
       required: true
     }
@@ -24,16 +24,16 @@ export default {
   methods: {
     ...mapActions(["deleteEmployee"]),
     handleEdit: function() {
-      this.$router.push("employees/" + this.employeeID);
+      this.$router.push('users/' + this.userID)
     },
     handleDelete: function() {
-      this.$confirm(this.$t("Do you really want to delete this employee?"), this.$t("Warning"), {
-        confirmButtonText: this.$t("Yes"),
-        cancelButtonText: this.$t("No"),
-        type: "warning"
+      this.$confirm('Do you really want to delete this User?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        type: 'warning'
       }).then(() => {
-        this.deleteEmployee(this.employeeID);
-      });
+        this.deleteUser(this.userID)
+      })
     },
   }
 };

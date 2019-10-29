@@ -13,14 +13,6 @@
           class="Content__CardHeader"
         >
           <span>{{ item.name }}</span>
-          <div class="Content__ButtonContainer">
-            <el-button
-              class="Content__Button"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDeleteOffice(item)"
-            />
-          </div>
           <EditOffice :office-form="item" />
         </div>
         <div
@@ -61,23 +53,5 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-    }
-  },
-  computed: {
-  },
-  methods: {
-    ...mapActions(['deleteOffice']),
-    handleDeleteOffice(office) {
-      this.$confirm(this.$t('Do you really want to delete this Office?'), this.$t('Warning'), {
-        confirmButtonText: this.$t('Yes'),
-        cancelButtonText: this.$t('No'),
-        type: 'warning'
-      }).then(() => {
-        this.deleteOffice(office.id)
-      })
-    }
-  }
 }
 </script>

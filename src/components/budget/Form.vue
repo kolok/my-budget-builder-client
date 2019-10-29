@@ -17,7 +17,7 @@
             autocomplete="off"
           />
         </el-form-item>
-        <budgetDatesForm :budgetForm="budgetForm" />
+        <BudgetDates :budgetForm="budgetForm" />
       </el-form>
       <span
         slot="footer"
@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import budgetDatesForm from './DatesForm.vue'
+import BudgetDates from '../form/budgetDates.vue'
 
 export default {
   components: {
-    budgetDatesForm,
+    BudgetDates,
   },
   props: {
     budgetForm: {

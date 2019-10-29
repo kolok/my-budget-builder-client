@@ -67,23 +67,7 @@
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item
-          :label="$t('Country')"
-          prop="countryID"
-        >
-          <el-select
-            v-model="officeForm.countryID"
-            :placeholder="$t('Select a country')"
-            filterable
-          >
-            <el-option
-              v-for="country in countries"
-              :key="country.id"
-              :label="country.name"
-              :value="country.id"
-            />
-          </el-select>
-        </el-form-item>
+        <CountrySelect :form="officeForm"/>
       </el-form>
       <span
         slot="footer"
@@ -101,8 +85,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import CountrySelect from '../form/countrySelect.vue'
 
 export default {
+  components: {
+    CountrySelect,
+  },
   props: {
     entityID: {
       type: Number,
