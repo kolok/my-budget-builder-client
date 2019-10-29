@@ -6,7 +6,7 @@
           slot="header"
           class="Content__CardHeader--italic"
         >
-          <span>Create a new Office</span>
+          <span>{{ $t('Create a new Office') }}</span>
         </div>
         <div
           class="Content__CardButtonContainer"
@@ -21,7 +21,7 @@
       </el-card>
     </template>
     <el-dialog
-      title="Create an office"
+      :title="$t('Create an office')"
       :visible.sync="addOfficeDialog"
     >
       <el-form
@@ -33,7 +33,7 @@
       >
         <el-form-item
           prop="name"
-          label="Office"
+          :label="$t('Office')"
         >
           <el-input
             v-model="officeForm.name"
@@ -42,7 +42,7 @@
         </el-form-item>
         <el-form-item
           prop="address"
-          label="Address"
+          :label="$t('Address')"
         >
           <el-input
             v-model="officeForm.address"
@@ -51,7 +51,7 @@
         </el-form-item>
         <el-form-item
           prop="zipcode"
-          label="Zipcode"
+          :label="$t('Zipcode')"
         >
           <el-input
             v-model="officeForm.zipcode"
@@ -60,7 +60,7 @@
         </el-form-item>
         <el-form-item
           prop="town"
-          label="Town"
+          :label="$t('Town')"
         >
           <el-input
             v-model="officeForm.town"
@@ -68,12 +68,12 @@
           />
         </el-form-item>
         <el-form-item
-          label="Country"
+          :label="$t('Country')"
           prop="countryID"
         >
           <el-select
             v-model="officeForm.countryID"
-            placeholder="Select a country"
+            :placeholder="$t('Select a country')"
             filterable
           >
             <el-option
@@ -89,11 +89,11 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="handleCancel('officeForm')">Cancel</el-button>
+        <el-button @click="handleCancel('officeForm')">{{ $t('Cancel') }}</el-button>
         <el-button
           type="primary"
           @click="handleCreateOffice('officeForm')"
-        >Save</el-button>
+        >{{ $t('Save') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -123,24 +123,24 @@ export default {
       addOfficeDialog: false,
       officeRule: {
         name: [
-          { required: true, message: 'Office name can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Office name can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ],
         address: [
-          { required: true, message: 'Address can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Address can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ],
         zipcode: [
-          { required: true, message: 'Zipcode can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Zipcode can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ],
         town: [
-          { required: true, message: 'Town can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Town can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ]
       }
     }

@@ -7,7 +7,7 @@
         size="mini"
         @click="addDialog = true"
       >
-        Edit
+        {{ $t('Edit') }}
       </el-button>
     </template>
     <template>
@@ -17,12 +17,12 @@
         icon="el-icon-delete"
         @click="handleDelete()"
       >
-        Delete
+        {{ $t('Delete') }}
       </el-button>
     </template>
 
     <el-dialog
-      title="Create an entity"
+      :title="$t('Create an entity')"
       :visible.sync="addDialog"
     >
       <el-form
@@ -34,7 +34,7 @@
       >
         <el-form-item
           prop="name"
-          label="Entity"
+          :label="$t('Entity')"
         >
           <el-input
             v-model="entityForm.name"
@@ -42,12 +42,12 @@
           />
         </el-form-item>
         <el-form-item
-          label="Country"
+          :label="$t('Country')"
           prop="countryID"
         >
           <el-select
             v-model="entityForm.countryID"
-            placeholder="Select a country"
+            :placeholder="$t('Select a country')"
           >
             <el-option
               v-for="country in countries"
@@ -58,12 +58,12 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          label="Currency"
+          :label="$t('Currency')"
           prop="defaultCurrencyID"
         >
           <el-select
             v-model="entityForm.defaultCurrencyID"
-            placeholder="Select a currency"
+            :placeholder="$t('Select a currency')"
           >
             <el-option
               v-for="currency in currencies"
@@ -77,12 +77,12 @@
       <span
         slot="footer"
       >
-        <el-button @click="handleCancel('entityForm')">Cancel</el-button>
+        <el-button @click="handleCancel('entityForm')">{{ $t('Cancel') }}</el-button>
         <el-button
           type="primary"
           @click="handleEdit('entityForm')"
         >
-          Save
+          {{ $t('Save') }}
         </el-button>
       </span>
     </el-dialog>
@@ -104,15 +104,15 @@ export default {
       addDialog: false,
       entityRule: {
         name: [
-          { required: true, message: 'Entity name can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Entity name can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ],
         countryID: [
-          { required: true, message: 'A country should be selected' }
+          { required: true, message: this.$t('A country should be selected') }
         ],
         defaultCurrencyID: [
-          { required: true, message: 'A currency should be selected' }
+          { required: true, message: this.$t('A currency should be selected') }
         ]
       }
     }
@@ -144,9 +144,9 @@ export default {
       this.addDialog = false
     },
     handleDelete() {
-      this.$confirm('Do you really want to delete this Entity?', 'Warning', {
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
+      this.$confirm(this.$t('Do you really want to delete this Entity?'), this.$t('Warning'), {
+        confirmButtonText: this.$t('Yes'),
+        cancelButtonText: this.$t('No'),
         type: 'warning'
       }).then(() => {
         this.deleteEntity(this.entityForm.id)

@@ -7,10 +7,10 @@
       row-key="id"
       border
       default-collapse-all
-      empty-text="No entity..."
+      :empty-text="$t('No entity...')"
     >
       <el-table-column
-        label="Entity"
+        :label="$t('Entity')"
         prop="name"
         sortable
       />
@@ -20,7 +20,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Country"
+        :label="$t('Country')"
         sortable
       >
         <template slot-scope="props">
@@ -28,7 +28,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Currency"
+        :label="$t('Currency')"
         sortable
       >
         <template slot-scope="props">
@@ -36,7 +36,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Offices"
+        :label="$t('Offices')"
         sortable
       >
         <template slot-scope="props">
@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Actions"
+        :label="$t('Actions')"
       >
         <template slot-scope="scope">
           <EntityEdit :entity-form="scope.row" />

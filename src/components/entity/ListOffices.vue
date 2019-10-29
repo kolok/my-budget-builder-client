@@ -70,9 +70,9 @@ export default {
   methods: {
     ...mapActions(['deleteOffice']),
     handleDeleteOffice(office) {
-      this.$confirm('Do you really want to delete this Office?', 'Warning', {
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
+      this.$confirm(this.$t('Do you really want to delete this Office?'), this.$t('Warning'), {
+        confirmButtonText: this.$t('Yes'),
+        cancelButtonText: this.$t('No'),
         type: 'warning'
       }).then(() => {
         this.deleteOffice(office.id)

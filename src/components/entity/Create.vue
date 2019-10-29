@@ -5,12 +5,12 @@
         type="primary"
         @click="createDialog = true"
       >
-        Create a new entity
+        {{ $t('Create a new entity') }}
       </el-button>
     </template>
 
     <el-dialog
-      title="Create an entity"
+      :title="$t('Create an entity')"
       :visible.sync="createDialog"
     >
       <el-form
@@ -22,7 +22,7 @@
       >
         <el-form-item
           prop="name"
-          label="Entity"
+          :label="$t('Entity')"
         >
           <el-input
             v-model="entityForm.name"
@@ -30,12 +30,12 @@
           />
         </el-form-item>
         <el-form-item
-          label="Country"
+          :label="$t('Country')"
           prop="countryID"
         >
           <el-select
             v-model="entityForm.countryID"
-            placeholder="Select a country"
+            :placeholder="$t('Select a country')"
           >
             <el-option
               v-for="country in countries"
@@ -46,12 +46,12 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          label="Currency"
+          :label="$t('Currency')"
           prop="defaultCurrencyID"
         >
           <el-select
             v-model="entityForm.defaultCurrencyID"
-            placeholder="Select a currency"
+            :placeholder="$t('Select a currency')"
           >
             <el-option
               v-for="currency in currencies"
@@ -65,11 +65,11 @@
       <span
         slot="footer"
       >
-        <el-button @click="handleCancel">Cancel</el-button>
+        <el-button @click="handleCancel">{{ $t('Cancel') }}</el-button>
         <el-button
           type="primary"
           @click="handleCreateEntity('entityForm')"
-        >Save</el-button>
+        >{{ $t('Save') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -90,15 +90,15 @@ export default {
       },
       entityRule: {
         name: [
-          { required: true, message: 'Entity name can\'t be blank' },
-          { max:25, message: 'Too long'},
-          { min:3, message: 'Too short'}
+          { required: true, message: this.$t('Entity name can\'t be blank') },
+          { max:25, message: this.$t('Too long')},
+          { min:3, message: this.$t('Too short')}
         ],
         countryID: [
-          { required: true, message: 'A country should be selected' }
+          { required: true, message: this.$t('A country should be selected') }
         ],
         defaultCurrencyID: [
-          { required: true, message: 'A currency should be selected' }
+          { required: true, message: this.$t('A currency should be selected') }
         ]
       }
     }
