@@ -145,7 +145,7 @@ export default {
           const h = this.$createElement
           this.$notify({
             title: this.$t('Company update'),
-            message: h('i', { style: 'color: red' }, this.$t('something went wrong, the company wasn\'t updated')),
+            message: h('i', { style: 'color: red' }, this.$t('Something went wrong! the company wasn\'t updated')),
             type: 'error'
           })
           console.log(e)

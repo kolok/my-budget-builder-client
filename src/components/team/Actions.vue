@@ -101,7 +101,7 @@ export default {
             message: h(
               "i",
               { style: "color: red" },
-              this.$t("Something went wrong, the team wasn't moved")
+              this.$t("Something went wrong! the team wasn't moved")
             ),
             type: "error"
           });

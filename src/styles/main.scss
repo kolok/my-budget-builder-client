@@ -132,9 +132,14 @@ $min-sider_width: 200px;
       margin-left: 15px;
     }
   }
-  &__Button {
-    color: white;
+  &__DoubleButton {
     @extend .Content;
+    display:flex;
+    align-items:center;
+  }
+  &__Button {
+    @extend .Content;
+    color: white;
     padding: 3px 0;
     &--right {
       @extend .Content__Button;

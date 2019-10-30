@@ -22,7 +22,7 @@
       </el-form-item>
     </el-form>
     <span slot="footer">
-      <el-button @click="handleCancel">Cancel</el-button>
+      <el-button @click="handleCancel">{{ $t('Cancel') }}</el-button>
       <el-button type="primary" @click="submitForm('teamForm', false)">{{ $t('Save and continue') }}</el-button>
       <el-button type="primary" @click="submitForm('teamForm', true)">{{ $t('Save and close') }}</el-button>
     </span>

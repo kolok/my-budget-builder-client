@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input v-model="search" class="Content__Input--Search" :placeholder="$t<('Type to search')" />
-    <div style="display:flex;align-items:center;">
+    <div class="Content__DoubleButton">
       <mini-add-button :actionFunc="showCreateDialog" />
       <el-button
         type="text"
@@ -63,23 +63,16 @@ export default {
         name: "",
         parentTeamID: ""
       },
-      teamRule: {
-        name: [
-          { required: true, message: "Team name can't be blank" },
-          { max: 25, message: "Too long" },
-          { min: 3, message: "Too short" }
-        ]
-      }
     };
   },
   computed: {
-    ...mapGetters(["teams", "teamTree", "teamTreeSelector"])
+    ...mapGetters(["teamTree"])
   },
   created() {
     this.$store.dispatch("getTeams");
   },
   methods: {
-    ...mapActions(["createTeam", "deleteTeam", "updateTeam", "getTeams"]),
+    ...mapActions(["createTeam", "updateTeam", "getTeams"]),
     handleDrop(draggingNode, dropNode, dropType) {
       var node = draggingNode.data;
       if (dropType == "inner") {
@@ -92,11 +85,11 @@ export default {
         .then(() => {
           const h = this.$createElement;
           this.$notify({
-            title: "Move team",
+            title: this.$t("Team moved"),
             message: h(
               "i",
               { style: "color: teal" },
-              "team " + node.name + " was moved"
+              this.$t("team {name} was moved", { name: node.name })
             ),
             type: "success"
           });
@@ -104,11 +97,11 @@ export default {
         .catch(e => {
           const h = this.$createElement;
           this.$notify({
-            title: "Move team",
+            title: this.$t("Team moved"),
             message: h(
               "i",
               { style: "color: red" },
-              "something went wrong, the team wasn't moved"
+              this.$t("Something went wrong! the team wasn't moved")
             ),
             type: "error"
           });
@@ -147,8 +140,6 @@ export default {
      */
 
     showCreateDialog(parentTeamID) {
-            console.log('showCreateDialog', parentTeamID)
-
       if (parentTeamID !== undefined) {
         this.teamForm.parentTeamID = parentTeamID;
       }

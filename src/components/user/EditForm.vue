@@ -121,7 +121,7 @@ export default {
             .then( () => {
               const h = this.$createElement
               this.$notify({
-                title: 'Update user',
+                title: this.$t('Update user'),
                 message: h('i', { style: 'color: teal' }, 'user ' + this.userForm.name + ' was updated'),
                 type: 'success'
               })
