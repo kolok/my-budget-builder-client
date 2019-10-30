@@ -3,6 +3,15 @@
     "title": "Hiring Plan"
   },
   "A country should be selected": "A country should be selected",
+
+  "Update team": "Update team",
+  "Team": "Team",
+  "Parent Team": "Parent Team",
+  "Select a parent team": "Select a parent team",
+  "Team name can't be blank": "Team name can't be blank",
+  "Team {name} was updated": "Team {name} was updated",
+  "Something went wrong, the team wasn't moved": "Something went wrong, the team wasn't moved",
+
   "A currency should be selected": "A currency should be selected",
   "Account": "Account",
   "Actions": "Actions",

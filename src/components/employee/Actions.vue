@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import MiniEditButton from "../button/miniEdit.vue";
 import MiniDeleteButton from "../button/miniDelete.vue";
 

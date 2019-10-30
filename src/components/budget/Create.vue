@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import BudgetForm from "./Form.vue";
 import { mapActions } from "vuex";
+import BudgetForm from "./Form.vue";
 import MiniAddButton from "../button/miniAdd.vue";
 
 export default {

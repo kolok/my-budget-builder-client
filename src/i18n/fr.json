@@ -3,6 +3,15 @@
     "title": "Plan d'embauche"
   },
   "A country should be selected": "Le pays est requis",
+
+  "Update team": "Equipe mis à jour",
+  "Team": "Equipe",
+  "Parent Team": "Equipe parente",
+  "Select a parent team": "Selectionner une équipe parent",
+  "Team name can't be blank": "Le nom de l'équipe ne peut pas être vide",
+  "Team {name} was updated": "L'équipe {name} a été mis à jour",
+  "Something went wrong, the team wasn't moved": "Quelques chose c'est mal passé, l'équipe n'a pas été mis à jour",
+
   "A currency should be selected": "La devise est requise",
   "Account": "Compte",
   "Actions": "Actions",

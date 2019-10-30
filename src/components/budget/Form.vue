@@ -30,7 +30,6 @@
           @click="submitBudget('budgetForm')"
         >{{ $t('Save') }}</el-button>
       </span>
-    </el-dialog>
   </div>
 </template>
 
