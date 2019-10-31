@@ -14,6 +14,7 @@
 
 
 <script>
+import { i18n } from '../../i18n'
 import { mapActions } from "vuex";
 import MiniAddButton from "../button/miniAdd.vue";
 import MiniEditButton from "../button/miniEdit.vue";
@@ -82,26 +83,27 @@ export default {
       // Update entity
       this.updateTeam(this.teamForm)
         .then(() => {
-          this.editDialog = false;
+          console.log('this', this)
           const h = this.$createElement;
           this.$notify({
-            title: this.$t("Update team"),
+            title: i18n.t("Update team"),
             message: h(
               "i",
               { style: "color: teal" },
-              this.$t("Team {name} was updated", { name: this.teamForm.name })
+              i18n.t("Team {name} was updated", { name: this.teamForm.name })
             ),
             type: "success"
           });
+          this.editDialog = false;
         })
         .catch(e => {
           const h = this.$createElement;
           this.$notify({
-            title: this.$t("Update team"),
+            title: i18n.t("Update team"),
             message: h(
               "i",
               { style: "color: red" },
-              this.$t("Something went wrong! the team wasn't moved")
+              i18n.t("Something went wrong! the team wasn't moved")
             ),
             type: "error"
           });

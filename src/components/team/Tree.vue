@@ -51,7 +51,7 @@ export default {
   components: {
     MiniAddButton,
     TeamActions,
-    TeamForm,
+    TeamForm
   },
   data() {
     return {
@@ -62,7 +62,7 @@ export default {
       teamForm: {
         name: "",
         parentTeamID: ""
-      },
+      }
     };
   },
   computed: {
@@ -154,12 +154,12 @@ export default {
           if (dialogToClose) {
             //this.$refs["teamForm"].resetFields();
             this.createDialog = false;
-            this.teamForm.name = ""
+            this.teamForm.name = "";
             this.teamForm.parentTeamID = "";
           } else {
             var parentTeamID = this.teamForm.parentTeamID;
             //this.$refs["teamForm"].resetFields();
-            this.teamForm.name = ""
+            this.teamForm.name = "";
             this.teamForm.parentTeamID = parentTeamID;
           }
         })
@@ -172,7 +172,7 @@ export default {
     },
     append(data) {
       console.log("data: ", data);
-    },
+    }
   }
 };
 

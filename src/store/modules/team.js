@@ -111,7 +111,7 @@ export default {
         })
     },
     updateTeam: ({commit}, team) => {
-      if (team.parentTeamID === undefined || team.parentTeamID === null ) {
+      if (team.parentTeamID === undefined || team.parentTeamID === null || team.parentTeamID.length == 0) {
         team.parentTeamID = 0
       } else if (team.parentTeamID.length !== undefined){
         team.parentTeamID = team.parentTeamID[ team.parentTeamID.length - 1 ]
