@@ -79,6 +79,10 @@ export default {
   },
   methods: {
     getRole: function(userCompanies) {
+      if (userCompanies === undefined)
+      {
+        return ""
+      }
       switch (userCompanies[0].role) {
         case "client_admin": 
           return "Administrator"
