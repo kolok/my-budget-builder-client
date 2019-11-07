@@ -28,17 +28,7 @@
               placeholder="email"
             />
           </el-form-item>
-          <el-form-item
-            :rules="[{ required: true, message: 'Password is required'}]"
-            label="Password"
-            prop="password"
-          >
-            <el-input
-              v-model="loginForm.password"
-              type="password"
-              autocomplete="off"
-            />
-          </el-form-item>
+          <password-form-item :myForm="loginForm" />
           <el-form-item>
             <el-button
               type="primary"
@@ -62,9 +52,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import passwordFormItem from "../../components/form/password.vue"
 
 export default {
   components: {
+    passwordFormItem
   },
   data() {
     return {

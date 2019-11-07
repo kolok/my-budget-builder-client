@@ -4,7 +4,6 @@
       ref="employeeForm"
       :model="employeeForm"
       :rules="employeeRule"
-      label-width="250px"
       class="Dialog__Form"
       @keyup.enter.native="submitForm('employeeForm')"
     >

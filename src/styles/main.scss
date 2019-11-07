@@ -123,9 +123,13 @@ $min-sider_width: 200px;
 
 .Content {
   color: #606266;
-  &__ButtonContainer {
-    color: white;
+  &__Head1 {
     @extend .Content;
+    border-bottom: solid 1px #e6e6e6;
+  }
+  &__ButtonContainer {
+    @extend .Content;
+    color: white;
     padding: 3px 0;
     &--left {
       @extend .Content__ButtonContainer;
@@ -202,17 +206,22 @@ $min-sider_width: 200px;
   }
   &__CardButtonContainer {
     @extend .Content;
+    color: white;
     min-height:90px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  &__CardButton--CenterBig {
+  &__CardButton {
     @extend .Content;
+    color: white;
+  }
+  &__CardButton--CenterBig {
+    @extend .Content__CardButton;
     font-size: 50px
   }
   &__CardButton--Large {
-    @extend .Content;
+    @extend .Content__CardButton;
     width: 100%;
   }
   &__CardContainer {

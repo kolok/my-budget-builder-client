@@ -44,6 +44,7 @@ let AuthService = {
     })
   },
 
+    
   // getCurrentUser returns the user using the AccessToken to identify it
   // input : AccessToken in the headers (from localStorage)
   // output : user attached to the AccessToken
@@ -57,12 +58,26 @@ let AuthService = {
       })
   },
 
+  // updatePasswordRequest will send an email to the user in order to update the password
+  // No input (based on Accesstoken)
+  // No output
+  updatePasswordRequest() {
+    return HTTP.post('users/me/updatePasswordRequest')
+  },
 
-// refreshAccessToken is called when the accessToken is expired and we received a 401 RESET_TOKEN_EXPIRED
-// it calls API with refreshToken, the API check the validity of refresh token and generate a new couple of accessToken, refreshToken
-// input:
-//    email of the user
-//    refreshToken from the localStorage
+  // updatePassword
+  // input : password (to update)
+  // input : passwordToken (to validate the action)
+  // No output
+  updatePassword(body, passwordToken) {
+    return HTTP.post('users/updatePassword', body)
+  },
+
+  // refreshAccessToken is called when the accessToken is expired and we received a 401 RESET_TOKEN_EXPIRED
+  // it calls API with refreshToken, the API check the validity of refresh token and generate a new couple of accessToken, refreshToken
+  // input:
+  //    email of the user
+  //    refreshToken from the localStorage
   refreshAccessToken(refreshToken) {
     return HTTP.post('users/me/refreshAccessToken', {
       refreshToken: localStorage.getItem('refreshToken')
@@ -80,26 +95,6 @@ let AuthService = {
       throw err
     })
   }
-
-  /* TODO: manage forget and change passwords
-  changePassword(body) {
-  return UserResource.changePassword(body)
-  .then(response => {
-  return response.data
-})
-.catch(err => {
-throw err
-})
-},
-
-forget() {
-
-},
-
-reset() {
-
-},
-*/
 }
 
 export default AuthService

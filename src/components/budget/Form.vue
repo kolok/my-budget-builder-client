@@ -4,7 +4,7 @@
         ref="budgetForm"
         :model="budgetForm"
         :rules="budgetRule"
-        label-width="100px"
+        label-width="auto"
         class="Dialog__Form"
         @keyup.enter.native="submitBudget('budgetForm')"
       >

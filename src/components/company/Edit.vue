@@ -4,7 +4,8 @@
       ref="companyForm"
       class="Content__Form"
       :model="companyForm"
-      label-width="250px"
+      label-position="top"
+      label-width="auto"
     >
       <el-form-item :label="$t('Company name')">
         <el-input v-model="companyForm.name" />
@@ -44,7 +45,7 @@
           type="primary"
           @click="onSubmit"
         >
-          Save
+          {{ $t('Save') }}
         </el-button>
       </el-form-item>
     </el-form>

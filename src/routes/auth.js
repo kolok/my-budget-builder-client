@@ -38,4 +38,15 @@ export const routesAuth = [
       title: 'Pipauls - Sign up'
     }
   },
+  {
+    path: '/updatePassword',
+    component: () => import(
+      /* webpackChunkName: "group-account" */
+      '../views/account/updatePassword.vue'
+    ),
+    meta: {
+      requiresAuth: false,
+      title: 'Pipauls - Sign up'
+    }
+  }
 ]

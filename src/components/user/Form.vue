@@ -4,7 +4,6 @@
       ref="userForm"
       :model="userForm"
       :rules="userRule"
-      label-width="250px"
       class="Dialog__Form"
       @keyup.enter.native="submitForm('employeeForm')"
     >
@@ -32,7 +31,7 @@
       </el-form-item>
     </el-form>
     <span slot="footer">
-      <el-button @click="handleCancel('userForm')">{{ $t('Cancel') }}</el-button>
+      <el-button v-if="isCancelable" @click="handleCancel('userForm')">{{ $t('Cancel') }}</el-button>
       <el-button type="primary" @click="submitForm('userForm')">{{ $t('Save') }}</el-button>
     </span>
   </div>
@@ -49,10 +48,14 @@ export default {
       type: Boolean,
       required: true
     },
+    isCancelable: {
+      type: Boolean,
+      default: true
+    },
   },
   methods: {
     submitForm: function(formName) {
-      // Create user
+    // Create user
       this.$refs[formName].validate(valid => {
         if (valid) {
           if (this.isAdmin) {

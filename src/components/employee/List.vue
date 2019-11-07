@@ -1,5 +1,6 @@
 <template>
   <div>
+    <score-card :title="$t('Head count')" :count="headcount" :unit="$t('People')"/>
     <el-table
       :data="employees"
       class="Content__Table"
@@ -41,10 +42,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import EmployeeActions from './Actions.vue'
+import ScoreCard from '../common/ScoreCard.vue'
 
 export default {
   components: {
     EmployeeActions,
+    ScoreCard
   },
   data() {
     return {
@@ -53,7 +56,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['employees'])
+    ...mapGetters(['employees']),
+    headcount() {
+      return this.employees.length;
+    }
   },
   created() {
     this.$store.dispatch('getEmployees').then(() => {
