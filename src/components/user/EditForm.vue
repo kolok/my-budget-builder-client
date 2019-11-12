@@ -1,5 +1,9 @@
 <template>
-  <user-form @submitForm="handleEdit" @cancel="handleCancel" :userForm="userForm" :isAdmin="isAdmin" />
+  <user-form
+    @submitForm="handleEdit"
+    @cancel="handleCancel"
+    :userForm="userForm"
+  />
 </template>
 
 <script>
@@ -15,13 +19,6 @@ export default {
       userForm: {}
     };
   },
-  computed: {
-    isAdmin() {
-      return this.userForm.userCompanies !== undefined &&
-          this.userForm.userCompanies[0] !== undefined &&
-          this.userForm.userCompanies[0].role == "client_admin"
-    }
-  },
   created() {
     this.initUser();
   },
@@ -29,12 +26,8 @@ export default {
     ...mapActions(["getUser", "updateUser"]),
 
     initUser: function() {
-      this.getUser(this.$route.params.id).then(response => {
-        this.userForm = response.data;
-        this.userForm.isAdmin =
-          this.userForm.userCompanies !== undefined &&
-          this.userForm.userCompanies[0] !== undefined &&
-          this.userForm.userCompanies[0].role == "client_admin";
+      this.getUser(this.$route.params.id).then(user => {
+        this.userForm = user;
       });
     },
     handleEdit: function(formName) {

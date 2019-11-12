@@ -2,7 +2,6 @@
   <user-form
     @submitForm="handleEdit"
     :userForm="userForm"
-    :isAdmin="isAdmin"
     :isCancelable="false"
   />
 </template>
@@ -20,15 +19,6 @@ export default {
       userForm: {}
     };
   },
-  computed: {
-    isAdmin() {
-      return (
-        this.userForm.userCompanies !== undefined &&
-        this.userForm.userCompanies[0] !== undefined &&
-        this.userForm.userCompanies[0].role == "client_admin"
-      );
-    }
-  },
   created() {
     this.initUser();
   },
@@ -38,10 +28,14 @@ export default {
 
     initUser: function() {
       this.userForm = this.getCurrentUser();
-      this.userForm.isAdmin =
+      if (
         this.userForm.userCompanies !== undefined &&
-        this.userForm.userCompanies[0] !== undefined &&
-        this.userForm.userCompanies[0].role == "client_admin";
+        this.userForm.userCompanies[0] !== undefined
+      ) {
+        this.userForm.role = this.userForm.userCompanies[0].role;
+      } else {
+        this.userForm.role = "client_user";
+      }
     },
     handleEdit: function(formName) {
       // Create user

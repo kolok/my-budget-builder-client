@@ -26,9 +26,11 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item prop="role">
-        <el-switch v-model="isAdmin" active-text="Admin" inactive-text="User" />
-      </el-form-item>
+      <el-radio-group :value="userForm.role" @input="changeRole" :label="$t('Role')">
+        <el-radio label="client_admin">Admin</el-radio>
+        <el-radio label="client_user">User</el-radio>
+      </el-radio-group>
+
     </el-form>
     <span slot="footer">
       <el-button v-if="isCancelable" @click="handleCancel('userForm')">{{ $t('Cancel') }}</el-button>
@@ -44,28 +46,19 @@ export default {
       type: Object,
       required: true
     },
-    isAdmin: {
-      type: Boolean,
-      required: true
-    },
     isCancelable: {
       type: Boolean,
       default: true
     },
   },
   methods: {
+    changeRole(data) {
+      this.userForm.role = data;
+    },
     submitForm: function(formName) {
     // Create user
       this.$refs[formName].validate(valid => {
         if (valid) {
-          if (this.isAdmin) {
-            this.userForm.userCompanies[0].role = "client_admin";
-            this.userForm.role = "client_admin";
-          } else {
-            this.userForm.userCompanies[0].role = "client_user";
-            this.userForm.role = "client_user";
-          }
-
           this.$emit("submitForm");
         } else {
           console.log("error submit!!");

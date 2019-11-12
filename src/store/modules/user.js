@@ -38,6 +38,18 @@ export default {
     },
     getUser: ({ commit }, userID) => {
       return UserResource.get(userID)
+        .then(response => {
+          var user = response.data
+          if (
+            user.userCompanies !== undefined &&
+            user.userCompanies[0] !== undefined
+          ) {
+            user.role = user.userCompanies[0].role
+          } else {
+            user.role = "client_user"
+          }
+          return user
+        })
         .catch(err => {
           throw err
         })

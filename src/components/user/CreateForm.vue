@@ -21,8 +21,7 @@ export default {
         name: "",
         email: "",
         defaultLanguage: "en",
-        role: "",
-        isAdmin: false
+        role: "client_user"
       }
     };
   },
@@ -34,7 +33,6 @@ export default {
       this.createUser(this.userForm)
         .then(() => {
           // reset form data
-          this.$refs[formName].resetFields();
           this.$router.push("/users");
         })
         .catch(e => {
