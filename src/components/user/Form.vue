@@ -26,10 +26,12 @@
         </el-select>
       </el-form-item>
 
-      <el-radio-group :value="userForm.role" @input="changeRole" :label="$t('Role')">
-        <el-radio label="client_admin">Admin</el-radio>
-        <el-radio label="client_user">User</el-radio>
-      </el-radio-group>
+      <el-form-item prop="role" :label="$t('User role')">
+        <el-radio-group :value="userForm.role" @input="changeRole" style="display:flex;flex-direction:column;margin-bottom:15px;">
+          <el-radio label="client_admin" style="padding:10px 0;">Admin</el-radio>
+          <el-radio label="client_user" style="padding:10px 0;">User</el-radio>
+        </el-radio-group>
+      </el-form-item>
 
     </el-form>
     <span slot="footer">

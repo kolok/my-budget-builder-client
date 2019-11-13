@@ -40,6 +40,11 @@
           </el-form-item>
         </el-form>
         <p>
+          <router-link to="/forgotPassword">
+            Forgot your password ?
+          </router-link>
+        </p>
+        <p>
           Don't have an account?
           <router-link to="/signup">
             Sign up

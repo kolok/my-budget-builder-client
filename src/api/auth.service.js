@@ -43,7 +43,6 @@ let AuthService = {
       throw err
     })
   },
-
     
   // getCurrentUser returns the user using the AccessToken to identify it
   // input : AccessToken in the headers (from localStorage)
@@ -61,15 +60,20 @@ let AuthService = {
   // updatePasswordRequest will send an email to the user in order to update the password
   // No input (based on Accesstoken)
   // No output
-  updatePasswordRequest() {
-    return HTTP.post('users/me/updatePasswordRequest')
+  updatePasswordRequest(body) {
+    if (body === undefined) {
+      return HTTP.post('users/me/updatePasswordRequest', body)
+    }
+    else {
+      return HTTP.post('users/updatePasswordRequest', body)
+    }
   },
 
   // updatePassword
   // input : password (to update)
   // input : passwordToken (to validate the action)
   // No output
-  updatePassword(body, passwordToken) {
+  updatePassword(body) {
     return HTTP.post('users/updatePassword', body)
   },
 

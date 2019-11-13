@@ -39,6 +39,17 @@ export const routesAuth = [
     }
   },
   {
+    path: '/forgotPassword',
+    component: () => import(
+      /* webpackChunkName: "group-account" */
+      '../views/account/ForgotPassword.vue'
+    ),
+    meta: {
+      requiresAuth: false,
+      title: 'Pipauls - Forgot Password'
+    }
+  },
+  {
     path: '/updatePassword',
     component: () => import(
       /* webpackChunkName: "group-account" */
