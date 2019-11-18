@@ -4,7 +4,7 @@
         v-model="myForm[prop]"
         type="date"
         :placeholder="placeholder"
-        format="yyyy/MM/dd"
+        :format="$t('yyyy/MM/dd')"
         value-format="yyyy-MM-dd"
       />
     </el-form-item>

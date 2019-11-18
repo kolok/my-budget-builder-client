@@ -5,7 +5,7 @@
         v-model="budgetForm.startDate"
         type="date"
         :placeholder="$t('Pick a day')"
-        format="yyyy/MM/dd"
+        :format="$t('yyyy/MM/dd')"
         value-format="yyyy-MM-dd"
         @change="startDateChanged($event)"
       />
@@ -15,7 +15,7 @@
         v-model="budgetForm.endDate"
         type="date"
         :placeholder="$t('Pick a day')"
-        format="yyyy/MM/dd"
+        :format="$t('yyyy/MM/dd')"
         value-format="yyyy-MM-dd"
       />
     </el-form-item>

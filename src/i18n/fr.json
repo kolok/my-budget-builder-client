@@ -112,6 +112,7 @@
   "Users": "Utilisateurs",
   "Warning": "Attention",
   "Yes": "Oui",
+  "yyyy/MM/dd": "dd/MM/yyyy",
   "You cannot use a blank email": "L'email de l'employé ne pas pas être vide",
   "Zipcode can't be blank": "Le code postal du bureau ne peut pas être vide",
   "Zipcode": "Code postal"
