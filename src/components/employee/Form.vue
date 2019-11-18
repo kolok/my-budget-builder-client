@@ -25,6 +25,9 @@
           autocomplete="off"
         />
       </el-form-item>
+      <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')"/>
+      <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')"/>
+      <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')"/>
     </el-form>
     <span
       slot="footer"
@@ -41,7 +44,12 @@
 </template>
 
 <script>
+import MyDate from '../form/date.vue'
+
 export default {
+  components: {
+    MyDate
+  },
   props: {
     employeeForm: {
       type:Object,
