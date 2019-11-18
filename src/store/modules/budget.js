@@ -4,11 +4,13 @@ import OfficeResource from '../../api/office.service'
 export default {
   state: {
     budgets: [],
+    activeBudget: {},
     activeBudgetID: 0,
   },
   getters: {
     budgets: state => state.budgets,
     activeBudgetID: state => state.activeBudgetID,
+    activeBudget: state => state.activeBudget,
   },
   mutations: {
     SET_BUDGETS: (state, budgets) => {
@@ -16,6 +18,11 @@ export default {
     },
     SET_ACTIVEBUDGETID: (state, id) => {
       state.activeBudgetID = id
+      state.budgets.forEach(budget => {
+        if (budget.id == id) {
+          state.activeBudget = budget
+        }
+      });
     },
     CREATE_BUDGET: (state, budget) => {
       state.budgets.push(budget)
