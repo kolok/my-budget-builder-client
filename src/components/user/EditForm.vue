@@ -34,14 +34,10 @@ export default {
       // Create user
       this.updateUser(this.userForm)
         .then(() => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: this.$t("Update user"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              this.$t("User {name} was updated", { name: this.userForm.name })
-            ),
+            message: this.$t("User {name} was updated", { name: this.userForm.name }),
             type: "success"
           });
           this.$router.push("/users");

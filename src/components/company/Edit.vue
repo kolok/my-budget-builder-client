@@ -135,18 +135,18 @@ export default {
       let payload = { _id: this.id, content: this.companyForm }
       this.updateCompany(payload)
         .then(() => {
-          const h = this.$createElement
-          this.$notify({
+          this.$cs({
             title: this.$t('Company update'),
-            message: h('i', { style: 'color: teal' }, this.$t("company {name} was updated", { name: this.companyForm.name } )),
+            h: this.$createElement,
+            message: this.$t("company {name} was updated", { name: this.companyForm.name } ),
             type: 'success'
           })
         })
         .catch(e => {
-          const h = this.$createElement
-          this.$notify({
+          this.$cs({
             title: this.$t('Company update'),
-            message: h('i', { style: 'color: red' }, this.$t('Something went wrong! the company wasn\'t updated')),
+            h: this.$createElement,
+            message: this.$t('Something went wrong! the company wasn\'t updated'),
             type: 'error'
           })
           console.log(e)

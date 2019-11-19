@@ -14,7 +14,7 @@
 
 
 <script>
-import { i18n } from '../../i18n'
+import { i18n } from "../../i18n";
 import { mapActions } from "vuex";
 import MiniAddButton from "../button/miniAdd.vue";
 import MiniEditButton from "../button/miniEdit.vue";
@@ -26,7 +26,7 @@ export default {
     MiniAddButton,
     MiniEditButton,
     MiniDeleteButton,
-    TeamForm,
+    TeamForm
   },
   props: {
     teamForm: {
@@ -43,8 +43,8 @@ export default {
     ...mapActions(["deleteTeam", "updateTeam", "getTeams"]),
 
     showCreateDialog() {
-      //emit show create dialog 
-      this.$emit('showCreateDialog', this.teamForm.id)
+      //emit show create dialog
+      this.$emit("showCreateDialog", this.teamForm.id);
     },
     showEditDialog: function() {
       this.editDialog = true;
@@ -54,23 +54,22 @@ export default {
     },
     removeTeam() {
       this.$confirm(
-        this.$t("Do you really want to delete this employee?"),
-        this.$t("Warning"),
+        i18n.t("Do you really want to delete this employee?"),
+        i18n.t("Warning"),
         {
-          confirmButtonText: this.$t("Yes"),
-          cancelButtonText: this.$t("No"),
+          confirmButtonText: i18n.t("Yes"),
+          cancelButtonText: i18n.t("No"),
           type: "warning"
         }
       ).then(() => {
         this.deleteTeam(this.teamForm.id)
           .then(() => {
-        console.log(this.$t('test'))
-            const h = this.$createElement;
-            //FIXME: make the translate works, 
+            //FIXME: make the translate works,
             // vue this.$t is not more accessible after deleteTeam
-            this.$notify({
-              title: "Delete team",
-              message: h("i", { style: "color: teal" }, "Team was deleted"),
+            this.$cs({
+              h: this.$createElement,
+              title: i18n.t("Delete team"),
+              message: i18n.t("Team was deleted"),
               type: "warning"
             });
           })
@@ -83,35 +82,25 @@ export default {
       // Update entity
       this.updateTeam(this.teamForm)
         .then(() => {
-          console.log('this', this)
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: i18n.t("Update team"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              i18n.t("Team {name} was updated", { name: this.teamForm.name })
-            ),
+            message: i18n.t("Team {name} was updated", { name: this.teamForm.name }),
             type: "success"
           });
           this.editDialog = false;
         })
         .catch(e => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: i18n.t("Update team"),
-            message: h(
-              "i",
-              { style: "color: red" },
-              i18n.t("Something went wrong! the team wasn't moved")
-            ),
+            message: i18n.t("Something went wrong! the team wasn't moved"),
             type: "error"
           });
           this.getTeams();
           console.log(e);
         });
-    },
-
+    }
   }
 };
 </script>

@@ -48,6 +48,10 @@ import style from './styles/main.scss';
 /** Manage ElementUI loading and locale **/
 Vue.use(ElementUI);
 
+//Overdefine $notify to manage specificity from 1 place
+import CS from './utils/Notification.js'
+Vue.prototype.$cs = CS;
+
 function initialisation() {
   new Vue({
     el:'#app',

@@ -41,14 +41,10 @@ export default {
       // Create user
       this.updateUser(this.userForm)
         .then(() => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: this.$t("Update your profile"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              this.$t("Your profile was updated")
-            ),
+            message: this.$t("Your profile was updated"),
             type: "success"
           });
         })

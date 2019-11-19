@@ -114,14 +114,10 @@ export default {
         if (valid) {
           this.signup(this.signupForm)
             .then(() => {
-              const h = this.$createElement;
-              this.$notify({
+              this.$cs({
+                h: this.$createElement,
                 title: this.$t('Sign on'),
-                message: h(
-                  "i",
-                  { style: "color: teal" },
-                  this.$t("User {name} was created", {name: this.signupForm.name})
-                ),
+                message: this.$t("User {name} was created", {name: this.signupForm.name}),
                 type: "success"
               });
               this.$router.push("/hiringPlan");

@@ -31,14 +31,10 @@ export default {
       // Create employee
       this.updateEmployee(this.employeeForm)
         .then(() => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
             title: this.$t("Update employee"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              this.$t("Employee {name} was updated", { name: this.employeeForm.name })
-            ),
+            h: this.$createElement,
+            message: this.$t("Employee {name} was updated", { name: this.employeeForm.name }),
             type: "success"
           });
           this.$router.push("/hiringPlan");

@@ -83,26 +83,18 @@ export default {
 
       this.updateTeam(node)
         .then(() => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: this.$t("Team moved"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              this.$t("team {name} was moved", { name: node.name })
-            ),
+            message: this.$t("team {name} was moved", { name: node.name }),
             type: "success"
           });
         })
         .catch(e => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
+            h: this.$createElement,
             title: this.$t("Team moved"),
-            message: h(
-              "i",
-              { style: "color: red" },
-              this.$t("Something went wrong! the team wasn't moved")
-            ),
+            message: this.$t("Something went wrong! the team wasn't moved"),
             type: "error"
           });
           this.getTeams();

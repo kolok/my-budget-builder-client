@@ -33,29 +33,23 @@ export default {
         cancelButtonText: "No",
         type: "warning"
       }).then(() => {
-        this.deleteUser(this.userID).then(() => {
-          const h = this.$createElement;
-          this.$notify({
-            title: i18n.t("Delete user"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              i18n.t("The user was deleted")
-            ),
-            type: "success"
-            })
-          }).catch(() => {
-          const h = this.$createElement;
-          this.$notify({
-            title: i18n.t("Delete user"),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              i18n.t("Something went wrong! The user wasn't deleted")
-            ),
-            type: "error"
+        this.deleteUser(this.userID)
+          .then(() => {
+            this.$cs({
+              h: this.$createElement,
+              title: i18n.t("Delete user"),
+              message: i18n.t("The user was deleted"),
+              type: "success"
+            });
           })
-        })
+          .catch(() => {
+            this.$cs({
+              h: this.$createElement,
+              title: i18n.t("Delete user"),
+              message: i18n.t("Something went wrong! The user wasn't deleted"),
+              type: "error"
+            });
+          });
       });
     }
   }

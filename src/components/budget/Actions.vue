@@ -62,15 +62,10 @@ export default {
     handleUpdateBudget: function() {
       this.updateBudget(this.budgetForm)
         .then(() => {
-          const h = this.$createElement;
-          this.$notify({
+          this.$cs({
             title: this.$t('Update budget'),
-            message: h(
-              "i",
-              { style: "color: teal" },
-              this.$t('Budget {name} was updated', {name: this.budgetForm.name})
-              
-            ),
+            h: this.$createElement,
+            message: this.$t('Budget {name} was updated', {name: this.budgetForm.name}),
             type: "success"
           });
           this.updateDialog = false;

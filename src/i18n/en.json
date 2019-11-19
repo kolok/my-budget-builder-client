@@ -55,6 +55,8 @@
   "From": "From",
   "From {startDate} to {endDate}": "From {startDate} to {endDate}",
   "Head count": "Head count", 
+  "Delete team": "Delete team",
+  "Team was deleted": "Team was deleted",
   "How it works ?": "How it works ?",
   "January" : "January",
   "July": "July",
