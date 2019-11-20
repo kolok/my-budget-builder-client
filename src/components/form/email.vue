@@ -15,11 +15,11 @@ export default {
   data() {
     return {
       emailRule: [
-        { required: true, message: "Email is required", trigger: "blur" },
+        { required: true, message: this.$t("Email is required"), trigger: "blur" },
         {
           type: "email",
-          message: "Please input correct email address",
-          trigger: ["blur", "change"]
+          message: this.$t("Please input correct email address"),
+          trigger: ["blur"]
         }
       ]
     };

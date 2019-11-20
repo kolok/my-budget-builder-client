@@ -2,7 +2,7 @@
   <div class="Content__CardContainer">
     <el-card class="Content__Card">
       <div slot="header" class="Content__CardHeader">
-        <span>Sign up</span>
+        <span>{{ $t('Sign up') }}</span>
       </div>
       <div class="Content__CardFormContainer">
         <el-form
@@ -11,27 +11,25 @@
           :rules="ruleSignup"
           @keyup.enter.native="submit('signupForm')"
         >
-          <el-form-item prop="companyname" label="Company name">
+          <el-form-item prop="companyname" :label="$t('Company name')">
             <el-input
               v-model="signupForm.companyname"
-              placeholder="Company name"
+              :placeholder="$t('Company name')"
               @input="updateSubDomain"
             />
           </el-form-item>
-          <el-form-item prop="subdomain" label="Pipauls sub-domain">
+          <el-form-item prop="subdomain" :label="$t('Subdomain')">
             <el-input
               v-model="signupForm.subdomain"
-              placeholder="subdomain"
+              :placeholder="$t('Subdomain')"
               class="Content__CardInput--Shorter"
             />
             <span class="Content__CardText--Suffix">.pipauls.com</span>
           </el-form-item>
-          <el-form-item prop="name" label="Name">
-            <el-input v-model="signupForm.name" placeholder="Name" />
+          <el-form-item prop="name" :label="$t('Name')">
+            <el-input v-model="signupForm.name" :placeholder="$t('Name')" />
           </el-form-item>
-          <el-form-item prop="email" label="Email">
-            <el-input v-model="signupForm.email" placeholder="email" />
-          </el-form-item>
+          <email-form-item :myForm="signupForm" />
           <password-form-item :myForm="signupForm"/>
           <retype-pwd-form-item :myForm="signupForm"/>
           <el-form-item>
@@ -39,12 +37,12 @@
               type="primary"
               class="Content__CardButton--Large"
               @click="submit('signupForm')"
-            >Sign me up</el-button>
+            >{{ $t('Sign up') }}</el-button>
           </el-form-item>
         </el-form>
         <p>
-          Already have an account?
-          <router-link to="/login">Login here</router-link>
+          {{ $t('Already have an account?') }}
+          <router-link to="/login">{{ $t('Login') }}</router-link>
         </p>
       </div>
     </el-card>
@@ -53,13 +51,15 @@
 
 <script>
 import { mapActions } from "vuex";
-import passwordFormItem from "../../components/form/password.vue"
-import retypePwdFormItem from "../../components/form/retypePwd.vue"
+import EmailFormItem from "../../components/form/email.vue"
+import PasswordFormItem from "../../components/form/password.vue"
+import RetypePwdFormItem from "../../components/form/retypePwd.vue"
 
 export default {
   components: {
-    passwordFormItem,
-    retypePwdFormItem
+    EmailFormItem,
+    PasswordFormItem,
+    RetypePwdFormItem
   },
   data() {
     return {
@@ -73,18 +73,18 @@ export default {
       },
       ruleSignup: {
         companyname: [
-          { required: true, message: "Company name can't be blank" },
-          { max: 25, message: "Too long" },
-          { min: 3, message: "Too short" }
+          { required: true, message: this.$t("Company name can't be blank") },
+          { max: 25, message: this.$t("Too long") },
+          { min: 3, message: this.$t("Too short") }
         ],
         name: [
-          { required: true, message: "Name can't be blank" },
-          { max: 255, message: "Too long" }
+          { required: true, message: this.$t("Name can't be blank") },
+          { max: 255, message: this.$t("Too long") }
         ],
         subdomain: [
-          { required: true, message: "Subdomain can't be blank" },
-          { max: 25, message: "Too long" },
-          { min: 3, message: "Too short" },
+          { required: true, message: this.$t("Subdomain can't be blank") },
+          { max: 25, message: this.$t("Too long") },
+          { min: 3, message: this.$t("Too short") },
           {
             validator: (rule, value, callback) => {
               if (value.match(/[^a-z]/) !== null) {
@@ -98,11 +98,7 @@ export default {
               }
             }
           }
-        ],
-        email: [
-          { required: true, message: "You cannot use a blank email" },
-          { type: "email", message: "Please input correct email address" }
-        ],
+        ]
       }
     };
   },
@@ -116,8 +112,8 @@ export default {
             .then(() => {
               this.$cs({
                 h: this.$createElement,
-                title: this.$t('Sign on'),
-                message: this.$t("User {name} was created", {name: this.signupForm.name}),
+                title: this.$t('Log on'),
+                message: this.$t("Your user {name} was created", {name: this.signupForm.name}),
                 type: "success"
               });
               this.$router.push("/hiringPlan");

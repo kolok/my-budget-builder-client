@@ -1,54 +1,27 @@
 <template>
   <div class="Content__CardContainer">
-    <el-card
-      class="Content__Card"
-    >
-      <div
-        slot="header"
-        class="Content__CardHeader"
-      >
-        <span>Login</span>
+    <el-card class="Content__Card">
+      <div slot="header" class="Content__CardHeader">
+        <span>{{ $t('Login') }}</span>
       </div>
       <div class="Content__CardFormContainer">
-        <el-form
-          ref="loginForm"
-          :model="loginForm"
-          @keyup.enter.native="submit('loginForm')"
-        >
-          <el-form-item
-            prop="email"
-            label="Email"
-            :rules="[
-              { required: true, message: 'Email is required', trigger: 'blur' },
-              { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
-            ]"
-          >
-            <el-input
-              v-model="loginForm.email"
-              placeholder="email"
-            />
-          </el-form-item>
+        <el-form ref="loginForm" :model="loginForm" @keyup.enter.native="submit('loginForm')">
+          <email-form-item :myForm="loginForm" />
           <password-form-item :myForm="loginForm" />
           <el-form-item>
             <el-button
               type="primary"
               class="Content__CardButton--Large"
               @click="submit('loginForm')"
-            >
-              Submit
-            </el-button>
+            >{{ $t('Submit') }}</el-button>
           </el-form-item>
         </el-form>
         <p>
-          <router-link to="/forgotPassword">
-            Forgot your password ?
-          </router-link>
+          <router-link to="/forgotPassword">{{ $t('Forgot Password') }}</router-link>
         </p>
         <p>
-          Don't have an account?
-          <router-link to="/signup">
-            Sign up
-          </router-link>
+          {{ $t("Don't have an account?") }}
+          <router-link to="/signup">{{ $t('Sign up') }}</router-link>
         </p>
       </div>
     </el-card>
@@ -56,40 +29,52 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import passwordFormItem from "../../components/form/password.vue"
+import { mapActions } from "vuex";
+import EmailFormItem from "../../components/form/email.vue";
+import PasswordFormItem from "../../components/form/password.vue";
 
 export default {
   components: {
-    passwordFormItem
+    EmailFormItem,
+    PasswordFormItem
   },
   data() {
     return {
       loginForm: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
-    }
+    };
   },
   methods: {
-    ...mapActions(['login']),
-
+    ...mapActions(["login"]),
     submit: function(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.login(this.loginForm)
-            .then(() => {
-              this.$router.push('/hiringPlan')
+            .then(data => {
+              this.$cs({
+                title: this.$t("Login success"),
+                h: this.$createElement,
+                message: this.$t("Welcome {name}", {name: data.user.name}),
+                type: "success"
+              });
+              this.$router.push("/hiringPlan");
             })
             .catch(err => {
-              console.log(err)
-            })
+              this.$cs({
+                title: this.$t("Login failed"),
+                h: this.$createElement,
+                message: this.$t("Invalid login or password."),
+                type: "error"
+              });
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     }
   }
-}
+};
 </script>

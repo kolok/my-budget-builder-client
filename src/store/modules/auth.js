@@ -50,9 +50,9 @@ export default {
       return AuthService.login(body)
         .then(data => {
           commit('LOGIN', data)
+          return data
         })
         .catch(err => {
-          console.log('login failed')
           throw err
         })
     },

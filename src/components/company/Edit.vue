@@ -29,11 +29,11 @@
 
       <el-form-item
         prop="subdomain"
-        :label="$t('Pipauls sub-domain')"
+        :label="$t('Subdomain')"
       >
         <el-input
           v-model="companyForm.subdomain"
-          :placeholder="$t('sub-domain')"
+          :placeholder="$t('Subdomain')"
           class="Content__Input--Inactive"
           :disabled="true"
         />

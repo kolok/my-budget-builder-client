@@ -10,11 +10,7 @@
       <el-form-item prop="name" :label="$t('User')">
         <el-input v-model="userForm.name" autocomplete="off" />
       </el-form-item>
-
-      <el-form-item prop="email" :label="$t('Email')">
-        <el-input v-model="userForm.email" autocomplete="off" />
-      </el-form-item>
-
+      <email-form-item :myForm="userForm" />
       <el-form-item prop="defaultLanguage" :label="$t('Language')">
         <el-select v-model="userForm.defaultLanguage" placeholder="Select a defaultLanguage">
           <el-option
@@ -42,7 +38,12 @@
 </template>
 
 <script>
+import EmailFormItem from '../form/email.vue'
+
 export default {
+  components: {
+    EmailFormItem
+  },
   props: {
     userForm: {
       type: Object,

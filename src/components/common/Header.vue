@@ -46,12 +46,6 @@ export default {
           icon: "el-icon-user"
         },
         {
-          index: "credentials",
-          name: this.$t("Credentials"),
-          path: "/credentials",
-          icon: "el-icon-user"
-        },
-        {
           index: "account",
           path: "/account",
           name: this.$t("Account"),
@@ -84,7 +78,6 @@ export default {
       this.$router.push("/login");
     },
     handleClickDropdown: function(name) {
-      console.log(name);
       if (name === "/logout") {
         this.logout();
       } else {

@@ -12,16 +12,5 @@ export const routesProfile = [
       requiresAuth: true,
       title: 'Pipauls - Profile'
     }
-  },
-  {
-    path: '/credentials',
-    name: 'Credentials',
-    component: () => import(
-      '../views/account/ChangePassword.vue'
-    ),
-    meta: {
-      requiresAuth: true,
-      title: 'Pipauls - Profile'
-    }
-  },
+  }
 ]

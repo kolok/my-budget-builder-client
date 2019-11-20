@@ -16,15 +16,7 @@
           autocomplete="off"
         />
       </el-form-item>
-      <el-form-item
-        prop="email"
-        :label="$t('Email')"
-      >
-        <el-input
-          v-model="employeeForm.email"
-          autocomplete="off"
-        />
-      </el-form-item>
+      <email-form-item :myForm="employeeForm" />
       <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')"/>
       <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')"/>
       <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')"/>
@@ -45,10 +37,12 @@
 
 <script>
 import MyDate from '../form/date.vue'
+import EmailFormItem from "../../components/form/email.vue"
 
 export default {
   components: {
-    MyDate
+    MyDate,
+    EmailFormItem
   },
   props: {
     employeeForm: {
@@ -62,11 +56,7 @@ export default {
         name: [
           { required: true, message: this.$t('Employee name can\'t be blank') },
           { max:255, message: this.$t('Too long')}
-        ],
-        email: [
-          { required: true, message: this.$t('You cannot use a blank email') },
-          { type: 'email', message: this.$t('Please input correct email address')}
-        ],
+        ]
       }
     }
   },

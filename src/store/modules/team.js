@@ -72,7 +72,6 @@ export default {
       state.teamTreeSelector = buildTreeSelector(state.teams);
     },
     DELETE_TEAM: (state, team) => {
-      console.log(team)
       state.teams.forEach( node => {
         if (node.parentTeamID == team.id) {
           node.parentTeamID = team.parentTeamID

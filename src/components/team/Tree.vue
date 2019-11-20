@@ -161,9 +161,6 @@ export default {
     },
     handleCancel: function() {
       this.createDialog = false;
-    },
-    append(data) {
-      console.log("data: ", data);
     }
   }
 };

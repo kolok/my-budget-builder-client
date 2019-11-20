@@ -7,7 +7,7 @@
         slot="header"
         class="Content__CardHeader"
       >
-        <span>Forgot Password</span>
+        <span>{{ $t('Forgot Password') }}</span>
       </div>
       <div class="Content__CardFormContainer">
         <el-form
@@ -22,14 +22,14 @@
               class="Content__CardButton--Large"
               @click="submit('forgotPasswordForm')"
             >
-              Submit
+              {{ $t('Submit') }}
             </el-button>
           </el-form-item>
         </el-form>
         <p>
-          Don't have an account?
+          {{ $t("Don't have an account?") }}
           <router-link to="/signup">
-            Sign up
+            {{ $t('Sign up') }}
           </router-link>
         </p>
       </div>
@@ -39,8 +39,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import emailFormItem from "../../components/form/email.vue"
 import AuthService from '../../api/auth.service'
+import emailFormItem from "../../components/form/email.vue"
 
 export default {
   components: {
@@ -62,9 +62,21 @@ export default {
 
           AuthService.updatePasswordRequest({ email: this.forgotPasswordForm.email })
             .then( () => {
-              console.log("update password email sent")
+              this.$cs({
+                title: this.$t('Update password request'),
+                h: this.$createElement,
+                message: this.$t('An email to reset your password was sent'),
+                type: "success"
+              })
+              this.$router.push("/login");
             })
             .catch( err => {
+              this.$cs({
+                title: this.$t('Update password request'),
+                h: this.$createElement,
+                message: this.$t("Oops ! something went wrong"),
+                type: "error"
+              })
               console.log("Oops ! something went wrong")
             })
         } else {

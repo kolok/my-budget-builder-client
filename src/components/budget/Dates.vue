@@ -1,5 +1,5 @@
 <template>
-  <p>{{ displayBudgetDate() }} </p>
+  <p class="Content__Baseline">{{ displayBudgetDate() }} </p>
 </template>
 
 <script>

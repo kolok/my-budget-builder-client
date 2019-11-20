@@ -20,6 +20,13 @@ const languages = {
   fr: fr,
 }
 
+// Set the default language 
+var myLocale = defaultLocale
+if (Object.keys(languages).includes(navigator.language.substring(0, 2)))
+{
+  myLocale = navigator.language.substring(0, 2)
+}
+
 class MyI18n extends VueI18n {
   constructor(args) {
     super(args)
@@ -39,6 +46,6 @@ class MyI18n extends VueI18n {
 const messages = Object.assign(languages)
 
 export const i18n = new MyI18n({
-  locale: defaultLocale, // set locale
+  locale: myLocale, // set locale
   messages, // set locale messages
 })

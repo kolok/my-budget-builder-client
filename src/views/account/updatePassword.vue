@@ -2,7 +2,7 @@
   <div class="Content__CardContainer">
     <el-card class="Content__Card">
       <div slot="header" class="Content__CardHeader">
-        <span>Update Password</span>
+        <span>{{ $t('Update Password') }}</span>
       </div>
       <div class="Content__CardFormContainer">
         <el-form
@@ -17,12 +17,12 @@
               type="primary"
               class="Content__CardButton--Large"
               @click="updatePassword('passwordForm')"
-            >Change Password</el-button>
+            >{{ $t('Change Password') }}</el-button>
           </el-form-item>
         </el-form>
         <p>
-          Don't have an account?
-          <router-link to="/signup">Sign up</router-link>
+          {{ $t("Don't have an account?") }}
+          <router-link to="/signup">{{ $t("Sign up") }}</router-link>
         </p>
       </div>
     </el-card>
@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
-import passwordFormItem from "../../components/form/password.vue"
-import retypePwdFormItem from "../../components/form/retypePwd.vue"
-import AuthService from "../../api/auth.service"
+import { mapActions } from "vuex";
+import AuthService from "../../api/auth.service";
+import passwordFormItem from "../../components/form/password.vue";
+import retypePwdFormItem from "../../components/form/retypePwd.vue";
 
 export default {
   components: {
@@ -48,23 +48,37 @@ export default {
     };
   },
   methods: {
+    logout: function() {
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+    },
     updatePassword: function(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          AuthService.updatePassword(
-            { "password": this.passwordForm.password,
-              "passwordToken": this.$route.query.token
-            }
-          )
+          AuthService.updatePassword({
+            password: this.passwordForm.password,
+            passwordToken: this.$route.query.token
+          })
             .then(response => {
-              console.log("update password done", response)
-              //this.$router.push("/logout")
+              this.$cs({
+                title: this.$t("Update Password"),
+                h: this.$createElement,
+                message: this.$t("Your password was updated"),
+                type: "success"
+              });
+              this.logout()
             })
             .catch(err => {
-              console.log("Oops ! something went wrong")
+              this.$cs({
+                title: this.$t("Update Password"),
+                h: this.$createElement,
+                message: this.$t("Oops ! something went wrong"),
+                type: "error"
+              });
+              console.log("Oops ! something went wrong");
             });
         } else {
-          console.log("error submit!!")
+          console.log("error submit!!");
           return false;
         }
       });

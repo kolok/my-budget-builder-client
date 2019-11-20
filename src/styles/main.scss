@@ -127,6 +127,11 @@ $min-sider_width: 200px;
     @extend .Content;
     border-bottom: solid 1px #e6e6e6;
   }
+  &__Baseline {
+    @extend .Content;
+    margin:5px 30px;
+    font-style:italic;
+  }
   &__ButtonContainer {
     @extend .Content;
     color: white;

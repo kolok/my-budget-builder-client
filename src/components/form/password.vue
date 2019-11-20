@@ -20,8 +20,8 @@ export default {
   data() {
     return {
       passwordRule: [
-        { required: true, message: this.$t("You cannot use a blank password") },
-        { min: 6, message: this.$t("Too short") }
+        { required: true, message: this.$t("You cannot use a blank password"), trigger: ["blur"] },
+        { min: 6, message: this.$t("Too short"), trigger: ["blur"] }
       ]
     };
   }
