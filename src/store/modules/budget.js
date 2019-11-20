@@ -30,6 +30,9 @@ export default {
     UPDATE_BUDGET: (state, budget) => {
       state.budgets = state.budgets.filter(item => item.id !== budget.id)
       state.budgets.push(budget)
+      if (state.activeBudget.id == budget.id) {
+        state.activeBudget = budget
+      }
       // TODO: sort by ?
     },
     DELETE_BUDGET: (state, budget) => {
