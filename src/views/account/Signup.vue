@@ -22,9 +22,9 @@
             <el-input
               v-model="signupForm.subdomain"
               :placeholder="$t('Subdomain')"
-              class="Content__CardInput--Shorter"
-            />
-            <span class="Content__CardText--Suffix">.pipauls.com</span>
+            >
+              <template slot="append">.pipauls.com</template>
+            </el-input>
           </el-form-item>
           <el-form-item prop="name" :label="$t('Name')">
             <el-input v-model="signupForm.name" :placeholder="$t('Name')" />
@@ -54,6 +54,7 @@ import { mapActions } from "vuex";
 import EmailFormItem from "../../components/form/email.vue"
 import PasswordFormItem from "../../components/form/password.vue"
 import RetypePwdFormItem from "../../components/form/retypePwd.vue"
+import { i18n } from '../../i18n'
 
 export default {
   components: {
@@ -108,6 +109,7 @@ export default {
     submit: function(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.signupForm.defaultLanguage = i18n.locale
           this.signup(this.signupForm)
             .then(() => {
               this.$cs({

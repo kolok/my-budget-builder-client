@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
-import BudgetForm from "./Form.vue"
-import MiniAddButton from "../button/miniAdd.vue"
+import { mapActions } from "vuex";
+import BudgetForm from "./Form.vue";
+import MiniAddButton from "../button/miniAdd.vue";
 
 export default {
   components: {
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       createDialog: false,
-      budgetForm: {}
-    }
+      budgetForm: { name: "", startDate: "", endDate: "" }
+    };
   },
   methods: {
     ...mapActions(["createBudget"]),
@@ -55,7 +55,7 @@ export default {
             type: "success"
           });
           // close the dialogbox and set the new budget as the active one
-          this.budgetForm = {}
+          this.budgetForm = { name: "", startDate: "", endDate: "" };
           this.createDialog = false;
           this.$store.commit("SET_ACTIVEBUDGETID", response.id);
         })

@@ -169,13 +169,6 @@ $min-sider_width: 200px;
     @extend .Content;
     display:inline;
   }
-  &__Input--Inactive {
-    @extend .Content;
-    width: 200px;
-    float: left;
-    clear: none;
-    disabled: disabled;
-  }
   &__Input--Search {
     @extend .Content;
     max-width:400px;
@@ -258,12 +251,6 @@ $min-sider_width: 200px;
       font-style:italic;
       font-weight: normal;
     }
-  }
-  &__CardInput--Shorter {
-    @extend .Content;
-    width: 200px;
-    float: left;
-    clear: both;
   }
   &__CardText--Suffix {
     @extend .Content;
