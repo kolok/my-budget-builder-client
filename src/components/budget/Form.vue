@@ -50,9 +50,9 @@ export default {
     return {
       'budgetRule': {
         'name': [
-          { required: true, message: this.$t('Budget name can\'t be blank') },
-          { max:25, message: this.$t('Too long')},
-          { min:3, message: this.$t('Too short')}
+          { required: true, message: this.$t('Budget name can\'t be blank'), trigger: ['blur'] },
+          { max:25, message: this.$t('Too long'), trigger: ['blur']},
+          { min:3, message: this.$t('Too short'), trigger: ['blur']}
         ]
       }
     }

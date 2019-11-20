@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import employeeForm from "./Form.vue";
+import { mapActions } from "vuex"
+import employeeForm from "./Form.vue"
 
 export default {
   components: {
@@ -12,11 +12,8 @@ export default {
   },
   data() {
     return {
-      employeeForm: {
-        name: "",
-        email: ""
-      }
-    };
+      employeeForm: {}
+    }
   },
   methods: {
     ...mapActions(["createEmployee"]),
@@ -25,18 +22,15 @@ export default {
       this.createEmployee(this.employeeForm)
         .then(() => {
           // reset form data
-          this.employeeForm = {
-            name: "",
-            email: ""
-          };
-          this.$router.push("/hiringPlan");
+          this.employeeForm = {}
+          this.$router.push("/hiringPlan")
         })
         .catch(e => {
-          console.log(e);
+          console.log(e)
         });
     },
     handleCancel: function() {
-      this.$router.push("/hiringPlan");
+      this.$router.push("/hiringPlan")
     }
   }
 };

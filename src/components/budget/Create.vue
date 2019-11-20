@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import BudgetForm from "./Form.vue";
-import MiniAddButton from "../button/miniAdd.vue";
+import { mapActions } from "vuex"
+import BudgetForm from "./Form.vue"
+import MiniAddButton from "../button/miniAdd.vue"
 
 export default {
   components: {
     BudgetForm,
-    MiniAddButton,
+    MiniAddButton
   },
   props: {
     existsBudgets: Boolean
@@ -37,12 +37,8 @@ export default {
   data() {
     return {
       createDialog: false,
-      budgetForm: {
-        name: "",
-        startDate: "",
-        endDate: ""
-      },
-    };
+      budgetForm: {}
+    }
   },
   methods: {
     ...mapActions(["createBudget"]),
@@ -59,6 +55,7 @@ export default {
             type: "success"
           });
           // close the dialogbox and set the new budget as the active one
+          this.budgetForm = {}
           this.createDialog = false;
           this.$store.commit("SET_ACTIVEBUDGETID", response.id);
         })
@@ -76,8 +73,8 @@ export default {
       this.createDialog = false;
     },
     displayCreateDialog: function() {
-      this.createDialog = true
-    },
+      this.createDialog = true;
+    }
   }
 };
 </script>
