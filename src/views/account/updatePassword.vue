@@ -72,10 +72,10 @@ export default {
               this.$cs({
                 title: this.$t("Update Password"),
                 h: this.$createElement,
-                message: this.$t("Oops ! something went wrong"),
+                message: this.$t("Oops ! Something went wrong"),
                 type: "error"
               });
-              console.log("Oops ! something went wrong");
+              console.log("Oops ! Something went wrong");
             });
         } else {
           console.log("error submit!!");

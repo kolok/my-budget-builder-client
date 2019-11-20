@@ -50,11 +50,25 @@ export default {
       // Create budget
       this.createBudget(this.budgetForm)
         .then(response => {
+          this.$cs({
+            title: this.$t("Budget creation"),
+            h: this.$createElement,
+            message: this.$t("Budget {name} was created", {
+              name: this.budgetForm.name
+            }),
+            type: "success"
+          });
           // close the dialogbox and set the new budget as the active one
           this.createDialog = false;
           this.$store.commit("SET_ACTIVEBUDGETID", response.id);
         })
         .catch(e => {
+          this.$cs({
+            title: this.$t("Budget creation"),
+            h: this.$createElement,
+            message: this.$t("Oops ! Something went wrong"),
+            type: "error"
+          });
           console.log(e);
         });
     },

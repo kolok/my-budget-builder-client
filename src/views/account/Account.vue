@@ -25,7 +25,7 @@
     </div>
     <div v-else>
       <h1 class="Content__Head1">
-        {{ $t('Oops, something went wrong') }}
+        {{ $t('Oops ! Something went wrong') }}
       </h1>
       {{ $t('you need to associated to at least one company') }}
     </div>

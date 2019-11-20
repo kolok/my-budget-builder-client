@@ -28,7 +28,7 @@ export default {
           console.log("update password email sent")
         })
         .catch( err => {
-          console.log("Oops ! something went wrong")
+          console.log("Oops ! Something went wrong")
         })
     }
   }

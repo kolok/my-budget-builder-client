@@ -6,7 +6,7 @@
       <budget-actions v-if="existsBudgets" />
     </div>
     <div v-if="existsBudgets">
-      <budget-dates />
+      <budget-dates/>
       <employee-list />
       <employee-create-button />
     </div>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapActions(["getBudgets"]),
-    setActiveBudget: function() {
+    setActiveBudget() {
       this.getBudgets().then(budgets => {
         if (budgets !== undefined && budgets.length > 0) {
           this.$store.commit("SET_ACTIVEBUDGETID", budgets[0].id);

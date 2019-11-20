@@ -73,6 +73,7 @@ export default {
       return BudgetResource.update(budget.id, budget)
         .then(response => {
           commit('UPDATE_BUDGET', response.data)
+          return response.data
         })
         .catch(err => {
           throw err
@@ -83,6 +84,7 @@ export default {
       return BudgetResource.delete(id)
         .then(response => {
           commit('DELETE_BUDGET', response.data)
+          return response.data
         })
         .catch(err => {
           throw err

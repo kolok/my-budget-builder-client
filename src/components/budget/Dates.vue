@@ -8,15 +8,24 @@ import moment from 'moment'
 
 export default {
   computed: {
-    ...mapGetters(['activeBudget'])
+    ...mapGetters(['activeBudget']),
   },
   methods: {
     displayBudgetDate() {
-      return this.$t("From {startDate} to {endDate}", 
+      var result = ""
+      if (this.activeBudget.startDate !== null) {
+        result += this.$t("From {startDate} ", 
         {
-          startDate: moment(this.activeBudget.startDate).format(this.$t('YYYY/MM/DD')),
+          startDate: moment(this.activeBudget.startDate).format(this.$t('YYYY/MM/DD'))
+        })
+      }
+      if (this.activeBudget.endDate !== null) {
+        result += this.$t("To {endDate} ", 
+        {
           endDate: moment(this.activeBudget.endDate).format(this.$t('YYYY/MM/DD'))
         })
+      }
+      return result
     }
   }
 }
