@@ -18,6 +18,13 @@ export default {
   methods: {
     ...mapActions(["createEmployee"]),
     handleCreate: function(formName) {
+      this.employeeForm.expenses = []
+      if (this.employeeForm.salary) {
+        this.employeeForm.expenses.push( {expense_type: "payroll", amount: this.employeeForm.salary} )
+      }
+      if (this.employeeForm.bonus) {
+        this.employeeForm.expenses.push( {expense_type: "bonus", amount: this.employeeForm.bonus} )
+      }
       // Create employee
       this.createEmployee(this.employeeForm)
         .then(() => {
