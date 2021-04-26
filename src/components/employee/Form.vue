@@ -11,6 +11,7 @@
         <el-input v-model="employeeForm.name" autocomplete="off" />
       </el-form-item>
       <email-form-item :myForm="employeeForm" />
+      <OfficeSelect :myForm="employeeForm" prop="officeID" />
       <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
       <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
       <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
@@ -31,12 +32,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import MyDate from "../form/date.vue";
+import OfficeSelect from "../form/officeSelect.vue";
 import EmailFormItem from "../../components/form/email.vue";
 
 export default {
   components: {
     MyDate,
+    OfficeSelect,
     EmailFormItem
   },
   props: {
@@ -54,6 +58,14 @@ export default {
         ]
       }
     };
+  },
+  computed: {
+    ...mapGetters(["offices"])
+  },
+  created() {
+    this.$store.dispatch('getEntitiesWithOffices').then(() => {
+      this.loading = false
+    })
   },
   methods: {
     submitForm: function(formName) {

@@ -6,7 +6,13 @@ export default {
     entities: []
   },
   getters: {
-    entities: state => state.entities
+    entities: state => state.entities,
+    offices: state => state.entities.map(entity =>
+        entity.offices.map(office => {
+            office.fullName = [entity.name,office.name].join(' > ')
+            return office
+        })
+    ).flat()
   },
   mutations: {
     SET_ENTITIES: (state, entities) => {
