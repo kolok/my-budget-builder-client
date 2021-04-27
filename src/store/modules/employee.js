@@ -38,6 +38,9 @@ export default {
     },
     getEmployee: ({ commit }, employeeID) => {
       return EmployeeResource.get(employeeID)
+        .then(response => {
+          return response.data
+        })
         .catch(err => {
           throw err
         })

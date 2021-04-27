@@ -22,13 +22,24 @@ export default {
     ...mapActions(["getEmployee", "updateEmployee"]),
 
     initEmployee: function() {
-      this.getEmployee(this.$route.params.id).then(response => {
-        console.log("Get employee ", response.data);
-        this.employeeForm = response.data;
+      this.getEmployee(this.$route.params.id).then(employee => {
+        employee.expenses.forEach( expense => {
+            if (expense.expense_type == 'payroll') {
+                employee.salary = expense.amount
+            }
+            if (expense.expense_type == 'bonus') {
+                employee.bonus = expense.amount
+            }
+        });
+        this.employeeForm = employee;
       });
     },
     handleEdit: function(formName) {
-      // Create employee
+      this.employeeForm.expenses = [
+        {expense_type: "payroll", amount: this.employeeForm.salary || 0},
+        {expense_type: "bonus", amount: this.employeeForm.bonus || 0}
+      ]
+
       this.updateEmployee(this.employeeForm)
         .then(() => {
           this.$cs({
