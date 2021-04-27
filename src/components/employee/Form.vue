@@ -16,8 +16,8 @@
       <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
       <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
 
-      <el-form-item prop="salary" :label="$t('Annual Salary')">
-        <el-input-number v-model="employeeForm.salary" :controls="false" />
+      <el-form-item prop="payroll" :label="$t('Annual Payroll')">
+        <el-input-number v-model="employeeForm.payroll" :controls="false" />
       </el-form-item>
       <el-form-item prop="bonus" :label="$t('Annual Bonus')">
         <el-input-number v-model="employeeForm.bonus" :controls="false" />

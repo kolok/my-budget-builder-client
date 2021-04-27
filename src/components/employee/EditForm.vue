@@ -25,7 +25,7 @@ export default {
       this.getEmployee(this.$route.params.id).then(employee => {
         employee.expenses.forEach( expense => {
             if (expense.expense_type == 'payroll') {
-                employee.salary = expense.amount
+                employee.payroll = expense.amount
             }
             if (expense.expense_type == 'bonus') {
                 employee.bonus = expense.amount
@@ -36,7 +36,7 @@ export default {
     },
     handleEdit: function(formName) {
       this.employeeForm.expenses = [
-        {expense_type: "payroll", amount: this.employeeForm.salary || 0},
+        {expense_type: "payroll", amount: this.employeeForm.payroll || 0},
         {expense_type: "bonus", amount: this.employeeForm.bonus || 0}
       ]
 
