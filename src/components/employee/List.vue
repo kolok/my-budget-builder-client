@@ -5,6 +5,7 @@
       <score-card :title="$t('Payroll')" :count="totalPayroll" :unit="getCompanyCurrency"/>
       <score-card :title="$t('Bonus')" :count="totalBonus" :unit="getCompanyCurrency"/>
     </div>
+    <p>activeBudgetID: {{ this.activeBudgetID }}</p>
     <el-table
       :data="employees"
       class="Content__Table"
@@ -60,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['employees','getCurrentCompany','getCurrencyById','currencies']),
+    ...mapGetters(['employees','getCurrentCompany','getCurrencyById','currencies','activeBudgetID']),
 
     headcount() {
       return this.employees.length;

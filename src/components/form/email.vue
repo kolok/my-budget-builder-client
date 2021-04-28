@@ -1,5 +1,5 @@
 <template>
-  <el-form-item prop="email" label="Email" :rules="emailRule">
+  <el-form-item prop="email" :label="emailLabel" :rules="emailRule">
     <el-input v-model="myForm.email" placeholder="email" />
   </el-form-item>
 </template>
@@ -10,12 +10,22 @@ export default {
     myForm: {
       type: Object,
       required: true
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
+  computed: {
+    emailLabel: function() {
+      return this.$t("Email") + " " + (this.required ? "" : this.$t("(Optional)"))
     }
   },
   data() {
     return {
       emailRule: [
-        { required: true, message: this.$t("Email is required"), trigger: "blur" },
+        { required: this.required, message: this.$t("Email is required"), trigger: "blur" },
         {
           type: "email",
           message: this.$t("Please input correct email address"),

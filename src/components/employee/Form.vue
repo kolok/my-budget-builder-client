@@ -7,10 +7,10 @@
       class="Dialog__Form"
       @keyup.enter.native="submitForm('employeeForm')"
     >
-      <el-form-item prop="name" :label="$t('Employee')">
+      <el-form-item prop="name" :label="$t('Employee or Open Position')">
         <el-input v-model="employeeForm.name" autocomplete="off" />
       </el-form-item>
-      <email-form-item :myForm="employeeForm" />
+      <email-form-item :myForm="employeeForm" :required="false"/>
       <OfficeSelect :myForm="employeeForm" prop="officeID" />
       <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
       <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
