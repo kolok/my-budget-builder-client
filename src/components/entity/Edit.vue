@@ -2,7 +2,7 @@
   <div>
     <mini-edit-button :actionFunc="displayAddDialog" />
     <mini-delete-button :actionFunc="handleDelete" />
-    <el-dialog :title="$t('Create an entity')" :visible.sync="addDialog">
+    <el-dialog :title="$t('Update entity')" :visible.sync="addDialog" :modalAppendToBody="false">
       <el-form
         ref="entityForm"
         :model="entityForm"
