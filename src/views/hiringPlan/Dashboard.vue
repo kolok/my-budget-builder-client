@@ -6,7 +6,7 @@
       <budget-actions v-if="existsBudgets" />
     </div>
     <div v-if="existsBudgets">
-      <budget-dates/>
+      <budget-dates />
       <employee-list />
       <employee-create-button />
     </div>

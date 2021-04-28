@@ -256,6 +256,14 @@ $min-sider_width: 200px;
     @extend .Content;
     float: left;
   }
+  &__ScoreCardBoard{
+    @extend .Content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-content: center;
+  }
   &__TreeNode{
     @extend .Content;
     flex: 1;

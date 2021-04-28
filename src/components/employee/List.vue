@@ -1,6 +1,10 @@
 <template>
   <div>
-    <score-card :title="$t('Head count')" :count="headcount" :unit="$t('People')"/>
+    <div class="Content__ScoreCardBoard">
+      <score-card :title="$t('Head count')" :count="headcount" :unit="$t('People')"/>
+      <score-card :title="$t('Payroll')" :count="totalPayroll" :unit="getCompanyCurrency"/>
+      <score-card :title="$t('Bonus')" :count="totalBonus" :unit="getCompanyCurrency"/>
+    </div>
     <el-table
       :data="employees"
       class="Content__Table"
@@ -56,15 +60,41 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['employees']),
+    ...mapGetters(['employees','getCurrentCompany','getCurrencyById','currencies']),
+
     headcount() {
       return this.employees.length;
+    },
+    totalPayroll() {
+      var payrolls = this.employees.map( employee =>
+        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
+      ).filter( payroll => payroll !== undefined )
+      return payrolls.reduce((a,b) => a + b.amount, 0)
+    },
+    totalBonus() {
+      var bonus = this.employees.map( employee =>
+        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
+      ).filter( b => b !== undefined )
+      return bonus.reduce((a,b) => a + b.amount, 0)
+    },
+    getDefaultCurrencyID() {
+      return this.getCurrentCompany.defaultCurrencyID
+    },
+    getCompanyCurrency() {
+      console.log(this.getCurrencyById(this.getDefaultCurrencyID))
+      console.log(this.currencies)
+
+      return this.getCurrencyById(1) ? this.getCurrencyById(1).symbol : ''
     }
+  },
+  beforeMount() {
+    this.$store.dispatch("getCurrencies");
+    this.$store.dispatch("getCurrentCompany");
   },
   created() {
     this.$store.dispatch('getEmployees').then(() => {
       this.loading = false
-    })
+    });
   },
   methods: {
     handleSelectionChange: function(val) {
@@ -74,3 +104,4 @@ export default {
   }
 }
 </script>
+
