@@ -6,7 +6,7 @@
         :placeholder="placeholder"
         :format="$t('yyyy/MM/dd')"
         value-format="yyyy-MM-dd"
-        style="width: 180px"
+        style="width:100%"
       />
     </el-form-item>
 </template>

@@ -17,6 +17,10 @@
             <el-input v-model="employeeForm.position" autocomplete="off" />
           </el-form-item>
           <TeamSelect :myForm="employeeForm" prop="teamID" :label="$t('Team')" />
+          <span slot="footer">
+            <el-button @click="handleCancel('employeeForm')">{{ $t('Cancel') }}</el-button>
+            <el-button type="primary" @click="submitForm('employeeForm')">{{ $t('Save') }}</el-button>
+          </span>
 
         </div>
         <div class='Content__EmployeeFormBlock'>
@@ -37,20 +41,18 @@
               <el-input-number v-model="employeeForm.bonus" :controls="false" style="width:100%"/>
             </el-form-item>
           </div>
-          <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
-          <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
-          <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
 
+          <div class='Content__EmployeeFormSubBlock'>
+            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
+            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
+          </div>
+          <div class='Content__EmployeeFormSubBlock'>
+            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
+          </div>
 
         </div>
-
       </div>
-
     </el-form>
-    <span slot="footer">
-      <el-button @click="handleCancel('employeeForm')">{{ $t('Cancel') }}</el-button>
-      <el-button type="primary" @click="submitForm('employeeForm')">{{ $t('Save') }}</el-button>
-    </span>
   </div>
 </template>
 
