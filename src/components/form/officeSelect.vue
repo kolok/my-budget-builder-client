@@ -6,6 +6,7 @@
     <el-select 
       v-model="myForm[prop]"
       :placeholder="$t('Select an office')"
+      style="width: 100%;"
     >
       <el-option
         v-for="office in offices"
@@ -32,6 +33,9 @@ export default {
   },
   computed: {
     ...mapGetters(["offices"])
+  },
+  created() {
+    this.$store.dispatch("getEntitiesWithOffices");
   }
 };
 </script>

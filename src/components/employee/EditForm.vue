@@ -31,6 +31,12 @@ export default {
                 employee.bonus = expense.amount
             }
         });
+        console.log(employee)
+        if (employee.positions[0]) {
+          employee.position = employee.positions[0].name
+          employee.teamID = employee.positions[0].teamID
+        }
+
         this.employeeForm = employee;
       });
     },
@@ -39,6 +45,16 @@ export default {
         {expense_type: "payroll", amount: this.employeeForm.payroll || 0},
         {expense_type: "bonus", amount: this.employeeForm.bonus || 0}
       ]
+      this.employeeForm.positions = [
+        {
+          teamID: (this.employeeForm.teamID.length !== undefined ? 
+            this.employeeForm.teamID[this.employeeForm.teamID.length - 1 ] || 0 : 
+            this.employeeForm.teamID
+          ), 
+          name: this.employeeForm.position
+        }
+      ]
+      console.log(this.employeeForm)
 
       this.updateEmployee(this.employeeForm)
         .then(() => {

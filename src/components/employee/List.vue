@@ -82,9 +82,6 @@ export default {
       return this.getCurrentCompany.defaultCurrencyID
     },
     getCompanyCurrency() {
-      console.log(this.getCurrencyById(this.getDefaultCurrencyID))
-      console.log(this.currencies)
-
       return this.getCurrencyById(1) ? this.getCurrencyById(1).symbol : ''
     }
   },

@@ -4,24 +4,47 @@
       ref="employeeForm"
       :model="employeeForm"
       :rules="employeeRule"
-      class="Dialog__Form"
       @keyup.enter.native="submitForm('employeeForm')"
+      label-width="120px"
     >
-      <el-form-item prop="name" :label="$t('Employee or Open Position')">
-        <el-input v-model="employeeForm.name" autocomplete="off" />
-      </el-form-item>
-      <email-form-item :myForm="employeeForm" :required="false"/>
-      <OfficeSelect :myForm="employeeForm" prop="officeID" />
-      <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
-      <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
-      <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
+      <div class='Content__EmployeeForm'>
+        <div class='Content__EmployeeFormBlock'>
+          <el-form-item prop="name" :label="$t('Employee or Open Position')" label-width="200px">
+            <el-input v-model="employeeForm.name" autocomplete="off" />
+          </el-form-item>
+          <OfficeSelect :myForm="employeeForm" prop="officeID" />
+          <el-form-item prop="position" :label="$t('Position')">
+            <el-input v-model="employeeForm.position" autocomplete="off" />
+          </el-form-item>
+          <TeamSelect :myForm="employeeForm" prop="teamID" :label="$t('Team')" />
 
-      <el-form-item prop="payroll" :label="$t('Annual Payroll')">
-        <el-input-number v-model="employeeForm.payroll" :controls="false" />
-      </el-form-item>
-      <el-form-item prop="bonus" :label="$t('Annual Bonus')">
-        <el-input-number v-model="employeeForm.bonus" :controls="false" />
-      </el-form-item>
+        </div>
+        <div class='Content__EmployeeFormBlock'>
+          <email-form-item :myForm="employeeForm" :required="false"/>
+          <div class='Content__EmployeeFormSubBlock'>
+            <el-form-item 
+              prop="payroll" 
+              :label="$t('Annual Payroll')" 
+              class="Content__EmployeeFormSubSubBlock"
+            >
+              <el-input-number v-model="employeeForm.payroll" :controls="false" style="width:100%"/>
+            </el-form-item>
+            <el-form-item
+              prop="bonus" 
+              :label="$t('Annual Bonus')"
+              class="Content__EmployeeFormSubSubBlock"
+            >
+              <el-input-number v-model="employeeForm.bonus" :controls="false" style="width:100%"/>
+            </el-form-item>
+          </div>
+          <my-date :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
+          <my-date :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
+          <my-date :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
+
+
+        </div>
+
+      </div>
 
     </el-form>
     <span slot="footer">
@@ -32,56 +55,83 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import MyDate from "../form/date.vue";
-import OfficeSelect from "../form/officeSelect.vue";
-import EmailFormItem from "../../components/form/email.vue";
+  import { mapGetters } from "vuex";
+  import MyDate from "../form/date.vue";
+  import OfficeSelect from "../form/officeSelect.vue";
+  import TeamSelect from "../form/teamSelect.vue";
+  import EmailFormItem from "../../components/form/email.vue";
 
-export default {
-  components: {
-    MyDate,
-    OfficeSelect,
-    EmailFormItem
-  },
-  props: {
-    employeeForm: {
-      type: Object,
-      required: true
-    }
-  },
-  data() {
-    return {
-      employeeRule: {
-        name: [
-          { required: true, message: this.$t("Employee name can't be blank") },
-          { max: 255, message: this.$t("Too long") }
-        ]
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(["offices"])
-  },
-  created() {
-    this.$store.dispatch('getEntitiesWithOffices').then(() => {
-      this.loading = false
-    })
-  },
-  methods: {
-    submitForm: function(formName) {
-      // Create employee
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$emit("submitForm");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+  export default {
+    components: {
+      MyDate,
+      OfficeSelect,
+      TeamSelect,
+      EmailFormItem
     },
-    handleCancel: function() {
-      this.$emit("cancel");
+    props: {
+      employeeForm: {
+        type: Object,
+        required: true
+      }
+    },
+    data() {
+      return {
+        employeeRule: {
+          name: [
+            { required: true, message: this.$t("Employee name can't be blank") },
+            { max: 255, message: this.$t("Too long") }
+          ]
+        }
+      };
+    },
+    computed: {
+      ...mapGetters(["offices", "teamTreeSelector"])
+    },
+    created() {
+      this.$store.dispatch("getTeams");
+    },
+    methods: {
+      submitForm: function(formName) {
+        // Create employee
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.$emit("submitForm");
+          } else {
+            console.log("error submit!!");
+            return false;
+          }
+        });
+      },
+      handleCancel: function() {
+        this.$emit("cancel");
+      }
     }
-  }
-};
+  };
 </script>
+
+<style scoped>
+  .Content__EmployeeForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .Content__EmployeeFormBlock {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    min-width: 300px;
+    width: 80%;
+  }
+  .Content__EmployeeFormSubBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-wrap: wrap;
+  }
+  .Content__EmployeeFormSubSubBlock {
+    width: 50%;
+  }
+  .Content__EmployeeFormItem {
+  }
+
+</style>
