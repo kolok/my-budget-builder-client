@@ -7,83 +7,48 @@
       @keyup.enter.native="submitForm('employeeForm')"
       label-width="120px"
     >
-      <div class='Content__EmployeeForm'>
-        <div class='Content__EmployeeFormBlock'>
+      <div class='Content__ColumnForm'>
+        <div class='Content__ColumnForm1o2'>
           <el-form-item prop="name" :label="$t('Employee or Open Position')" label-width="200px">
             <el-input v-model="employeeForm.name" autocomplete="off" />
           </el-form-item>
           <OfficeSelect :myForm="employeeForm" prop="officeID" />
 
         </div>
-        <div class='Content__EmployeeFormBlock'>
+        <div class='Content__ColumnForm1o2'>
           <email-form-item :myForm="employeeForm" :required="false"/>
-          <div class='Content__EmployeeFormSubBlock'>
+          <div class='Content__ColumnForm1o2Column'>
             <el-form-item 
               prop="payroll" 
               :label="$t('Annual Payroll')" 
-              class="Content__EmployeeFormSubSubBlock"
+              class="Content__ColumnForm1o2Column1o2"
             >
               <el-input-number v-model="employeeForm.payroll" :controls="false" style="width:100%"/>
             </el-form-item>
             <el-form-item
               prop="bonus" 
               :label="$t('Annual Bonus')"
-              class="Content__EmployeeFormSubSubBlock"
+              class="Content__ColumnForm1o2Column1o2"
             >
               <el-input-number v-model="employeeForm.bonus" :controls="false" style="width:100%"/>
             </el-form-item>
           </div>
 
-          <div class='Content__EmployeeFormSubBlock'>
-            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
-            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
+          <div class='Content__ColumnForm1o2Column'>
+            <my-date class="Content__ColumnForm1o2Column1o2" :myForm="employeeForm" prop="startDate" :label="$t('Start date')" />
+            <my-date class="Content__ColumnForm1o2Column1o2" :myForm="employeeForm" prop="endDate" :label="$t('End date')" />
           </div>
-          <div class='Content__EmployeeFormSubBlock'>
-            <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
+          <div class='Content__ColumnForm1o2Column'>
+            <my-date class="Content__ColumnForm1o2Column1o2" :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
           </div>
         </div>
       </div>
 
 
-      <div class="Content__EmployeeFormPositions">
-        <div 
-          class='Content__EmployeeForm--Bordered'
-          v-for="(position, counter) in positionsForm"
-          v-bind:key="counter">
-          <div style="width:35%">
-            <el-form-item prop="position" :label="$t('Position')">
-              <el-input v-model="position.name" autocomplete="off" />
-            </el-form-item>
-
-          </div>
-          <div style="width:35%">
-            <TeamSelect :myForm="position" prop="teamID" :label="$t('Team')" />
-
-          </div>
-          <div style="width:20%">
-            <el-form-item prop="position" :label="$t('Part-time')">
-              <el-input v-model="position.parttime" autocomplete="off" />
-            </el-form-item>
-          </div>
-          <div style="width:10%;float:right;padding:5px;">
-              <el-button
-                @click="deletePosition(counter)"
-                circle
-                class="Content__Button--Right"
-                icon="el-icon-delete"
-                size="mini"
-                type="danger"
-                style="float:right;"
-              />
-          </div>
-        </div>
-        <div class='Content__EmployeeForm' style="padding:20px;">
-          <el-button type="primary" @click="addPosition">{{ $t('Add position') }}</el-button>
-        </div>
-      </div>
+      <SubForm :positionsForm="positionsForm"/>
       
-      <div class='Content__EmployeeForm'>
-        <div class='Content__EmployeeFormBlock'>
+      <div class='Content__ColumnForm'>
+        <div class='Content__ColumnForm1o2'>
           <div>
           </div>
 
@@ -92,7 +57,7 @@
             <el-button type="primary" @click="submitForm('employeeForm')">{{ $t('Save') }}</el-button>
           </span>
         </div>
-        <div class='Content__EmployeeFormBlock'>
+        <div class='Content__ColumnForm1o2'>
         </div>
       </div>
     </el-form>
@@ -103,15 +68,15 @@
   import { mapGetters } from "vuex";
   import MyDate from "../form/date.vue";
   import OfficeSelect from "../form/officeSelect.vue";
-  import TeamSelect from "../form/teamSelect.vue";
+  import SubForm from "../position/SubForm.vue";
   import EmailFormItem from "../../components/form/email.vue";
 
   export default {
     components: {
       MyDate,
       OfficeSelect,
-      TeamSelect,
-      EmailFormItem
+      EmailFormItem,
+      SubForm
     },
     props: {
       employeeForm: {
@@ -134,16 +99,11 @@
       };
     },
     computed: {
-      ...mapGetters(["offices", "teamTreeSelector"])
-    },
-    created() {
-      this.$store.dispatch("getTeams");
+      ...mapGetters(["offices"])
     },
     methods: {
       submitForm: function(formName) {
         this.employeeForm.positions = this.positionsForm
-        console.log(this.employeeForm)
-        // Create employee
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.$emit("submitForm");
@@ -155,57 +115,7 @@
       },
       handleCancel: function() {
         this.$emit("cancel");
-      },
-      addPosition(){
-        this.positionsForm.push({
-          name:'',
-          teamID: 0
-        })
-      },
-      deletePosition(counter){
-        this.positionsForm.splice(counter,1);
       }
     }
   };
 </script>
-
-<style scoped>
-  .Content__EmployeeForm {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  .Content__EmployeeFormPositions {
-    border-radius: 25px;
-    border: 2px solid grey;
-    padding: 0;
-    width:100%;
-  }
-  .Content__EmployeeForm--Bordered {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin:20px;
-  }
-
-
-  .Content__EmployeeFormBlock {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    min-width: 300px;
-    width: 80%;
-  }
-  .Content__EmployeeFormSubBlock {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    flex-wrap: wrap;
-  }
-  .Content__EmployeeFormSubSubBlock {
-    width: 50%;
-  }
-  .Content__EmployeeFormItem {
-  }
-
-</style>
