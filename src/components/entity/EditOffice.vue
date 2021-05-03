@@ -1,13 +1,19 @@
 <template>
   <div>
-    <el-button type="text" icon="el-icon-edit" @click="handleEditOffice" />
     <el-button
-      @click="handleDeleteOffice()"
+      type="text"
+      icon="el-icon-edit"
+      @click="handleEditOffice"
+    />
+    <el-button
       icon="el-icon-delete"
       type="text"
-
+      @click="handleDeleteOffice()"
     />
-    <el-dialog :title="$t('Edit the office')" :visible.sync="editOfficeDialog">
+    <el-dialog
+      :title="$t('Edit the office')"
+      :visible.sync="editOfficeDialog"
+    >
       <el-form
         ref="officeForm"
         :model="officeForm"
@@ -15,31 +21,61 @@
         label-width="250px"
         class="Dialog__Form"
       >
-        <el-form-item prop="name" :label="$t('Office')">
-          <el-input v-model="officeForm.name" autocomplete="off" />
+        <el-form-item
+          prop="name"
+          :label="$t('Office')"
+        >
+          <el-input
+            v-model="officeForm.name"
+            autocomplete="off"
+          />
         </el-form-item>
-        <el-form-item prop="address" :label="$t('Address')">
-          <el-input v-model="officeForm.address" autocomplete="off" />
+        <el-form-item
+          prop="address"
+          :label="$t('Address')"
+        >
+          <el-input
+            v-model="officeForm.address"
+            autocomplete="off"
+          />
         </el-form-item>
-        <el-form-item prop="zipcode" :label="$t('Zipcode')">
-          <el-input v-model="officeForm.zipcode" autocomplete="off" />
+        <el-form-item
+          prop="zipcode"
+          :label="$t('Zipcode')"
+        >
+          <el-input
+            v-model="officeForm.zipcode"
+            autocomplete="off"
+          />
         </el-form-item>
-        <el-form-item prop="town" :label="$t('Town')">
-          <el-input v-model="officeForm.town" autocomplete="off" />
+        <el-form-item
+          prop="town"
+          :label="$t('Town')"
+        >
+          <el-input
+            v-model="officeForm.town"
+            autocomplete="off"
+          />
         </el-form-item>
         <CountrySelect :form="officeForm" />
       </el-form>
-      <span slot="footer" class="dialog-footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="handleCancel('officeForm')">{{ $t('Cancel') }}</el-button>
-        <el-button type="primary" @click="handleUpdateOffice('officeForm')">{{ $t('Save') }}</el-button>
+        <el-button
+          type="primary"
+          @click="handleUpdateOffice('officeForm')"
+        >{{ $t('Save') }}</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import CountrySelect from "../form/countrySelect.vue";
+import { mapGetters, mapActions } from 'vuex'
+import CountrySelect from '../form/countrySelect.vue'
 
 export default {
   components: {
@@ -56,37 +92,37 @@ export default {
       editOfficeDialog: false,
       officeRule: {
         name: [
-          { required: true, message: this.$t("Office name can't be blank") },
-          { max: 25, message: this.$t("Too long") },
-          { min: 3, message: this.$t("Too short") }
+          { required: true, message: this.$t('Office name can\'t be blank') },
+          { max: 25, message: this.$t('Too long') },
+          { min: 3, message: this.$t('Too short') }
         ],
         address: [
-          { required: true, message: this.$t("Address can't be blank") },
-          { max: 25, message: this.$t("Too long") },
-          { min: 3, message: this.$t("Too short") }
+          { required: true, message: this.$t('Address can\'t be blank') },
+          { max: 25, message: this.$t('Too long') },
+          { min: 3, message: this.$t('Too short') }
         ],
         zipcode: [
-          { required: true, message: this.$t("Zipcode can't be blank") },
-          { max: 25, message: this.$t("Too long") },
-          { min: 3, message: this.$t("Too short") }
+          { required: true, message: this.$t('Zipcode can\'t be blank') },
+          { max: 25, message: this.$t('Too long') },
+          { min: 3, message: this.$t('Too short') }
         ],
         town: [
-          { required: true, message: this.$t("Town can't be blank") },
-          { max: 25, message: this.$t("Too long") },
-          { min: 3, message: this.$t("Too short") }
+          { required: true, message: this.$t('Town can\'t be blank') },
+          { max: 25, message: this.$t('Too long') },
+          { min: 3, message: this.$t('Too short') }
         ]
       }
-    };
+    }
   },
   computed: {
-    ...mapGetters(["countries"])
+    ...mapGetters(['countries'])
   },
   methods: {
-    ...mapActions(["updateOffice", "deleteOffice"]),
+    ...mapActions(['updateOffice', 'deleteOffice']),
 
     handleEditOffice() {
       // display the form to edit an office
-      this.editOfficeDialog = true;
+      this.editOfficeDialog = true
     },
     handleUpdateOffice: function(formName) {
       // Create office
@@ -94,20 +130,20 @@ export default {
         if (valid) {
           this.updateOffice(this.officeForm)
             .then(() => {
-              this.editOfficeDialog = false;
+              this.editOfficeDialog = false
             })
             .catch(e => {
-              console.log(e);
-            });
+              console.log(e)
+            })
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     handleCancel: function(formName) {
-      this.$refs[formName].resetFields();
-      this.editOfficeDialog = false;
+      this.$refs[formName].resetFields()
+      this.editOfficeDialog = false
     },
     handleDeleteOffice() {
       this.$confirm(this.$t('Do you really want to delete this Office?'), this.$t('Warning'), {
@@ -120,5 +156,5 @@ export default {
     },
 
   }
-};
+}
 </script>

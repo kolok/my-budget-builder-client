@@ -1,5 +1,8 @@
 <template>
-  <el-form-item :label="label" prop="prop">
+  <el-form-item
+    :label="label"
+    prop="prop"
+  >
     <el-cascader
       v-model="myForm[prop]"
       :options="teamTreeSelector"
@@ -12,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -22,17 +25,17 @@ export default {
     },
     prop: {
       type: String,
-      default: "teamID"
+      default: 'teamID'
     },
     label: {
       type: String,
     }
   },
   computed: {
-    ...mapGetters(["teamTreeSelector"])
+    ...mapGetters(['teamTreeSelector'])
   },
   created() {
-    this.$store.dispatch("getTeams");
+    this.$store.dispatch('getTeams')
   }
-};
+}
 </script>

@@ -67,7 +67,7 @@
             autocomplete="off"
           />
         </el-form-item>
-        <CountrySelect :form="officeForm"/>
+        <CountrySelect :form="officeForm" />
       </el-form>
       <span
         slot="footer"

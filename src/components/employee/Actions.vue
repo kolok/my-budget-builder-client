@@ -1,14 +1,14 @@
 <template>
   <div>
-    <mini-edit-button :actionFunc="handleEdit" />
-    <mini-delete-button :actionFunc="handleDelete" />
+    <mini-edit-button :action-func="handleEdit" />
+    <mini-delete-button :action-func="handleDelete" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import MiniEditButton from "../button/miniEdit.vue";
-import MiniDeleteButton from "../button/miniDelete.vue";
+import { mapActions } from 'vuex'
+import MiniEditButton from '../button/miniEdit.vue'
+import MiniDeleteButton from '../button/miniDelete.vue'
 
 export default {
   components: {
@@ -22,19 +22,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["deleteEmployee"]),
+    ...mapActions(['deleteEmployee']),
     handleEdit: function() {
-      this.$router.push("employees/" + this.employeeID);
+      this.$router.push('employees/' + this.employeeID)
     },
     handleDelete: function() {
-      this.$confirm(this.$t("Do you really want to delete this employee?"), this.$t("Warning"), {
-        confirmButtonText: this.$t("Yes"),
-        cancelButtonText: this.$t("No"),
-        type: "warning"
+      this.$confirm(this.$t('Do you really want to delete this employee?'), this.$t('Warning'), {
+        confirmButtonText: this.$t('Yes'),
+        cancelButtonText: this.$t('No'),
+        type: 'warning'
       }).then(() => {
-        this.deleteEmployee(this.employeeID);
-      });
+        this.deleteEmployee(this.employeeID)
+      })
     },
   }
-};
+}
 </script>

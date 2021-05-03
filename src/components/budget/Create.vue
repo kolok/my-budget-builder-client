@@ -1,7 +1,7 @@
 <template>
   <div class="Content__Button--light">
     <div v-if="existsBudgets">
-      <mini-add-button :actionFunc="displayCreateDialog" />
+      <mini-add-button :action-func="displayCreateDialog" />
     </div>
     <div v-else>
       <el-button
@@ -9,11 +9,16 @@
         class="Content__Button--big"
         icon="el-icon-circle-plus-outline"
         @click="createDialog = true"
-      >{{ $t('Create your first budget') }}</el-button>
+      >
+        {{ $t('Create your first budget') }}
+      </el-button>
     </div>
-    <el-dialog :title="$t('Create a new budget')" :visible.sync="createDialog">
+    <el-dialog
+      :title="$t('Create a new budget')"
+      :visible.sync="createDialog"
+    >
       <budget-form
-        :budgetForm="budgetForm"
+        :budget-form="budgetForm"
         @submitBudget="handleCreateBudget"
         @cancel="handleCancel"
       />
@@ -22,9 +27,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import BudgetForm from "./Form.vue";
-import MiniAddButton from "../button/miniAdd.vue";
+import { mapActions } from 'vuex'
+import BudgetForm from './Form.vue'
+import MiniAddButton from '../button/miniAdd.vue'
 
 export default {
   components: {
@@ -37,44 +42,44 @@ export default {
   data() {
     return {
       createDialog: false,
-      budgetForm: { name: "", startDate: "", endDate: "" }
-    };
+      budgetForm: { name: '', startDate: '', endDate: '' }
+    }
   },
   methods: {
-    ...mapActions(["createBudget"]),
-    handleCreateBudget: function(formName) {
+    ...mapActions(['createBudget']),
+    handleCreateBudget: function() {
       // Create budget
       this.createBudget(this.budgetForm)
         .then(response => {
           this.$cs({
-            title: this.$t("Budget creation"),
+            title: this.$t('Budget creation'),
             h: this.$createElement,
-            message: this.$t("Budget {name} was created", {
+            message: this.$t('Budget {name} was created', {
               name: this.budgetForm.name
             }),
-            type: "success"
-          });
+            type: 'success'
+          })
           // close the dialogbox and set the new budget as the active one
-          this.budgetForm = { name: "", startDate: "", endDate: "" };
-          this.createDialog = false;
-          this.$store.commit("SET_ACTIVEBUDGETID", response.id);
+          this.budgetForm = { name: '', startDate: '', endDate: '' }
+          this.createDialog = false
+          this.$store.commit('SET_ACTIVEBUDGETID', response.id)
         })
         .catch(e => {
           this.$cs({
-            title: this.$t("Budget creation"),
+            title: this.$t('Budget creation'),
             h: this.$createElement,
-            message: this.$t("Oops ! Something went wrong"),
-            type: "error"
-          });
-          console.log(e);
-        });
+            message: this.$t('Oops ! Something went wrong'),
+            type: 'error'
+          })
+          console.log(e)
+        })
     },
     handleCancel: function() {
-      this.createDialog = false;
+      this.createDialog = false
     },
     displayCreateDialog: function() {
-      this.createDialog = true;
+      this.createDialog = true
     }
   }
-};
+}
 </script>

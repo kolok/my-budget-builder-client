@@ -1,14 +1,14 @@
 <template>
   <user-form
+    :user-form="userForm"
     @submitForm="handleEdit"
     @cancel="handleCancel"
-    :userForm="userForm"
   />
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import userForm from "./Form.vue";
+import { mapActions } from 'vuex'
+import userForm from './Form.vue'
 
 export default {
   components: {
@@ -17,38 +17,38 @@ export default {
   data() {
     return {
       userForm: {}
-    };
+    }
   },
   created() {
-    this.initUser();
+    this.initUser()
   },
   methods: {
-    ...mapActions(["getUser", "updateUser"]),
+    ...mapActions(['getUser', 'updateUser']),
 
     initUser: function() {
       this.getUser(this.$route.params.id).then(user => {
-        this.userForm = user;
-      });
+        this.userForm = user
+      })
     },
-    handleEdit: function(formName) {
+    handleEdit: function() {
       // Create user
       this.updateUser(this.userForm)
         .then(() => {
           this.$cs({
             h: this.$createElement,
-            title: this.$t("Update user"),
-            message: this.$t("User {name} was updated", { name: this.userForm.name }),
-            type: "success"
-          });
-          this.$router.push("/users");
+            title: this.$t('Update user'),
+            message: this.$t('User {name} was updated', { name: this.userForm.name }),
+            type: 'success'
+          })
+          this.$router.push('/users')
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     handleCancel: function() {
-      this.$router.push("/users");
+      this.$router.push('/users')
     }
   }
-};
+}
 </script>

@@ -1,5 +1,9 @@
 <template>
-  <el-form-item :label="$t('Confirm Password')" prop="retypePwd" :rules="retypePwdRule">
+  <el-form-item
+    :label="$t('Confirm Password')"
+    prop="retypePwd"
+    :rules="retypePwdRule"
+  >
     <el-input
       v-model="myForm.retypePwd"
       type="password"
@@ -22,18 +26,18 @@ export default {
       retypePwdRule: [
         {
           validator: (rule, value, callback) => {
-            if (value === "") {
-              callback(new Error(this.$t("Please enter your password again")));
+            if (value === '') {
+              callback(new Error(this.$t('Please enter your password again')))
             } else if (value !== this.myForm.password) {
-              callback(new Error(this.$t("The two input passwords do not match")));
+              callback(new Error(this.$t('The two input passwords do not match')))
             } else {
-              callback();
+              callback()
             }
           },
-          trigger: ["blur"]
+          trigger: ['blur']
         }
       ]
-    };
+    }
   }
-};
+}
 </script>

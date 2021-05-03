@@ -1,14 +1,17 @@
 <template>
-    <el-form-item :prop="prop" :label="label">
-      <el-date-picker
-        v-model="myForm[prop]"
-        type="date"
-        :placeholder="placeholder"
-        :format="$t('yyyy/MM/dd')"
-        value-format="yyyy-MM-dd"
-        style="width:100%"
-      />
-    </el-form-item>
+  <el-form-item
+    :prop="prop"
+    :label="label"
+  >
+    <el-date-picker
+      v-model="myForm[prop]"
+      type="date"
+      :placeholder="placeholder"
+      :format="$t('yyyy/MM/dd')"
+      value-format="yyyy-MM-dd"
+      style="width:100%"
+    />
+  </el-form-item>
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
       default: i18n.t('Pick a day')
     }
   }
-};
+}
 </script>
 
 

@@ -40,7 +40,6 @@
 <script>
 import CreateOffice from '../../components/entity/CreateOffice.vue'
 import EditOffice from '../../components/entity/EditOffice.vue'
-import { mapActions } from 'vuex'
 
 export default {
   components: {

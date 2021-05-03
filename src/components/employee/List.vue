@@ -1,9 +1,21 @@
 <template>
   <div>
     <div class="Content__ScoreCardBoard">
-      <score-card :title="$t('Head count')" :count="headcount" :unit="$t('People')"/>
-      <score-card :title="$t('Payroll')" :count="totalPayroll" :unit="getCompanyCurrency"/>
-      <score-card :title="$t('Bonus')" :count="totalBonus" :unit="getCompanyCurrency"/>
+      <score-card
+        :title="$t('Head count')"
+        :count="headcount"
+        :unit="$t('People')"
+      />
+      <score-card
+        :title="$t('Payroll')"
+        :count="totalPayroll"
+        :unit="getCompanyCurrency"
+      />
+      <score-card
+        :title="$t('Bonus')"
+        :count="totalBonus"
+        :unit="getCompanyCurrency"
+      />
     </div>
     <p>activeBudgetID: {{ this.activeBudgetID }}</p>
     <el-table
@@ -19,8 +31,7 @@
         type="selection"
         width="55"
         fixed
-      >
-      </el-table-column>
+      />
       <el-table-column
         :label="$t('Employee')"
         prop="name"
@@ -37,7 +48,7 @@
         width="120"
       >
         <template slot-scope="scope">
-          <employee-actions :employeeID="scope.row.id" />
+          <employee-actions :employee-i-d="scope.row.id" />
         </template>
       </el-table-column>
     </el-table>
@@ -64,7 +75,7 @@ export default {
     ...mapGetters(['employees','getCurrentCompany','getCurrencyById','currencies','activeBudgetID']),
 
     headcount() {
-      return this.employees.length;
+      return this.employees.length
     },
     totalPayroll() {
       var payrolls = this.employees.map( employee =>
@@ -86,12 +97,12 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("getCurrencies");
+    this.$store.dispatch('getCurrencies')
   },
   created() {
     this.$store.dispatch('getEmployees').then(() => {
       this.loading = false
-    });
+    })
   },
   methods: {
     handleSelectionChange: function(val) {

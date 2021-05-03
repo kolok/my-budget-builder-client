@@ -7,12 +7,24 @@
       class="Dialog__Form"
       @keyup.enter.native="submitForm('employeeForm')"
     >
-      <el-form-item prop="name" :label="$t('User')">
-        <el-input v-model="userForm.name" autocomplete="off" />
+      <el-form-item
+        prop="name"
+        :label="$t('User')"
+      >
+        <el-input
+          v-model="userForm.name"
+          autocomplete="off"
+        />
       </el-form-item>
-      <email-form-item :myForm="userForm" />
-      <el-form-item prop="defaultLanguage" :label="$t('Language')">
-        <el-select v-model="userForm.defaultLanguage" placeholder="Select a defaultLanguage">
+      <email-form-item :my-form="userForm" />
+      <el-form-item
+        prop="defaultLanguage"
+        :label="$t('Language')"
+      >
+        <el-select
+          v-model="userForm.defaultLanguage"
+          placeholder="Select a defaultLanguage"
+        >
           <el-option
             v-for="language in ['en','fr']"
             :key="language"
@@ -22,17 +34,39 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item prop="role" :label="$t('User role')">
-        <el-radio-group :value="userForm.role" @input="changeRole" style="display:flex;flex-direction:column;margin-bottom:15px;">
-          <el-radio label="client_admin" style="padding:10px 0;">Admin</el-radio>
-          <el-radio label="client_user" style="padding:10px 0;">User</el-radio>
+      <el-form-item
+        prop="role"
+        :label="$t('User role')"
+      >
+        <el-radio-group
+          :value="userForm.role"
+          style="display:flex;flex-direction:column;margin-bottom:15px;"
+          @input="changeRole"
+        >
+          <el-radio
+            label="client_admin"
+            style="padding:10px 0;"
+          >
+            Admin
+          </el-radio>
+          <el-radio
+            label="client_user"
+            style="padding:10px 0;"
+          >
+            User
+          </el-radio>
         </el-radio-group>
       </el-form-item>
-
     </el-form>
     <span slot="footer">
-      <el-button v-if="isCancelable" @click="handleCancel('userForm')">{{ $t('Cancel') }}</el-button>
-      <el-button type="primary" @click="submitForm('userForm')">{{ $t('Save') }}</el-button>
+      <el-button
+        v-if="isCancelable"
+        @click="handleCancel('userForm')"
+      >{{ $t('Cancel') }}</el-button>
+      <el-button
+        type="primary"
+        @click="submitForm('userForm')"
+      >{{ $t('Save') }}</el-button>
     </span>
   </div>
 </template>
@@ -56,22 +90,22 @@ export default {
   },
   methods: {
     changeRole(data) {
-      this.userForm.role = data;
+      this.userForm.role = data
     },
     submitForm: function(formName) {
     // Create user
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$emit("submitForm");
+          this.$emit('submitForm')
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     handleCancel: function() {
-      this.$emit("cancel");
+      this.$emit('cancel')
     }
   }
-};
+}
 </script>

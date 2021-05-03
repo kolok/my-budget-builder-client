@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-form-item prop="dates" :label="$t('From')">
+    <el-form-item
+      prop="dates"
+      :label="$t('From')"
+    >
       <el-date-picker
         v-model="budgetForm.startDate"
         type="date"
@@ -10,7 +13,10 @@
         @change="startDateChanged($event)"
       />
     </el-form-item>
-    <el-form-item prop="dates" :label="$t('To')">
+    <el-form-item
+      prop="dates"
+      :label="$t('To')"
+    >
       <el-date-picker
         v-model="budgetForm.endDate"
         type="date"
@@ -32,21 +38,21 @@ export default {
   },
   methods: {
     startDateChanged: function(startDate) {
-      var date = new Date(startDate);
+      var date = new Date(startDate)
       var endDate = new Date(
         date.getFullYear() + 1,
         date.getMonth(),
         date.getDate() - 1
-      );
+      )
       this.budgetForm.endDate =
         endDate.getFullYear() +
-        "-" +
+        '-' +
         (endDate.getMonth() + 1) +
-        "-" +
-        endDate.getDate();
+        '-' +
+        endDate.getDate()
     }
   }
-};
+}
 </script>
 
 

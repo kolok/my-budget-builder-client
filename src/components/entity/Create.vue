@@ -29,8 +29,8 @@
             autocomplete="off"
           />
         </el-form-item>
-        <CountrySelect :form="entityForm"/>
-        <CurrencySelect :form="entityForm"/>
+        <CountrySelect :form="entityForm" />
+        <CurrencySelect :form="entityForm" />
       </el-form>
       <span
         slot="footer"

@@ -4,10 +4,10 @@
       :data="entities"
       :default-sort="{prop: 'name', order: 'descending'}"
       :empty-text="$t('No entity...')"
-      @selection-change="handleSelectionChange"
       class="Content__Table"
       row-key="id"
       stripe
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         fixed

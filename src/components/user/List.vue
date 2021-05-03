@@ -3,11 +3,11 @@
     <el-table
       :data="users"
       :default-sort="{prop: 'name', order: 'descending'}"
-      @selection-change="handleSelectionChange"
       class="Content__Table"
       empty-text="No user..."
       row-key="id"
       stripe
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         fixed
@@ -48,7 +48,7 @@
         width="120"
       >
         <template slot-scope="scope">
-          <user-actions :userID="scope.row.id" />
+          <user-actions :user-i-d="scope.row.id" />
         </template>
       </el-table-column>
     </el-table>
@@ -81,13 +81,13 @@ export default {
     getRole: function(userCompanies) {
       if (userCompanies === undefined)
       {
-        return ""
+        return ''
       }
       switch (userCompanies[0].role) {
-        case "client_admin": 
-          return "Administrator"
-        default: 
-         return "Client user"
+      case 'client_admin': 
+        return 'Administrator'
+      default: 
+        return 'Client user'
       }
     },
     handleSelectionChange: function(val) {

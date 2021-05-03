@@ -1,15 +1,15 @@
 <template>
   <user-form
+    :user-form="userForm"
+    :is-admin="isAdmin"
     @submitForm="handleCreate"
     @cancel="handleCancel"
-    :userForm="userForm"
-    :isAdmin="isAdmin"
   />
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import userForm from "./Form.vue";
+import { mapActions } from 'vuex'
+import userForm from './Form.vue'
 
 export default {
   components: {
@@ -18,30 +18,30 @@ export default {
   data() {
     return {
       userForm: {
-        name: "",
-        email: "",
-        defaultLanguage: "en",
-        role: "client_user"
+        name: '',
+        email: '',
+        defaultLanguage: 'en',
+        role: 'client_user'
       }
-    };
+    }
   },
   methods: {
-    ...mapActions(["createUser"]),
+    ...mapActions(['createUser']),
 
-    handleCreate: function(formName) {
+    handleCreate: function() {
       // Create user
       this.createUser(this.userForm)
         .then(() => {
           // reset form data
-          this.$router.push("/users");
+          this.$router.push('/users')
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     handleCancel: function() {
-      this.$router.push("/users");
+      this.$router.push('/users')
     }
   }
-};
+}
 </script>

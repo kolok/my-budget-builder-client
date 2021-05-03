@@ -15,7 +15,7 @@
           :model="forgotPasswordForm"
           @keyup.enter.native="submit('forgotPasswordForm')"
         >
-          <email-form-item :myForm="forgotPasswordForm" />
+          <email-form-item :my-form="forgotPasswordForm" />
           <el-form-item>
             <el-button
               type="primary"
@@ -40,7 +40,7 @@
 <script>
 import { mapActions } from 'vuex'
 import AuthService from '../../api/auth.service'
-import emailFormItem from "../../components/form/email.vue"
+import emailFormItem from '../../components/form/email.vue'
 
 export default {
   components: {
@@ -66,18 +66,18 @@ export default {
                 title: this.$t('Update password request'),
                 h: this.$createElement,
                 message: this.$t('An email to reset your password was sent'),
-                type: "success"
+                type: 'success'
               })
-              this.$router.push("/login");
+              this.$router.push('/login')
             })
-            .catch( err => {
+            .catch( () => {
               this.$cs({
                 title: this.$t('Update password request'),
                 h: this.$createElement,
-                message: this.$t("Oops ! Something went wrong"),
-                type: "error"
+                message: this.$t('Oops ! Something went wrong'),
+                type: 'error'
               })
-              console.log("Oops ! Something went wrong")
+              console.log('Oops ! Something went wrong')
             })
         } else {
           console.log('error submit!!')

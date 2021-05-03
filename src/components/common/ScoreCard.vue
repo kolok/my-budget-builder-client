@@ -1,7 +1,11 @@
 <template>
   <div class="Content__Score">
-    <div class="Content__ScoreTitle">{{title}}</div>
-    <div class="Content__ScoreBody">{{count}} {{unit}}</div>
+    <div class="Content__ScoreTitle">
+      {{ title }}
+    </div>
+    <div class="Content__ScoreBody">
+      {{ count }} {{ unit }}
+    </div>
   </div>
 </template>
 
@@ -21,7 +25,7 @@ export default {
       required: true
     }
   }
-};
+}
 </script>
 
 <style>

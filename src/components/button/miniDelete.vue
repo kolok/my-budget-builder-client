@@ -1,11 +1,11 @@
 <template>
   <el-button
-    @click="actionFunc(count)"
     circle
     class="Content__Button"
     icon="el-icon-delete"
     size="mini"
     type="danger"
+    @click="actionFunc(count)"
   />
 </template>
 
@@ -21,5 +21,5 @@ export default {
       required: false
     }
   },
-};
+}
 </script>

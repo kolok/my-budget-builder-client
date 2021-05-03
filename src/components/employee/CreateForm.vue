@@ -1,10 +1,14 @@
 <template>
-  <employee-form :employeeForm="employeeForm" @submitForm="handleCreate" :positionsForm="positionsForm" />
+  <employee-form
+    :employee-form="employeeForm"
+    :positions-form="positionsForm"
+    @submitForm="handleCreate"
+  />
 </template>
 
 <script>
-import { mapActions } from "vuex"
-import employeeForm from "./Form.vue"
+import { mapActions } from 'vuex'
+import employeeForm from './Form.vue'
 
 export default {
   components: {
@@ -17,33 +21,33 @@ export default {
         bonus:0
       },
       positionsForm: [{
-        name:"",
+        name:'',
         teamID:0,
         parttime:100
       }]
     }
   },
   methods: {
-    ...mapActions(["createEmployee"]),
-    handleCreate: function(formName) {
+    ...mapActions(['createEmployee']),
+    handleCreate: function() {
       this.employeeForm.expenses = [
-        {expense_type: "payroll", amount: this.employeeForm.payroll || 0},
-        {expense_type: "bonus", amount: this.employeeForm.bonus || 0}
+        {expense_type: 'payroll', amount: this.employeeForm.payroll || 0},
+        {expense_type: 'bonus', amount: this.employeeForm.bonus || 0}
       ]
       // Create employee
       this.createEmployee(this.employeeForm)
         .then(() => {
           // reset form data
           this.employeeForm = {}
-          this.$router.push("/hiringPlan")
+          this.$router.push('/hiringPlan')
         })
         .catch(e => {
           console.log(e)
-        });
+        })
     },
     handleCancel: function() {
-      this.$router.push("/hiringPlan")
+      this.$router.push('/hiringPlan')
     }
   }
-};
+}
 </script>

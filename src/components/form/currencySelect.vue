@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -28,11 +28,11 @@ export default {
     },
     prop: {
       type: String,
-      default: "defaultCurrencyID"
+      default: 'defaultCurrencyID'
     },
   },
   computed: {
-    ...mapGetters(["currencies"])
+    ...mapGetters(['currencies'])
   }
-};
+}
 </script>

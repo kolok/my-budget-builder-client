@@ -1,10 +1,13 @@
 <template>
   <div class="Content__ButtonContainer--left">
-    <mini-edit-button :actionFunc="handleEditBudget" />
-    <mini-delete-button :actionFunc="handleDeleteBudget" />
-    <el-dialog :visible.sync="updateDialog" :title="$t('Update budget')">
+    <mini-edit-button :action-func="handleEditBudget" />
+    <mini-delete-button :action-func="handleDeleteBudget" />
+    <el-dialog
+      :visible.sync="updateDialog"
+      :title="$t('Update budget')"
+    >
       <BudgetForm
-        :budgetForm="budgetForm"
+        :budget-form="budgetForm"
         @cancel="handleCancel"
         @submitBudget="handleUpdateBudget"
       />
@@ -13,11 +16,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import BudgetForm from "./Form.vue";
-import MiniEditButton from "../button/miniEdit.vue";
-import MiniDeleteButton from "../button/miniDelete.vue";
-import { i18n } from "../../i18n";
+import { mapGetters, mapActions } from 'vuex'
+import BudgetForm from './Form.vue'
+import MiniEditButton from '../button/miniEdit.vue'
+import MiniDeleteButton from '../button/miniDelete.vue'
+import { i18n } from '../../i18n'
 
 export default {
   components: {
@@ -29,86 +32,86 @@ export default {
     return {
       budgetForm: {},
       updateDialog: false
-    };
+    }
   },
   computed: {
-    ...mapGetters(["activeBudgetID"])
+    ...mapGetters(['activeBudgetID'])
   },
   methods: {
-    ...mapActions(["updateBudget", "getBudget", "getBudgets", "deleteBudget"]),
+    ...mapActions(['updateBudget', 'getBudget', 'getBudgets', 'deleteBudget']),
     handleDeleteBudget: function() {
       this.$confirm(
-        this.$t("Do you really want to delete this budget?"),
-        this.$t("Warning"),
+        this.$t('Do you really want to delete this budget?'),
+        this.$t('Warning'),
         {
-          confirmButtonText: this.$t("Yes"),
-          cancelButtonText: this.$t("No"),
-          type: "warning"
+          confirmButtonText: this.$t('Yes'),
+          cancelButtonText: this.$t('No'),
+          type: 'warning'
         }
       )
         .then(() => {
           this.deleteBudget(this.activeBudgetID)
             .then(budget => {
               this.$cs({
-                title: i18n.t("Delete budget"),
+                title: i18n.t('Delete budget'),
                 h: this.$createElement,
-                message: i18n.t("Budget {name} was deleted", {
+                message: i18n.t('Budget {name} was deleted', {
                   name: budget.name
                 }),
-                type: "success"
+                type: 'success'
               })
               this.getBudgets().then(budgets => {
                 if (budgets !== undefined && budgets.length > 0) {
-                  this.$store.commit("SET_ACTIVEBUDGETID", budgets[0].id);
+                  this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
                 }
               })
             })
             .catch(e => {
               this.$cs({
-                title: i18n.t("Delete budget"),
+                title: i18n.t('Delete budget'),
                 h: this.$createElement,
-                message: i18n.t("Oops ! Something went wrong"),
-                type: "success"
+                message: i18n.t('Oops ! Something went wrong'),
+                type: 'success'
               })
-              console.log(e);
+              console.log(e)
             })
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     handleEditBudget: function() {
       this.getBudget(this.activeBudgetID).then(response => {
-        this.budgetForm = response.data;
-        this.updateDialog = true;
-      });
+        this.budgetForm = response.data
+        this.updateDialog = true
+      })
     },
     handleUpdateBudget: function() {
       this.updateBudget(this.budgetForm)
         .then(budget => {
           this.$cs({
-            title: this.$t("Update budget"),
+            title: this.$t('Update budget'),
             h: this.$createElement,
-            message: this.$t("Budget {name} was updated", {
+            message: this.$t('Budget {name} was updated', {
               name: budget.name
             }),
-            type: "success"
-          });
-          this.updateDialog = false;
+            type: 'success'
+          })
+          this.updateDialog = false
         })
         .catch(e => {
           this.$cs({
-            title: this.$t("Update budget"),
+            title: this.$t('Update budget'),
             h: this.$createElement,
-            message: this.$t("Oops ! Something went wrong"),
-            type: "error"
-          });
-          console.log(e);
-        });
+            message: this.$t('Oops ! Something went wrong'),
+            type: 'error'
+          })
+          console.log(e)
+        })
     },
     handleCancel: function() {
-      this.updateDialog = false;
+      this.updateDialog = false
     }
   }
-};
+}
 </script>

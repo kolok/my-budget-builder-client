@@ -1,18 +1,31 @@
 <template>
   <div>
-    <el-input v-model="search" class="Content__Input--Search" :placeholder="$t<('Type to search')" />
+    <el-input
+      v-model="search"
+      class="Content__Input--Search"
+      :placeholder="$t<('Type to search')"
+    />
     <div class="Content__DoubleButton">
-      <mini-add-button :actionFunc="showCreateDialog" />
+      <mini-add-button :action-func="showCreateDialog" />
       <el-button
         type="text"
         size="mini"
         style="font-size:14px"
         @click="showCreateDialog()"
-      >{{ $t('Add a root team') }}</el-button>
+      >
+        {{ $t('Add a root team') }}
+      </el-button>
     </div>
 
-    <el-dialog :title="$t('Create a new team')" :visible.sync="createDialog">
-      <team-form :teamForm="teamForm" @cancel="handleCancel" @submitForm="handleCreateTeam" />
+    <el-dialog
+      :title="$t('Create a new team')"
+      :visible.sync="createDialog"
+    >
+      <team-form
+        :team-form="teamForm"
+        @cancel="handleCancel"
+        @submitForm="handleCreateTeam"
+      />
     </el-dialog>
 
     <el-tree
@@ -23,7 +36,10 @@
       :expand-on-click-node="false"
       @node-drop="handleDrop"
     >
-      <span slot-scope="{ node, data }" class="Content__TreeNode">
+      <span
+        slot-scope="{ node, data }"
+        class="Content__TreeNode"
+      >
         <span
           :class="data.search"
           v-html="displaySearchedName(data)"
@@ -33,7 +49,10 @@
             class="Content__TreeButton"
             style="display:flex;justify-content:flex-end;align-items:center;"
           >
-            <team-actions :teamForm="data" @showCreateDialog="showCreateDialog" />
+            <team-actions
+              :team-form="data"
+              @showCreateDialog="showCreateDialog"
+            />
           </div>
         </span>
       </span>
@@ -42,10 +61,10 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import MiniAddButton from "../button/miniAdd.vue";
-import TeamActions from "./Actions.vue";
-import TeamForm from "./Form.vue";
+import { mapGetters, mapActions } from 'vuex'
+import MiniAddButton from '../button/miniAdd.vue'
+import TeamActions from './Actions.vue'
+import TeamForm from './Form.vue'
 
 export default {
   components: {
@@ -57,74 +76,74 @@ export default {
     return {
       root: { id: 0, parent_id: null, children: [] },
       teamData: [],
-      search: "",
+      search: '',
       createDialog: false,
       teamForm: {
-        name: "",
-        parentTeamID: ""
+        name: '',
+        parentTeamID: ''
       }
-    };
+    }
   },
   computed: {
-    ...mapGetters(["teamTree"])
+    ...mapGetters(['teamTree'])
   },
   created() {
-    this.$store.dispatch("getTeams");
+    this.$store.dispatch('getTeams')
   },
   methods: {
-    ...mapActions(["createTeam", "updateTeam", "getTeams"]),
+    ...mapActions(['createTeam', 'updateTeam', 'getTeams']),
     handleDrop(draggingNode, dropNode, dropType) {
-      var node = draggingNode.data;
-      if (dropType == "inner") {
-        node.parentTeamID = dropNode.data.id;
-      } else if (dropType == "before" || dropType == "after") {
-        node.parentTeamID = dropNode.data.parentTeamID;
+      var node = draggingNode.data
+      if (dropType == 'inner') {
+        node.parentTeamID = dropNode.data.id
+      } else if (dropType == 'before' || dropType == 'after') {
+        node.parentTeamID = dropNode.data.parentTeamID
       }
 
       this.updateTeam(node)
         .then(() => {
           this.$cs({
             h: this.$createElement,
-            title: this.$t("Team moved"),
-            message: this.$t("team {name} was moved", { name: node.name }),
-            type: "success"
-          });
+            title: this.$t('Team moved'),
+            message: this.$t('team {name} was moved', { name: node.name }),
+            type: 'success'
+          })
         })
         .catch(e => {
           this.$cs({
             h: this.$createElement,
-            title: this.$t("Team moved"),
-            message: this.$t("Something went wrong! the team wasn't moved"),
-            type: "error"
-          });
-          this.getTeams();
-          console.log(e);
-        });
+            title: this.$t('Team moved'),
+            message: this.$t('Something went wrong! the team wasn\'t moved'),
+            type: 'error'
+          })
+          this.getTeams()
+          console.log(e)
+        })
     },
     filterTree(teamTree) {
-      var result = [];
+      var result = []
       teamTree.forEach(node => {
         if (filterTree(node, this.search)) {
-          result.push(node);
+          result.push(node)
         }
-      });
-      return result;
+      })
+      return result
     },
     displaySearchedName: function(data) {
-      var name = data.name;
+      var name = data.name
       if (this.search !== undefined && this.search.length > 0) {
-        var n = name.toLowerCase().indexOf(this.search.toLowerCase());
+        var n = name.toLowerCase().indexOf(this.search.toLowerCase())
         if (n == -1) {
-          return name;
+          return name
         }
         name =
           name.substring(0, n) +
-          "<b>" +
+          '<b>' +
           name.substring(n, n + this.search.length) +
-          "</b>" +
-          name.substring(n + this.search.length, name.length);
+          '</b>' +
+          name.substring(n + this.search.length, name.length)
       }
-      return name;
+      return name
     },
 
     /*
@@ -133,9 +152,9 @@ export default {
 
     showCreateDialog(parentTeamID) {
       if (parentTeamID !== undefined) {
-        this.teamForm.parentTeamID = parentTeamID;
+        this.teamForm.parentTeamID = parentTeamID
       }
-      this.createDialog = true;
+      this.createDialog = true
     },
 
     handleCreateTeam: function(dialogToClose) {
@@ -145,37 +164,37 @@ export default {
           // reset form data
           if (dialogToClose) {
             //this.$refs["teamForm"].resetFields();
-            this.createDialog = false;
-            this.teamForm.name = "";
-            this.teamForm.parentTeamID = "";
+            this.createDialog = false
+            this.teamForm.name = ''
+            this.teamForm.parentTeamID = ''
           } else {
-            var parentTeamID = this.teamForm.parentTeamID;
+            var parentTeamID = this.teamForm.parentTeamID
             //this.$refs["teamForm"].resetFields();
-            this.teamForm.name = "";
-            this.teamForm.parentTeamID = parentTeamID;
+            this.teamForm.name = ''
+            this.teamForm.parentTeamID = parentTeamID
           }
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     handleCancel: function() {
-      this.createDialog = false;
+      this.createDialog = false
     }
   }
-};
+}
 
 function filterTree(treeNode, search) {
   if (treeNode.children === undefined || treeNode.children.length == 0) {
-    return treeNode.name.toLowerCase().includes(search.toLowerCase());
+    return treeNode.name.toLowerCase().includes(search.toLowerCase())
   } else {
-    var found = false;
+    var found = false
     treeNode.children.forEach(node => {
       if (filterTree(node, search)) {
-        found = true;
+        found = true
       }
-    });
-    return treeNode.name.toLowerCase().includes(search.toLowerCase()) || found;
+    })
+    return treeNode.name.toLowerCase().includes(search.toLowerCase()) || found
   }
 }
 </script>

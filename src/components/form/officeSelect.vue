@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -32,10 +32,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["offices"])
+    ...mapGetters(['offices'])
   },
   created() {
-    this.$store.dispatch("getEntitiesWithOffices");
+    this.$store.dispatch('getEntitiesWithOffices')
   }
-};
+}
 </script>

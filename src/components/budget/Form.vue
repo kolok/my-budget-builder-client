@@ -1,35 +1,35 @@
 <template>
   <div>
-      <el-form
-        ref="budgetForm"
-        :model="budgetForm"
-        :rules="budgetRule"
-        label-width="auto"
-        class="Dialog__Form"
-        @keyup.enter.native="submitBudget('budgetForm')"
+    <el-form
+      ref="budgetForm"
+      :model="budgetForm"
+      :rules="budgetRule"
+      label-width="auto"
+      class="Dialog__Form"
+      @keyup.enter.native="submitBudget('budgetForm')"
+    >
+      <el-form-item
+        prop="name"
+        :label="$t('Budget')"
       >
-        <el-form-item
-          prop="name"
-          :label="$t('Budget')"
-        >
-          <el-input
-            v-model="budgetForm.name"
-            autocomplete="off"
-          />
-        </el-form-item>
-        <BudgetDates :budgetForm="budgetForm" />
-      </el-form>
-      <span
-        slot="footer"
-      >
-        <el-button @click="handleCancel">
-          {{ $t('Cancel') }}
-        </el-button>
-        <el-button
-          type="primary"
-          @click="submitBudget('budgetForm')"
-        >{{ $t('Save') }}</el-button>
-      </span>
+        <el-input
+          v-model="budgetForm.name"
+          autocomplete="off"
+        />
+      </el-form-item>
+      <BudgetDates :budget-form="budgetForm" />
+    </el-form>
+    <span
+      slot="footer"
+    >
+      <el-button @click="handleCancel">
+        {{ $t('Cancel') }}
+      </el-button>
+      <el-button
+        type="primary"
+        @click="submitBudget('budgetForm')"
+      >{{ $t('Save') }}</el-button>
+    </span>
   </div>
 </template>
 

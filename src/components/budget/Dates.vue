@@ -1,5 +1,7 @@
 <template>
-  <p class="Content__Baseline">{{ displayBudgetDate() }} </p>
+  <p class="Content__Baseline">
+    {{ displayBudgetDate() }}
+  </p>
 </template>
 
 <script>
@@ -12,18 +14,18 @@ export default {
   },
   methods: {
     displayBudgetDate() {
-      var result = ""
+      var result = ''
       if (this.activeBudget.startDate !== null) {
-        result += this.$t("From {startDate} ", 
-        {
-          startDate: moment(this.activeBudget.startDate).format(this.$t('YYYY/MM/DD'))
-        })
+        result += this.$t('From {startDate} ', 
+          {
+            startDate: moment(this.activeBudget.startDate).format(this.$t('YYYY/MM/DD'))
+          })
       }
       if (this.activeBudget.endDate !== null) {
-        result += this.$t("To {endDate} ", 
-        {
-          endDate: moment(this.activeBudget.endDate).format(this.$t('YYYY/MM/DD'))
-        })
+        result += this.$t('To {endDate} ', 
+          {
+            endDate: moment(this.activeBudget.endDate).format(this.$t('YYYY/MM/DD'))
+          })
       }
       return result
     }

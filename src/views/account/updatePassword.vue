@@ -1,7 +1,10 @@
 <template>
   <div class="Content__CardContainer">
     <el-card class="Content__Card">
-      <div slot="header" class="Content__CardHeader">
+      <div
+        slot="header"
+        class="Content__CardHeader"
+      >
         <span>{{ $t('Update Password') }}</span>
       </div>
       <div class="Content__CardFormContainer">
@@ -10,19 +13,23 @@
           :model="passwordForm"
           @keyup.enter.native="submit('updatePassword')"
         >
-          <password-form-item :myForm="passwordForm" />
-          <retype-pwd-form-item :myForm="passwordForm" />
+          <password-form-item :my-form="passwordForm" />
+          <retype-pwd-form-item :my-form="passwordForm" />
           <el-form-item>
             <el-button
               type="primary"
               class="Content__CardButton--Large"
               @click="updatePassword('passwordForm')"
-            >{{ $t('Change Password') }}</el-button>
+            >
+              {{ $t('Change Password') }}
+            </el-button>
           </el-form-item>
         </el-form>
         <p>
           {{ $t("Don't have an account?") }}
-          <router-link to="/signup">{{ $t("Sign up") }}</router-link>
+          <router-link to="/signup">
+            {{ $t("Sign up") }}
+          </router-link>
         </p>
       </div>
     </el-card>
@@ -30,10 +37,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import AuthService from "../../api/auth.service";
-import passwordFormItem from "../../components/form/password.vue";
-import retypePwdFormItem from "../../components/form/retypePwd.vue";
+import AuthService from '../../api/auth.service'
+import passwordFormItem from '../../components/form/password.vue'
+import retypePwdFormItem from '../../components/form/retypePwd.vue'
 
 export default {
   components: {
@@ -43,14 +49,14 @@ export default {
   data() {
     return {
       passwordForm: {
-        password: ""
+        password: ''
       }
-    };
+    }
   },
   methods: {
     logout: function() {
-      this.$store.dispatch("logout");
-      this.$router.push("/login");
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
     },
     updatePassword: function(formName) {
       this.$refs[formName].validate(valid => {
@@ -59,30 +65,30 @@ export default {
             password: this.passwordForm.password,
             passwordToken: this.$route.query.token
           })
-            .then(response => {
+            .then( () => {
               this.$cs({
-                title: this.$t("Update Password"),
+                title: this.$t('Update Password'),
                 h: this.$createElement,
-                message: this.$t("Your password was updated"),
-                type: "success"
-              });
+                message: this.$t('Your password was updated'),
+                type: 'success'
+              })
               this.logout()
             })
-            .catch(err => {
+            .catch( () => {
               this.$cs({
-                title: this.$t("Update Password"),
+                title: this.$t('Update Password'),
                 h: this.$createElement,
-                message: this.$t("Oops ! Something went wrong"),
-                type: "error"
-              });
-              console.log("Oops ! Something went wrong");
-            });
+                message: this.$t('Oops ! Something went wrong'),
+                type: 'error'
+              })
+              console.log('Oops ! Something went wrong')
+            })
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
-};
+}
 </script>
