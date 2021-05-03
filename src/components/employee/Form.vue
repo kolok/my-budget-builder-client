@@ -44,8 +44,7 @@
         </div>
       </div>
 
-
-      <SubForm :positionsForm="positionsForm"/>
+      <PositionsForm :positionsForm="positionsForm"/>
       
       <div class='Content__ColumnForm'>
         <div class='Content__ColumnForm1o2'>
@@ -68,7 +67,7 @@
   import { mapGetters } from "vuex";
   import MyDate from "../form/date.vue";
   import OfficeSelect from "../form/officeSelect.vue";
-  import SubForm from "../position/SubForm.vue";
+  import PositionsForm from "../position/PositionsForm.vue";
   import EmailFormItem from "../../components/form/email.vue";
 
   export default {
@@ -76,7 +75,7 @@
       MyDate,
       OfficeSelect,
       EmailFormItem,
-      SubForm
+      PositionsForm
     },
     props: {
       employeeForm: {

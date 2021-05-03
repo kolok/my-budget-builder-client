@@ -1,6 +1,6 @@
 <template>
   <el-button
-    @click="actionFunc"
+    @click="actionFunc(count)"
     circle
     class="Content__Button"
     icon="el-icon-delete"
@@ -14,7 +14,11 @@ export default {
   props: {
     actionFunc: {
       type: Function,
-      required: true,
+      required: true
+    },
+    count: {
+      type: Number,
+      required: false
     }
   },
 };

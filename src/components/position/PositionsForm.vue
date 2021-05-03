@@ -4,7 +4,7 @@
       class='Content__ColumnForm'
       v-for="(position, counter) in positionsForm"
       v-bind:key="counter">
-      <div style="width:35%">
+      <div style="width:40%">
       <el-form-item prop="position" :label="$t('Position')">
         <el-input v-model="position.name" autocomplete="off" />
       </el-form-item>
@@ -19,16 +19,8 @@
         <el-input v-model="position.parttime" autocomplete="off" />
       </el-form-item>
       </div>
-      <div style="width:10%;float:right;padding:5px;">
-        <el-button
-          @click="deletePosition(counter)"
-          circle
-          class="Content__Button--Right"
-          icon="el-icon-delete"
-          size="mini"
-          type="danger"
-          style="float:right;"
-        />
+      <div style="width:5%;float:right;padding:5px;">
+        <mini-delete-button :actionFunc="deletePosition" :count="counter" style="float:right;"/>
       </div>
   </div>
   <div style="padding-left:20px;">
@@ -36,12 +28,15 @@
   </div>
   </div>
 </template>
+
 <script>
   import { mapGetters } from "vuex";
   import TeamSelect from "../form/teamSelect.vue";
+  import MiniDeleteButton from "../button/miniDelete.vue";
 
   export default {
     components: {
+      MiniDeleteButton,
       TeamSelect
     },
     props: {
