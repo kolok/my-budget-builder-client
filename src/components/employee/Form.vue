@@ -13,14 +13,6 @@
             <el-input v-model="employeeForm.name" autocomplete="off" />
           </el-form-item>
           <OfficeSelect :myForm="employeeForm" prop="officeID" />
-          <el-form-item prop="position" :label="$t('Position')">
-            <el-input v-model="employeeForm.position" autocomplete="off" />
-          </el-form-item>
-          <TeamSelect :myForm="employeeForm" prop="teamID" :label="$t('Team')" />
-          <span slot="footer">
-            <el-button @click="handleCancel('employeeForm')">{{ $t('Cancel') }}</el-button>
-            <el-button type="primary" @click="submitForm('employeeForm')">{{ $t('Save') }}</el-button>
-          </span>
 
         </div>
         <div class='Content__EmployeeFormBlock'>
@@ -49,7 +41,58 @@
           <div class='Content__EmployeeFormSubBlock'>
             <my-date class="Content__EmployeeFormSubSubBlock" :myForm="employeeForm" prop="birthDate" :label="$t('Birth date')" />
           </div>
+        </div>
+      </div>
 
+
+      <div class="Content__EmployeeFormPositions">
+        <div 
+          class='Content__EmployeeForm--Bordered'
+          v-for="(position, counter) in positionsForm"
+          v-bind:key="counter">
+          <div style="width:35%">
+            <el-form-item prop="position" :label="$t('Position')">
+              <el-input v-model="position.name" autocomplete="off" />
+            </el-form-item>
+
+          </div>
+          <div style="width:35%">
+            <TeamSelect :myForm="position" prop="teamID" :label="$t('Team')" />
+
+          </div>
+          <div style="width:20%">
+            <el-form-item prop="position" :label="$t('Part-time')">
+              <el-input v-model="position.parttime" autocomplete="off" />
+            </el-form-item>
+          </div>
+          <div style="width:10%;float:right;padding:5px;">
+              <el-button
+                @click="deletePosition(counter)"
+                circle
+                class="Content__Button--Right"
+                icon="el-icon-delete"
+                size="mini"
+                type="danger"
+                style="float:right;"
+              />
+          </div>
+        </div>
+        <div class='Content__EmployeeForm' style="padding:20px;">
+          <el-button type="primary" @click="addPosition">{{ $t('Add position') }}</el-button>
+        </div>
+      </div>
+      
+      <div class='Content__EmployeeForm'>
+        <div class='Content__EmployeeFormBlock'>
+          <div>
+          </div>
+
+          <span slot="footer">
+            <el-button @click="handleCancel('employeeForm')">{{ $t('Cancel') }}</el-button>
+            <el-button type="primary" @click="submitForm('employeeForm')">{{ $t('Save') }}</el-button>
+          </span>
+        </div>
+        <div class='Content__EmployeeFormBlock'>
         </div>
       </div>
     </el-form>
@@ -74,6 +117,10 @@
       employeeForm: {
         type: Object,
         required: true
+      },
+      positionsForm: {
+        type: Array,
+        required: false
       }
     },
     data() {
@@ -94,6 +141,8 @@
     },
     methods: {
       submitForm: function(formName) {
+        this.employeeForm.positions = this.positionsForm
+        console.log(this.employeeForm)
         // Create employee
         this.$refs[formName].validate(valid => {
           if (valid) {
@@ -106,6 +155,15 @@
       },
       handleCancel: function() {
         this.$emit("cancel");
+      },
+      addPosition(){
+        this.positionsForm.push({
+          name:'',
+          teamID: 0
+        })
+      },
+      deletePosition(counter){
+        this.positionsForm.splice(counter,1);
       }
     }
   };
@@ -117,6 +175,20 @@
     flex-direction: row;
     justify-content: center;
   }
+  .Content__EmployeeFormPositions {
+    border-radius: 25px;
+    border: 2px solid grey;
+    padding: 0;
+    width:100%;
+  }
+  .Content__EmployeeForm--Bordered {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin:20px;
+  }
+
+
   .Content__EmployeeFormBlock {
     display: flex;
     flex-direction: column;

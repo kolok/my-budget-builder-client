@@ -1,5 +1,5 @@
 <template>
-  <employee-form :employeeForm="employeeForm" @submitForm="handleEdit" @cancel="handleCancel" />
+  <employee-form :employeeForm="employeeForm" :positionsForm="employeeForm.positions" @submitForm="handleEdit" @cancel="handleCancel" />
 </template>
 
 <script>
@@ -45,16 +45,6 @@ export default {
         {expense_type: "payroll", amount: this.employeeForm.payroll || 0},
         {expense_type: "bonus", amount: this.employeeForm.bonus || 0}
       ]
-      this.employeeForm.positions = [
-        {
-          teamID: (this.employeeForm.teamID.length !== undefined ? 
-            this.employeeForm.teamID[this.employeeForm.teamID.length - 1 ] || 0 : 
-            this.employeeForm.teamID
-          ), 
-          name: this.employeeForm.position
-        }
-      ]
-      console.log(this.employeeForm)
 
       this.updateEmployee(this.employeeForm)
         .then(() => {

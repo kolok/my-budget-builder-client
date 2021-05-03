@@ -87,7 +87,6 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("getCurrencies");
-    this.$store.dispatch("getCurrentCompany");
   },
   created() {
     this.$store.dispatch('getEmployees').then(() => {

@@ -154,5 +154,14 @@
   "Zipcode": "Code postal",
   "company {name} was updated": "La société {name} a été mis à jour",
   "team {name} was moved": "L'équipe {name} a été déplacée",
+  "Employee or Open Position": "Employé ou à embaucher",
+  "Annual Payroll": "Paye annuelle",
+  "Annual Bonus": "Bonus annuel",
+  "Position": "Position",
+  "Part-time": "Temps de travail",
+  "Add position": "Add position",
+  "(Optional)": "(Optionel)",
+  "Select an office": "Selectionner un office",
+  "Select a team": "Selectionner une équipe",
   "yyyy/MM/dd": "dd/MM/yyyy"
 }

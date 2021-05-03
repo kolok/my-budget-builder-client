@@ -1,5 +1,5 @@
 <template>
-  <employee-form :employeeForm="employeeForm" @submitForm="handleCreate" @cancel="handleCancel" />
+  <employee-form :employeeForm="employeeForm" @submitForm="handleCreate" :positionsForm="positionsForm" />
 </template>
 
 <script>
@@ -15,7 +15,12 @@ export default {
       employeeForm: {
         payroll:0,
         bonus:0
-      }
+      },
+      positionsForm: [{
+        name:"",
+        teamID:0,
+        parttime:100
+      }]
     }
   },
   methods: {
