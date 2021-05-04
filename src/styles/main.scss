@@ -183,15 +183,6 @@ $min-sider_width: 200px;
     font:14px;
     font-style:bold;
   }
-  &__Table {
-    @extend .Content;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  &__Text--Suffix {
-    @extend .Content;
-    float: left;
-  }
   &__BorderedForm {
     @extend .Content;
     border-radius: 25px;
@@ -290,16 +281,48 @@ $min-sider_width: 200px;
     width: 50%;
     min-width: 250px;
   }
-
-
-
-
+  &__Score {
+    @extend .Content;
+    border-radius: 25px;
+    background: #409eff;
+    padding: 10px;
+    color: white;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  &__ScoreBody {
+    @extend .Content;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+  }
   &__ScoreCardBoard{
     @extend .Content;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+  }
+  &__ScoreTitle {
+    @extend .Content;
+    padding-top: 0px;
+    font-size: 18px;
+    color: white;
+  }
+  &__Table {
+    @extend .Content;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__Text--Suffix {
+    @extend .Content;
+    float: left;
   }
   &__TreeNode{
     @extend .Content;

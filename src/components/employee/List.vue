@@ -4,7 +4,10 @@
       <score-card
         :title="$t('Head count')"
         :count="headcount"
-        :unit="$t('People')"
+      />
+      <score-card
+        :title="$t('Full-time equivalent')"
+        :count="fullTimeCount"
       />
       <score-card
         :title="$t('Payroll')"
@@ -76,6 +79,10 @@ export default {
 
     headcount() {
       return this.employees.length
+    },
+    fullTimeCount() {
+      
+      return this.employees.reduce( (a,b) => a + b.positions.reduce( (c,d) => c + d.parttime,0 ),0 ) / 100
     },
     totalPayroll() {
       var payrolls = this.employees.map( employee =>
