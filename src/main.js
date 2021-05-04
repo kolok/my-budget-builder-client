@@ -11,18 +11,6 @@ Vue.use(VueI18n)
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-/** Google Chart library **/
-//import VueGoogleCharts from 'vue-google-charts'
-//Vue.use(VueGoogleCharts)
-
-/** EChart library **/
-//import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
-
-// import ECharts modules manually to reduce bundle size
-//import 'echarts/lib/chart/bar'
-//import 'echarts/lib/chart/pie'
-//import 'echarts/lib/component/tooltip'
-
 // Create VueI18n instance with options
 import { i18n } from './i18n/index.js'
 
