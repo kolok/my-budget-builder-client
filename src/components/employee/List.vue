@@ -42,9 +42,36 @@
       />
       <el-table-column
         :label="$t('Email')"
-        prop="email"
-        sortable
-      />
+      >
+        <template slot-scope="props">
+          <span style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+            {{ props.row.email }}
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('Payroll')"
+      >
+        <template slot-scope="props">
+          {{ getExpenseAmount(props.row.expenses, 'payroll') }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('Bonus')"
+      >
+        <template slot-scope="props">
+          {{ getExpenseAmount(props.row.expenses, 'bonus') }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('Part-time')"
+        prop="partime"
+      >
+        <template slot-scope="props">
+          {{ getPartTime(props.row.positions) }}
+        </template>
+      </el-table-column>
+
       <el-table-column
         :label="$t('Actions')"
         fixed="right"
@@ -115,6 +142,13 @@ export default {
     handleSelectionChange: function(val) {
       this.multipleSelection = val
       console.log(val)
+    },
+    getExpenseAmount: function(expenses, expense_type) {
+      let expense = expenses.find(e => e.expense_type == expense_type).amount
+      return expense
+    },
+    getPartTime: function(positions) {
+      return positions.reduce( (a,b) => a + b.parttime, 0)
     },
   }
 }
