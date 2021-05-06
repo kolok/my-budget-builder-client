@@ -53,14 +53,14 @@
         :label="$t('Payroll')"
       >
         <template slot-scope="props">
-          {{ getExpenseAmount(props.row.expenses, 'payroll') }}
+          {{ getPayrollAmount(props.row) }}
         </template>
       </el-table-column>
       <el-table-column
         :label="$t('Bonus')"
       >
         <template slot-scope="props">
-          {{ getExpenseAmount(props.row.expenses, 'bonus') }}
+          {{ getBonusAmount(props.row) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -102,26 +102,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['employees','getCurrentCompany','getCurrencyById','currencies','activeBudgetID']),
+    ...mapGetters([
+      'employees',
+      'getCurrentCompany',
+      'getCurrencyById',
+      'currencies',
+      'activeBudgetID',
+      'getPayrollAmount',
+      'getBonusAmount',
+      'getTotalPayrollAmount',
+      'getTotalBonusAmount'
+    ]),
 
     headcount() {
       return this.employees.length
     },
     fullTimeCount() {
-      
       return this.employees.reduce( (a,b) => a + b.positions.reduce( (c,d) => c + d.parttime,0 ),0 ) / 100
     },
     totalPayroll() {
-      var payrolls = this.employees.map( employee =>
-        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
-      ).filter( payroll => payroll !== undefined )
-      return payrolls.reduce((a,b) => a + b.amount, 0)
+      return this.getTotalPayrollAmount(this.employees)
     },
     totalBonus() {
-      var bonus = this.employees.map( employee =>
-        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
-      ).filter( b => b !== undefined )
-      return bonus.reduce((a,b) => a + b.amount, 0)
+      return this.getTotalBonusAmount(this.employees)
     },
     getDefaultCurrencyID() {
       return this.getCurrentCompany.defaultCurrencyID

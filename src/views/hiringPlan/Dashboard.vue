@@ -7,7 +7,7 @@
     </div>
     <div v-if="existsBudgets">
       <budget-dates />
-      <el-tabs v-model="activeName">
+      <el-tabs v-model="activeTab">
         <el-tab-pane
           :label="$t('Hiring Plan Builder')"
           name="builder"
@@ -19,7 +19,7 @@
           :label="$t('Insights')"
           name="insights"
         >
-          <BudgetInsights :employeeList="this.employees"/>
+          <BudgetInsights :employee-list="this.employees" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      activeName: 'insights'
+      activeTab: 'builder'
     }
   },
   computed: {

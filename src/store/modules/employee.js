@@ -6,14 +6,25 @@ export default {
   },
   getters: {
     employees: state => state.employees,
-
-    getPayrollsAmount: () => employee => {
+    getPayrollAmount: () => employee => {
       let payroll = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
       return payroll ? payroll.amount : 0
+    },
+    getTotalPayrollAmount: () => employees => {
+      let payrolls = employees.map( employee =>
+        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
+      ).filter( payroll => payroll !== undefined )
+      return payrolls.reduce((a,b) => a + b.amount, 0)
     },
     getBonusAmount: () => employee => {
       let bonus = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
       return bonus ? bonus.amount : 0
+    },
+    getTotalBonusAmount: () => employees => {
+      let bonus = employees.map( employee =>
+        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
+      ).filter( payroll => payroll !== undefined )
+      return bonus.reduce((a,b) => a + b.amount, 0)
     },
     getExpensesAmount: () => employee => {
         return employee.expenses.reduce( (a,b) => a + b.amount, 0 )
