@@ -19,7 +19,7 @@
           :label="$t('Insights')"
           name="insights"
         >
-          <BudgetInsights/>
+          <BudgetInsights :employeeList="this.employees"/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -52,14 +52,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['budgets']),
+    ...mapGetters(['budgets', 'employees']),
     existsBudgets: function() {
       return this.budgets.length > 0
-
     }
   },
   created() {
     this.setActiveBudget()
+    this.$store.dispatch('getEmployees')
   },
   methods: {
     ...mapActions(['getBudgets']),

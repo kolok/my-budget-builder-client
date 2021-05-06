@@ -28,10 +28,17 @@ import AuthService from './api/auth.service'
 /** Style **/
 import style from './styles/main.scss';
 
-/*
- * FIXME: Babel could be updated
- * FIXME: use babel plugin : https://element.eleme.io/#/fr-FR/component/quickstart
- */
+/** Highcharts **/
+import Highcharts from "highcharts";
+//import Gantt from "highcharts/modules/gantt";
+//import XRange from "highcharts/modules/xrange";
+//import Stock from "highcharts/modules/stock";
+import HighchartsVue from "highcharts-vue";
+
+//Gantt(Highcharts);
+//XRange(Highcharts);
+//Stock(Highcharts);
+Vue.use(HighchartsVue);
 
 /** Manage ElementUI loading and locale **/
 Vue.use(ElementUI);

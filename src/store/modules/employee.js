@@ -5,7 +5,19 @@ export default {
     employees: []
   },
   getters: {
-    employees: state => state.employees
+    employees: state => state.employees,
+
+    getPayrollsAmount: () => employee => {
+      let payroll = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
+      return payroll ? payroll.amount : 0
+    },
+    getBonusAmount: () => employee => {
+      let bonus = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
+      return bonus ? bonus.amount : 0
+    },
+    getExpensesAmount: () => employee => {
+        return employee.expenses.reduce( (a,b) => a + b.amount, 0 )
+    },
   },
   mutations: {
     SET_USERS: (state, employees) => {
@@ -37,7 +49,7 @@ export default {
           throw err
         })
     },
-    getEmployee: ({ commit }, employeeID) => {
+    getEmployee: ({}, employeeID) => {
       return EmployeeResource.get(employeeID)
         .then(response => {
           return response.data
