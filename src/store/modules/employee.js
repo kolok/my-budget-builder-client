@@ -31,6 +31,7 @@ export default {
         .then(response => {
           var employees = response.data
           commit('SET_USERS', employees)
+          return response.data
         })
         .catch(err => {
           throw err

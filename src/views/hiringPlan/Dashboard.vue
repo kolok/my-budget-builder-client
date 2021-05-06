@@ -7,8 +7,21 @@
     </div>
     <div v-if="existsBudgets">
       <budget-dates />
-      <employee-list />
-      <employee-create-button />
+      <el-tabs v-model="activeName">
+        <el-tab-pane
+          :label="$t('Hiring Plan Builder')"
+          name="builder"
+        >
+          <employee-list />
+          <employee-create-button />
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('Insights')"
+          name="insights"
+        >
+          <BudgetInsights/>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -21,6 +34,7 @@ import BudgetSelector from '../../components/budget/Selector.vue'
 import BudgetActions from '../../components/budget/Actions.vue'
 import EmployeeList from '../../components/employee/List.vue'
 import EmployeeCreateButton from '../../components/employee/CreateButton.vue'
+import BudgetInsights from '../../components/budget/Insights.vue'
 
 export default {
   components: {
@@ -29,12 +43,19 @@ export default {
     BudgetSelector,
     BudgetActions,
     EmployeeList,
-    EmployeeCreateButton
+    EmployeeCreateButton,
+    BudgetInsights
+  },
+  data() {
+    return {
+      activeName: 'insights'
+    }
   },
   computed: {
     ...mapGetters(['budgets']),
     existsBudgets: function() {
       return this.budgets.length > 0
+
     }
   },
   created() {
