@@ -9,8 +9,8 @@ let EmployeeResource = {
     return HTTP.get('employees/me')
   },
 
-  list() { // Show all the employees
-    return HTTP.get('employees')
+  list(params) { // Show all the employees
+    return HTTP.get('employees', {params: params} )
   },
 
   get(id) { // Get a specific employee

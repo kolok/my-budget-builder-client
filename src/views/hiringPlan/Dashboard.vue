@@ -12,7 +12,7 @@
           :label="$t('Hiring Plan Builder')"
           name="builder"
         >
-          <employee-list />
+          <employee-list :budgetID="this.activeBudgetID" v-if="this.activeBudgetID" />
           <employee-create-button />
         </el-tab-pane>
         <el-tab-pane
@@ -52,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['budgets', 'employees']),
+    ...mapGetters(['budgets', 'employees', 'activeBudgetID']),
     existsBudgets: function() {
       return this.budgets.length > 0
     }

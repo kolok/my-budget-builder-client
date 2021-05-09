@@ -49,8 +49,8 @@ export default {
     },
   },
   actions: {
-    getEmployees: ({ commit }) => {
-      return EmployeeResource.list()
+    getEmployees: ({ commit }, params) => {
+      return EmployeeResource.list(params)
         .then(response => {
           var employees = response.data
           commit('SET_USERS', employees)

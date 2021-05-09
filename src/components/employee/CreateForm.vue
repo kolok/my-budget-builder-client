@@ -2,12 +2,13 @@
   <employee-form
     :employee-form="employeeForm"
     :positions-form="positionsForm"
+    :budgetID="this.activeBudgetID()"
     @submitForm="handleCreate"
   />
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import employeeForm from './Form.vue'
 
 export default {
@@ -29,11 +30,13 @@ export default {
   },
   methods: {
     ...mapActions(['createEmployee']),
+    ...mapGetters(['activeBudgetID']),
     handleCreate: function() {
       this.employeeForm.expenses = [
         {expense_type: 'payroll', amount: this.employeeForm.payroll || 0},
         {expense_type: 'bonus', amount: this.employeeForm.bonus || 0}
       ]
+      console.log(this.employeeForm)
       // Create employee
       this.createEmployee(this.employeeForm)
         .then(() => {

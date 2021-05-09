@@ -114,6 +114,10 @@ export default {
     PositionsForm
   },
   props: {
+    budgetID: {
+      type: Number,
+      required: true
+    },
     employeeForm: {
       type: Object,
       required: true
@@ -139,6 +143,7 @@ export default {
   methods: {
     submitForm: function(formName) {
       this.employeeForm.positions = this.positionsForm
+      this.employeeForm.budgetID = this.budgetID
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$emit('submitForm')

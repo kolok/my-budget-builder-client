@@ -95,6 +95,12 @@ export default {
     EmployeeActions,
     ScoreCard
   },
+  props: {
+    budgetID: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       loading: true,
@@ -137,7 +143,8 @@ export default {
     this.$store.dispatch('getCurrencies')
   },
   created() {
-    this.$store.dispatch('getEmployees').then(() => {
+    console.log(this.budgetID)
+    this.$store.dispatch('getEmployees', {budgetID: this.budgetID}).then(() => {
       this.loading = false
     })
   },
