@@ -143,7 +143,6 @@ export default {
     this.$store.dispatch('getCurrencies')
   },
   created() {
-    console.log(this.budgetID)
     this.$store.dispatch('getEmployees', {budgetID: this.budgetID}).then(() => {
       this.loading = false
     })
@@ -151,7 +150,6 @@ export default {
   methods: {
     handleSelectionChange: function(val) {
       this.multipleSelection = val
-      console.log(val)
     },
     getExpenseAmount: function(expenses, expense_type) {
       let expense = expenses.find(e => e.expense_type == expense_type).amount

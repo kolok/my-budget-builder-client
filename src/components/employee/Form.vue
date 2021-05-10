@@ -148,7 +148,6 @@ export default {
         if (valid) {
           this.$emit('submitForm')
         } else {
-          console.log('error submit!!')
           return false
         }
       })

@@ -36,7 +36,6 @@ export default {
         {expense_type: 'payroll', amount: this.employeeForm.payroll || 0},
         {expense_type: 'bonus', amount: this.employeeForm.bonus || 0}
       ]
-      console.log(this.employeeForm)
       // Create employee
       this.createEmployee(this.employeeForm)
         .then(() => {

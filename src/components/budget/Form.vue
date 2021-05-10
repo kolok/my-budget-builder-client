@@ -63,7 +63,6 @@ export default {
         if (valid) {
           this.$emit('submitBudget')
         } else {
-          console.log('error submit!!')
           return false
         }
       })

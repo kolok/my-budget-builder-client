@@ -36,7 +36,6 @@ export default {
             employee.bonus = expense.amount
           }
         })
-        console.log(employee)
         if (employee.positions[0]) {
           employee.position = employee.positions[0].name
           employee.teamID = employee.positions[0].teamID

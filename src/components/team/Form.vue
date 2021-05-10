@@ -71,7 +71,6 @@ export default {
         if (valid) {
           this.$emit('submitForm', dialogToClose)
         } else {
-          console.log('error submit!!')
           return false
         }
       })

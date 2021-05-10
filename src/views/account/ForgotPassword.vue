@@ -77,10 +77,8 @@ export default {
                 message: this.$t('Oops ! Something went wrong'),
                 type: 'error'
               })
-              console.log('Oops ! Something went wrong')
             })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

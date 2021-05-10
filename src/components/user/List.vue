@@ -92,7 +92,6 @@ export default {
     },
     handleSelectionChange: function(val) {
       this.multipleSelection = val
-      console.log(val)
     },
   }
 }

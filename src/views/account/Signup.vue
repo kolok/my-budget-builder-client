@@ -145,7 +145,6 @@ export default {
               console.log('error', err)
             })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
