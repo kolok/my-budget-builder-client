@@ -1,12 +1,9 @@
 <template>
   <div>
     <div class="Content__ObjectManagement">
-      <budget-create :exists-budgets="existsBudgets" />
-      <budget-selector v-if="existsBudgets" />
-      <budget-actions v-if="existsBudgets" />
+      <budget-selector :exists-budgets="existsBudgets"/>
     </div>
     <div v-if="existsBudgets">
-      <budget-dates />
       <el-tabs v-model="activeTab">
         <el-tab-pane
           :label="$t('Hiring Plan Builder')"
@@ -28,20 +25,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BudgetCreate from '../../components/budget/Create.vue'
-import BudgetDates from '../../components/budget/Dates.vue'
 import BudgetSelector from '../../components/budget/Selector.vue'
-import BudgetActions from '../../components/budget/Actions.vue'
 import EmployeeList from '../../components/employee/List.vue'
 import EmployeeCreateButton from '../../components/employee/CreateButton.vue'
 import BudgetInsights from '../../components/budget/Insights.vue'
 
 export default {
   components: {
-    BudgetCreate,
-    BudgetDates,
     BudgetSelector,
-    BudgetActions,
     EmployeeList,
     EmployeeCreateButton,
     BudgetInsights
@@ -73,11 +64,3 @@ export default {
 }
 </script>
 
-<style>
-.Content__ObjectManagement {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-</style>
