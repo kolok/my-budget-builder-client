@@ -66,7 +66,12 @@ export default {
   props: {
     positionsForm: {
       type: Array,
-      required: false
+      required: false,
+      default: () => [{
+        name:'',
+        teamID:'',
+        parttime:100
+      }]
     }
   },
   computed: {

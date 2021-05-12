@@ -116,7 +116,7 @@ export default {
   props: {
     budgetID: {
       type: String,
-      required: false
+      required: true
     },
     employeeForm: {
       type: Object,
@@ -124,7 +124,12 @@ export default {
     },
     positionsForm: {
       type: Array,
-      required: false
+      required: false,
+      default: () => [{
+        name:'',
+        teamID:'',
+        parttime:100
+      }]
     }
   },
   data() {

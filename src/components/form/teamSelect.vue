@@ -29,6 +29,7 @@ export default {
     },
     label: {
       type: String,
+      default: () => 'Team'
     }
   },
   computed: {

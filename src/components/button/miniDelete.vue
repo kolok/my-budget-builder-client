@@ -18,7 +18,8 @@ export default {
     },
     count: {
       type: Number,
-      required: false
+      required: false,
+      default: 0
     }
   },
 }

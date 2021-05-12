@@ -2,13 +2,14 @@
   <employee-form
     :employee-form="employeeForm"
     :positions-form="employeeForm.positions"
+    :budget-i-d="activeBudgetID()"
     @submitForm="handleEdit"
     @cancel="handleCancel"
   />
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import employeeForm from './Form.vue'
 
 export default {
@@ -25,6 +26,7 @@ export default {
   },
   methods: {
     ...mapActions(['getEmployee', 'updateEmployee']),
+    ...mapGetters(['activeBudgetID']),
 
     initEmployee: function() {
       this.getEmployee(this.$route.params.id).then(employee => {

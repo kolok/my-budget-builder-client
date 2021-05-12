@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="Content__ObjectManagement">
-      <budget-selector :exists-budgets="existsBudgets"/>
+      <budget-selector :exists-budgets="existsBudgets" />
     </div>
     <div v-if="existsBudgets">
       <el-tabs v-model="activeTab">
@@ -9,14 +9,17 @@
           :label="$t('Hiring Plan Builder')"
           name="builder"
         >
-          <employee-list :budgetID="this.activeBudgetID" v-if="this.activeBudgetID" />
+          <employee-list
+            v-if="activeBudgetID"
+            :budget-i-d="activeBudgetID"
+          />
           <employee-create-button />
         </el-tab-pane>
         <el-tab-pane
           :label="$t('Insights')"
           name="insights"
         >
-          <BudgetInsights :employee-list="this.employees" />
+          <BudgetInsights :employee-list="employees" />
         </el-tab-pane>
       </el-tabs>
     </div>

@@ -28,7 +28,8 @@ export default {
       required: true
     },
     prop: {
-      type: String
+      type: String,
+      required: true
     },
   },
   computed: {

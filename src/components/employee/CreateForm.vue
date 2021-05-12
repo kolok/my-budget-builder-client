@@ -1,8 +1,7 @@
 <template>
   <employee-form
     :employee-form="employeeForm"
-    :positions-form="positionsForm"
-    :budgetID="this.activeBudgetID()"
+    :budget-i-d="activeBudgetID()"
     @submitForm="handleCreate"
     @cancel="handleCancel"
   />
@@ -21,12 +20,7 @@ export default {
       employeeForm: {
         payroll:0,
         bonus:0
-      },
-      positionsForm: [{
-        name:'',
-        teamID:0,
-        parttime:100
-      }]
+      }
     }
   },
   methods: {

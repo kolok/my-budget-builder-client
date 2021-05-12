@@ -1,25 +1,6 @@
 <template>
   <div>
-    <div class="Content__ScoreCardBoard">
-      <score-card
-        :title="$t('Head count')"
-        :count="headcount"
-      />
-      <score-card
-        :title="$t('Full-time equivalent')"
-        :count="fullTimeCount"
-      />
-      <score-card
-        :title="$t('Payroll')"
-        :count="totalPayroll"
-        :unit="getCompanyCurrency"
-      />
-      <score-card
-        :title="$t('Bonus')"
-        :count="totalBonus"
-        :unit="getCompanyCurrency"
-      />
-    </div>
+    <score-card-board />
     <el-table
       :data="employees"
       class="Content__Table"
@@ -87,12 +68,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import EmployeeActions from './Actions.vue'
-import ScoreCard from '../common/ScoreCard.vue'
+import ScoreCardBoard from './ScoreCardBoard.vue'
 
 export default {
   components: {
     EmployeeActions,
-    ScoreCard
+    ScoreCardBoard,
   },
   props: {
     budgetID: {
@@ -109,37 +90,11 @@ export default {
   computed: {
     ...mapGetters([
       'employees',
-      'getCurrentCompany',
-      'getCurrencyById',
-      'currencies',
-      'activeBudgetID',
       'getPayrollAmount',
       'getBonusAmount',
       'getTotalPayrollAmount',
       'getTotalBonusAmount'
     ]),
-
-    headcount() {
-      return this.employees.length
-    },
-    fullTimeCount() {
-      return this.employees.reduce( (a,b) => a + (b.positions ? b.positions.reduce( (c,d) => c + d.parttime,0 ) : 0),0 ) / 100
-    },
-    totalPayroll() {
-      return this.getTotalPayrollAmount(this.employees)
-    },
-    totalBonus() {
-      return this.getTotalBonusAmount(this.employees)
-    },
-    getDefaultCurrencyID() {
-      return this.getCurrentCompany.defaultCurrencyID
-    },
-    getCompanyCurrency() {
-      return this.getCurrencyById(1) ? this.getCurrencyById(1).symbol : ''
-    }
-  },
-  beforeMount() {
-    this.$store.dispatch('getCurrencies')
   },
   created() {
     this.$store.dispatch('getEmployees', {budgetID: this.budgetID}).then(() => {

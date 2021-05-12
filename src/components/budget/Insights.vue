@@ -20,13 +20,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     employeeList: {
       type: Array,
-      required: false
+      required: false,
+      default: () => []
     }
   },
   data() {
