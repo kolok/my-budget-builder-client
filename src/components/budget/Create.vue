@@ -62,7 +62,7 @@ export default {
           // close the dialogbox and set the new budget as the active one
           this.budgetForm = { name: '', startDate: '', endDate: '' }
           this.createDialog = false
-          this.$store.commit('SET_ACTIVEBUDGETID', response.id)
+          this.$store.dispatch('setActiveBudgetID', response.id)
         })
         .catch(e => {
           this.$cs({

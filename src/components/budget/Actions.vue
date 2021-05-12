@@ -62,7 +62,7 @@ export default {
               })
               this.getBudgets().then(budgets => {
                 if (budgets !== undefined && budgets.length > 0) {
-                  this.$store.commit('SET_ACTIVEBUDGETID', budgets[0].id)
+                  this.$store.dispatch('setActiveBudgetID', budgets[0].id)
                 }
               })
             })

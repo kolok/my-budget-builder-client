@@ -31,7 +31,7 @@ export default {
     },
   },
   mutations: {
-    SET_USERS: (state, employees) => {
+    SET_EMPLOYEES: (state, employees) => {
       state.employees = employees
     },
     CREATE_USER: (state, employee) => {
@@ -53,7 +53,7 @@ export default {
       return EmployeeResource.list(params)
         .then(response => {
           var employees = response.data
-          commit('SET_USERS', employees)
+          commit('SET_EMPLOYEES', employees)
           return response.data
         })
         .catch(err => {

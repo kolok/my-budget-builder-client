@@ -1,5 +1,4 @@
 import BudgetResource from '../../api/budget.service'
-import OfficeResource from '../../api/office.service'
 
 export default {
   state: {
@@ -57,8 +56,9 @@ export default {
           throw err
         })
     },
-    setActiveBudgetID: ({ commit, state }, budgetID) => {
+    setActiveBudgetID: ({ commit, state, dispatch }, budgetID) => {
       commit('SET_ACTIVEBUDGETID', budgetID)
+      dispatch('getEmployees', {budgetID: budgetID})
       return state.activeBudgetID
     },
     createBudget: ({commit}, budget) => {

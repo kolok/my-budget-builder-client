@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     handleSelectBudget: function(val) {
-      this.$store.commit('SET_ACTIVEBUDGETID', val)
+      this.$store.dispatch('setActiveBudgetID', val)
     },
   },
 }
