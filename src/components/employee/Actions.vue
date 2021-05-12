@@ -17,7 +17,7 @@ export default {
   },
   props: {
     employeeID: {
-      type: Number,
+      type: String,
       required: true
     }
   },

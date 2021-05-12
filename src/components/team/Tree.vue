@@ -37,7 +37,7 @@
       @node-drop="handleDrop"
     >
       <span
-        slot-scope="{ node, data }"
+        slot-scope="{ data }"
         class="Content__TreeNode"
       >
         <span

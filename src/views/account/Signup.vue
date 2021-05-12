@@ -141,8 +141,8 @@ export default {
               })
               this.$router.push('/hiringPlan')
             })
-            .catch(err => {
-              console.log('error', err)
+            .catch(e => {
+              console.log(e)
             })
         } else {
           return false

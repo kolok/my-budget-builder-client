@@ -54,7 +54,7 @@ export default {
   computed: {
     ...mapGetters(['getCurrentCompany']),
     userCompanyExists: function() {
-      return this.getCurrentCompany.id !== undefined
+      return !this.getCurrentCompany || this.getCurrentCompany.id !== undefined
     }
   }
 }

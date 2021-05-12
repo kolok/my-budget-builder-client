@@ -20,7 +20,6 @@
         :unit="getCompanyCurrency"
       />
     </div>
-    <p>activeBudgetID: {{ this.activeBudgetID }}</p>
     <el-table
       :data="employees"
       class="Content__Table"
@@ -97,7 +96,7 @@ export default {
   },
   props: {
     budgetID: {
-      type: Number,
+      type: String,
       required: true
     }
   },
@@ -124,7 +123,7 @@ export default {
       return this.employees.length
     },
     fullTimeCount() {
-      return this.employees.reduce( (a,b) => a + b.positions.reduce( (c,d) => c + d.parttime,0 ),0 ) / 100
+      return this.employees.reduce( (a,b) => a + (b.positions ? b.positions.reduce( (c,d) => c + d.parttime,0 ) : 0),0 ) / 100
     },
     totalPayroll() {
       return this.getTotalPayrollAmount(this.employees)
@@ -156,7 +155,7 @@ export default {
       return expense
     },
     getPartTime: function(positions) {
-      return positions.reduce( (a,b) => a + b.parttime, 0)
+      return positions ? positions.reduce( (a,b) => a + b.parttime, 0) : 0
     },
   }
 }

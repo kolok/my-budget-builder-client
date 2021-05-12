@@ -115,8 +115,8 @@ export default {
   },
   props: {
     budgetID: {
-      type: Number,
-      required: true
+      type: String,
+      required: false
     },
     employeeForm: {
       type: Object,

@@ -95,9 +95,9 @@ export default {
         })
     },
     createTeam: ({commit}, team) => {
-      if (team.parentTeamID === undefined || team.parentTeamID === null ) {
-        team.parentTeamID = 0
-      } else if (team.parentTeamID.length !== undefined){
+      if (team.parentTeamID === undefined || team.parentTeamID === null  || team.parentTeamID === "" ) {
+        team.parentTeamID = null
+      } else if ( Array.isArray(team.parentTeamID) ){
         team.parentTeamID = team.parentTeamID[ team.parentTeamID.length - 1 ]
       }
       return TeamResource.create(team)
@@ -111,8 +111,8 @@ export default {
     },
     updateTeam: ({commit}, team) => {
       if (team.parentTeamID === undefined || team.parentTeamID === null || team.parentTeamID.length == 0) {
-        team.parentTeamID = 0
-      } else if (team.parentTeamID.length !== undefined){
+        team.parentTeamID = null
+      } else if (Array.isArray(team.parentTeamID)){
         team.parentTeamID = team.parentTeamID[ team.parentTeamID.length - 1 ]
       }
       return TeamResource.update(team.id, team)

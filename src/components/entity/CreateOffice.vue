@@ -93,11 +93,11 @@ export default {
   },
   props: {
     entityID: {
-      type: Number,
+      type: String,
       required: true
     },
     countryID: {
-      type: Number,
+      type: String,
       required: true
     }
   },

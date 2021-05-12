@@ -4,6 +4,7 @@
     :positions-form="positionsForm"
     :budgetID="this.activeBudgetID()"
     @submitForm="handleCreate"
+    @cancel="handleCancel"
   />
 </template>
 
