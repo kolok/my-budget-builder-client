@@ -1,39 +1,44 @@
 <template>
   <div class="Content__BorderedForm">
     <div 
-      v-for="(position, counter) in positionsForm"
-      :key="counter"
-      class="Content__ColumnForm"
-    >
+      v-for="(item, index) in employeeForm.positions" 
+      :key="index" 
+      class="Content__ColumnForm">
       <div style="width:40%">
-        <el-form-item
-          prop="position"
-          :label="$t('Position')"
-        >
-          <el-input
-            v-model="position.name"
-            autocomplete="off"
-          />
+        <el-form-item label="Position" 
+          :prop="'positions.' + index + '.name'"
+          :rules="{required: true, message: 'position is required', trigger: 'blur'}">
+          <el-input v-model="item.name"></el-input>
         </el-form-item>
       </div>
       <div style="width:35%">
-        <TeamSelect
-          :my-form="position"
-          prop="teamID"
-          :label="$t('Team')"
-        />
+        <el-form-item
+          :label="$t(Team)"
+          :prop="'positions.' + index + '.name'"
+        >
+          <el-cascader
+            v-model="item.teamID"
+            :options="teamTreeSelector"
+            :props="{ checkStrictly: true }"
+            :placeholder="$t('Select a team')"
+            style="width: 100%;"
+            clearable
+          />
+        </el-form-item>
       </div>
       <div style="width:20%">
         <el-form-item
-          prop="position"
+          :prop="'positions.' + index + '.parttime'"
           :label="$t('Part-time')"
+          :rules="{required: true, message: 'position is required', trigger: 'blur'}"
         >
           <el-input
-            v-model="position.parttime"
+            v-model="item.parttime"
             autocomplete="off"
           />
         </el-form-item>
       </div>
+
       <div style="width:5%;float:right;padding:5px;">
         <mini-delete-button
           :action-func="deletePosition"
@@ -51,6 +56,7 @@
       </el-button>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -64,14 +70,9 @@ export default {
     TeamSelect
   },
   props: {
-    positionsForm: {
-      type: Array,
-      required: false,
-      default: () => [{
-        name:'',
-        teamID:'',
-        parttime:100
-      }]
+    employeeForm: {
+      type: Object,
+      required: true
     }
   },
   computed: {
@@ -82,13 +83,14 @@ export default {
   },
   methods: {
     addPosition(){
-      this.positionsForm.push({
+      this.employeeForm.positions.push({
         name:'',
-        teamID: 0
+        teamID: '',
+        parttime: 0
       })
     },
     deletePosition(counter){
-      this.positionsForm.splice(counter,1)
+      this.employeeForm.positions.splice(counter,1)
     }
   }
 }

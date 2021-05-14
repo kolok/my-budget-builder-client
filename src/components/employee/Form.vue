@@ -79,8 +79,9 @@
         </div>
       </div>
 
-      <PositionsForm :positions-form="positionsForm" />
-      
+
+      <PositionsForm :employeeForm="employeeForm" />
+
       <div class="Content__ColumnForm">
         <div class="Content__ColumnForm1o2">
           <div />
@@ -122,15 +123,6 @@ export default {
     employeeForm: {
       type: Object,
       required: true
-    },
-    positionsForm: {
-      type: Array,
-      required: false,
-      default: () => [{
-        name:'',
-        teamID:'',
-        parttime:100
-      }]
     }
   },
   data() {
@@ -144,11 +136,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['offices'])
+    ...mapGetters(['offices', 'teamTreeSelector'])
+  },
+  created() {
+    this.$store.dispatch('getTeams')
   },
   methods: {
     submitForm: function(formName) {
-      this.employeeForm.positions = this.positionsForm
       this.employeeForm.budgetID = this.budgetID
       this.$refs[formName].validate(valid => {
         if (valid) {

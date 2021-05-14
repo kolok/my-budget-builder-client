@@ -19,7 +19,12 @@ export default {
     return {
       employeeForm: {
         payroll:0,
-        bonus:0
+        bonus:0,
+        positions: [{
+          name: '',
+          teamID: '',
+          parttime: 100
+        }]
       }
     }
   },
