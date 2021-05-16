@@ -25,6 +25,14 @@
         </template>
       </el-table-column>
       <el-table-column
+        :label="$t('Taxe rate')"
+        sortable
+      >
+        <template slot-scope="props">
+          {{ props.row.taxeRate }} %
+        </template>
+      </el-table-column>
+      <el-table-column
         :label="$t('Country')"
         sortable
       >

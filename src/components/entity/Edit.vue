@@ -2,54 +2,27 @@
   <div>
     <mini-edit-button :action-func="displayAddDialog" />
     <mini-delete-button :action-func="handleDelete" />
-    <el-dialog
+    <entity-form 
+      :entityForm="entityForm"
+      :displayDialog="editDialog"
       :title="$t('Update entity')"
-      :visible.sync="addDialog"
-      :modal-append-to-body="false"
-    >
-      <el-form
-        ref="entityForm"
-        :model="entityForm"
-        :rules="entityRule"
-        label-width="250px"
-        class="Dialog__Form"
-      >
-        <el-form-item
-          prop="name"
-          :label="$t('Entity')"
-        >
-          <el-input
-            v-model="entityForm.name"
-            autocomplete="off"
-          />
-        </el-form-item>
-        <CountrySelect :form="entityForm" />
-        <CurrencySelect :form="entityForm" />
-      </el-form>
-      <span slot="footer">
-        <el-button @click="handleCancel('entityForm')">{{ $t('Cancel') }}</el-button>
-        <el-button
-          type="primary"
-          @click="handleEdit('entityForm')"
-        >{{ $t('Save') }}</el-button>
-      </span>
-    </el-dialog>
+      @submitForm="handleEdit"
+      @cancel="handleCancel"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import CountrySelect from '../form/countrySelect.vue'
-import CurrencySelect from '../form/currencySelect.vue'
 import MiniEditButton from '../button/miniEdit.vue'
 import MiniDeleteButton from '../button/miniDelete.vue'
+import EntityForm from './Form.vue'
 
 export default {
   components: {
-    CountrySelect,
-    CurrencySelect,
     MiniEditButton,
-    MiniDeleteButton
+    MiniDeleteButton,
+    EntityForm
   },
   props: {
     entityForm: {
@@ -59,20 +32,7 @@ export default {
   },
   data() {
     return {
-      addDialog: false,
-      entityRule: {
-        name: [
-          { required: true, message: this.$t('Entity name can\'t be blank') },
-          { max: 25, message: this.$t('Too long') },
-          { min: 3, message: this.$t('Too short') }
-        ],
-        countryID: [
-          { required: true, message: this.$t('A country should be selected') }
-        ],
-        defaultCurrencyID: [
-          { required: true, message: this.$t('A currency should be selected') }
-        ]
-      }
+      editDialog: false,
     }
   },
   computed: {
@@ -82,24 +42,16 @@ export default {
     ...mapActions(['updateEntity', 'deleteEntity']),
     /*eslint no-unused-vars: ["error", { "args": "none" }]*/
     handleEdit: function(formName) {
-      // Create entity
-      this.$refs[formName].validate(valid => {
-        if (valid) {
           this.updateEntity(this.entityForm)
             .then(response => {
-              this.addDialog = false
+              this.editDialog = false
             })
             .catch(e => {
               console.log(e)
             })
-        } else {
-          return false
-        }
-      })
     },
-    handleCancel: function(formName) {
-      this.$refs[formName].resetFields()
-      this.addDialog = false
+    handleCancel: function() {
+      this.editDialog = false
     },
     handleDelete() {
       this.$confirm(
@@ -115,7 +67,7 @@ export default {
       })
     },
     displayAddDialog() {
-      this.addDialog = true
+      this.editDialog = true
     }
   }
 }

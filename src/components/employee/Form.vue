@@ -5,7 +5,6 @@
       :model="employeeForm"
       :rules="employeeRule"
       label-width="120px"
-      @keyup.enter.native="submitForm('employeeForm')"
     >
       <div class="Content__ColumnForm">
         <div class="Content__ColumnForm1o2">
@@ -22,12 +21,6 @@
           <OfficeSelect
             :my-form="employeeForm"
             prop="officeID"
-          />
-        </div>
-        <div class="Content__ColumnForm1o2">
-          <email-form-item
-            :my-form="employeeForm"
-            :required="false"
           />
           <div class="Content__ColumnForm1o2Column">
             <el-form-item 
@@ -53,7 +46,12 @@
               />
             </el-form-item>
           </div>
-
+        </div>
+        <div class="Content__ColumnForm1o2">
+          <email-form-item
+            :my-form="employeeForm"
+            :required="false"
+          />
           <div class="Content__ColumnForm1o2Column">
             <my-date
               class="Content__ColumnForm1o2Column1o2"
@@ -131,6 +129,9 @@ export default {
         name: [
           { required: true, message: this.$t('Employee name can\'t be blank') },
           { max: 255, message: this.$t('Too long') }
+        ],
+        officeID: [
+          { required: true, message: this.$t('Office is required') },
         ]
       }
     }

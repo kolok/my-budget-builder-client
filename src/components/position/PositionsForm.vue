@@ -5,17 +5,18 @@
       :key="index" 
       class="Content__ColumnForm">
       <div style="width:40%">
-        <el-form-item label="Position" 
+        <el-form-item 
+          :label="$t('Position')" 
           :prop="'positions.' + index + '.name'"
-          :rules="{required: true, message: 'position is required', trigger: 'blur'}">
+          :rules="positionRules">
           <el-input v-model="item.name"></el-input>
         </el-form-item>
       </div>
       <div style="width:35%">
         <el-form-item
-          :label="$t(Team)"
-          :prop="'positions.' + index + '.name'"
-        >
+          :label="$t('Team')"
+          :prop="'positions.' + index + '.teamID'"
+          :rules="teamRules">
           <el-cascader
             v-model="item.teamID"
             :options="teamTreeSelector"
@@ -30,8 +31,7 @@
         <el-form-item
           :prop="'positions.' + index + '.parttime'"
           :label="$t('Part-time')"
-          :rules="{required: true, message: 'position is required', trigger: 'blur'}"
-        >
+          :rules="positionRules">
           <el-input
             v-model="item.parttime"
             autocomplete="off"
@@ -73,6 +73,13 @@ export default {
     employeeForm: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      positionRules: [{required: true, message: 'position is required', trigger: 'blur'}],
+      teamRules: [{required: true, message: 'team is required', trigger: 'blur'}],
+      parttimeRules: [{required: true, message: 'parttime is required', trigger: 'blur'}]
     }
   },
   computed: {
