@@ -78,7 +78,7 @@
       </div>
 
 
-      <PositionsForm :employeeForm="employeeForm" />
+      <PositionsForm :employee-form="employeeForm" />
 
       <div class="Content__ColumnForm">
         <div class="Content__ColumnForm1o2">

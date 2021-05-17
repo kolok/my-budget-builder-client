@@ -3,20 +3,23 @@
     <div 
       v-for="(item, index) in employeeForm.positions" 
       :key="index" 
-      class="Content__ColumnForm">
+      class="Content__ColumnForm"
+    >
       <div style="width:40%">
         <el-form-item 
           :label="$t('Position')" 
           :prop="'positions.' + index + '.name'"
-          :rules="positionRules">
-          <el-input v-model="item.name"></el-input>
+          :rules="positionRules"
+        >
+          <el-input v-model="item.name" />
         </el-form-item>
       </div>
       <div style="width:35%">
         <el-form-item
           :label="$t('Team')"
           :prop="'positions.' + index + '.teamID'"
-          :rules="teamRules">
+          :rules="teamRules"
+        >
           <el-cascader
             v-model="item.teamID"
             :options="teamTreeSelector"
@@ -31,7 +34,8 @@
         <el-form-item
           :prop="'positions.' + index + '.parttime'"
           :label="$t('Part-time')"
-          :rules="positionRules">
+          :rules="positionRules"
+        >
           <el-input
             v-model="item.parttime"
             autocomplete="off"
@@ -56,18 +60,15 @@
       </el-button>
     </div>
   </div>
-
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import TeamSelect from '../form/teamSelect.vue'
 import MiniDeleteButton from '../button/miniDelete.vue'
 
 export default {
   components: {
     MiniDeleteButton,
-    TeamSelect
   },
   props: {
     employeeForm: {

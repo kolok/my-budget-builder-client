@@ -1,51 +1,50 @@
 <template>
-    <el-dialog
-      :title="title"
-      :visible.sync="displayDialog"
-      :modal-append-to-body="false"
-    >
-  <el-form
-    ref="entityForm"
-    :model="entityForm"
-    :rules="entityRule"
-    label-width="250px"
-    class="Dialog__Form"
+  <el-dialog
+    :title="title"
+    :visible.sync="displayDialog"
+    :modal-append-to-body="false"
   >
-    <el-form-item
-      prop="name"
-      :label="$t('Entity')"
+    <el-form
+      ref="entityForm"
+      :model="entityForm"
+      :rules="entityRule"
+      label-width="250px"
+      class="Dialog__Form"
     >
-      <el-input
-        v-model="entityForm.name"
-        autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item 
-      prop="taxeRate" 
-      :label="$t('Taxe Rate in %')" 
-    >
-      <el-input-number
-        v-model="entityForm.taxeRate"
-        :controls="false"
-      />
-    </el-form-item>
-    <CountrySelect :form="entityForm" />
-    <CurrencySelect :form="entityForm" />
-  </el-form>
-        <span
-        slot="footer"
+      <el-form-item
+        prop="name"
+        :label="$t('Entity')"
       >
-        <el-button @click="handleCancel">{{ $t('Cancel') }}</el-button>
-        <el-button
-          type="primary"
-          @click="submitForm('entityForm')"
-        >{{ $t('Save') }}</el-button>
-      </span>
-    </el-dialog>
+        <el-input
+          v-model="entityForm.name"
+          autocomplete="off"
+        />
+      </el-form-item>
+      <el-form-item 
+        prop="taxeRate" 
+        :label="$t('Taxe Rate in %')" 
+      >
+        <el-input-number
+          v-model="entityForm.taxeRate"
+          :controls="false"
+        />
+      </el-form-item>
+      <CountrySelect :form="entityForm" />
+      <CurrencySelect :form="entityForm" />
+    </el-form>
+    <span
+      slot="footer"
+    >
+      <el-button @click="handleCancel">{{ $t('Cancel') }}</el-button>
+      <el-button
+        type="primary"
+        @click="submitForm('entityForm')"
+      >{{ $t('Save') }}</el-button>
+    </span>
+  </el-dialog>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import CountrySelect from '../form/countrySelect.vue'
 import CurrencySelect from '../form/currencySelect.vue'
 
@@ -66,12 +65,11 @@ export default {
     title: {
       type: String,
       required: false,
-      default: "Create an Entity"
+      default: 'Create an Entity'
     }
   },
   data() {
     return {
-      currencyList: [],
       entityRule: {
         name: [
           { required: true, message: this.$t('Entity name can\'t be blank') },
@@ -84,6 +82,13 @@ export default {
         defaultCurrencyID: [
           { required: true, message: this.$t('A currency should be selected') }
         ]
+      }
+    }
+  },
+  watch: {
+    'displayDialog': function(displayDialog) {
+      if (displayDialog == true && this.$refs['entityForm'] && this.entityForm.id === undefined){
+        this.$refs['entityForm'].resetFields()
       }
     }
   },

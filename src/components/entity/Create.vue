@@ -3,15 +3,14 @@
     <template>
       <el-button
         type="primary"
-        @click="createDialog = true"
+        @click="displayCreate"
       >
         {{ $t('Create a new entity') }}
       </el-button>
     </template>
-
-    <e-form 
-      :entityForm="entityForm"
-      :displayDialog="createDialog"
+    <entity-form 
+      :entity-form="entityForm"
+      :display-dialog="createDialog"
       @submitForm="handleCreateEntity"
       @cancel="handleCancel"
     />
@@ -19,16 +18,15 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import EForm from './Form.vue'
+import { mapActions } from 'vuex'
+import EntityForm from './Form.vue'
 
 export default {
   components: {
-    EForm
+    EntityForm
   },
   data() {
     return {
-      currencyList: [],
       createDialog: false,
       entityForm: {
         name: '',
@@ -40,9 +38,9 @@ export default {
   },
   methods: {
     ...mapActions(['createEntity']),
-    handleCreateEntity: function(formName) { // Create entity
+    handleCreateEntity: function() { // Create entity
       this.createEntity(this.entityForm)
-        .then(response => {
+        .then(() => {
           // reset form data
           this.createDialog = false
         })
@@ -50,8 +48,11 @@ export default {
           console.log(e)
         })
     },
-    handleCancel: function(){
+    handleCancel: function() {
       this.createDialog = false
+    },
+    displayCreate: function() {
+      this.createDialog = true
     }
   }
 }
