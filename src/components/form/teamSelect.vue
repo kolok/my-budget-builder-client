@@ -5,7 +5,7 @@
   >
     <el-cascader
       v-model="myForm[prop]"
-      :options="teamTreeSelector"
+      :options="getTeamTreeSelector"
       :props="{ checkStrictly: true }"
       :placeholder="$t('Select a team')"
       style="width: 100%;"
@@ -33,7 +33,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['teamTreeSelector'])
+    ...mapGetters(['teamTreeSelector']),
+    getTeamTreeSelector: function() {
+      if (this.myForm.id !== undefined) {
+        console.log('deactivate ', this.myForm.id)
+      }
+      return this.teamTreeSelector
+    }
   },
   created() {
     this.$store.dispatch('getTeams')

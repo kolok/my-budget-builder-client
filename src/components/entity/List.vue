@@ -89,7 +89,6 @@ export default {
     ...mapGetters(['entities'])
   },
   created() {
-    this.$store.dispatch('getCurrencies'),
     this.$store.dispatch('getCountries'),
     this.$store.dispatch('getEntitiesWithOffices').then(() => {
       this.loading = false

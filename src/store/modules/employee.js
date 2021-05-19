@@ -10,22 +10,33 @@ export default {
       let payroll = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
       return payroll ? payroll.amount : 0
     },
-    getTotalPayrollAmount: () => employees => {
-      let payrolls = employees.map( employee =>
-        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'payroll') : undefined
-      ).filter( payroll => payroll !== undefined )
-      return payrolls.reduce((a,b) => a + b.amount, 0)
+    getPayrollAmountWithTaxe: (state, getters, rootState, rootGetters) => employee => {
+      return getters.getPayrollAmount(employee) * getOfficeRatio(rootGetters, employee)
+    },
+    getTotalPayrollAmount: (state, getters, rootState, rootGetters) => employees => {
+      let payrolls = employees.map( employee => getters.getPayrollAmount(employee))
+      return payrolls.reduce((a,b) => a + b, 0)
+    },
+    getTotalPayrollAmountWithTaxe: (state, getters, rootState, rootGetters) => employees => {
+      let payrolls = employees.map( employee => getters.getPayrollAmountWithTaxe(employee))
+      return payrolls.reduce((a,b) => a + b, 0)
     },
     getBonusAmount: () => employee => {
       let bonus = employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
       return bonus ? bonus.amount : 0
     },
-    getTotalBonusAmount: () => employees => {
-      let bonus = employees.map( employee =>
-        employee.expenses ? employee.expenses.find(expense => expense.expense_type == 'bonus') : undefined
-      ).filter( payroll => payroll !== undefined )
-      return bonus.reduce((a,b) => a + b.amount, 0)
+    getBonusAmountWithTaxe: (state, getters, rootState, rootGetters) => employee => {
+      return getters.getBonusAmount(employee) * getOfficeRatio(rootGetters, employee)
     },
+    getTotalBonusAmount: (state, getters, rootState, rootGetters) => employees => {
+      let bonus = employees.map( employee => getters.getBonusAmount(employee))
+      return bonus.reduce((a,b) => a + b, 0)
+    },
+    getTotalBonusAmountWithTaxe: (state, getters, rootState, rootGetters) => employees => {
+      let bonus = employees.map( employee => getters.getBonusAmountWithTaxe(employee))
+      return bonus.reduce((a,b) => a + b, 0)
+    },
+
     getExpensesAmount: () => employee => {
         return employee.expenses.reduce( (a,b) => a + b.amount, 0 )
     },
@@ -88,10 +99,9 @@ export default {
           throw err
         })
     },
-    /*eslint no-unused-vars: [2, { "args": "none" }]*/
     deleteEmployee: ({commit}, id) => {
       return EmployeeResource.delete(id)
-        .then(response => {
+        .then(() => {
           commit('DELETE_USER', id)
         })
         .catch(err => {
@@ -99,4 +109,13 @@ export default {
         })
     },
   }
+}
+
+function getOfficeRatio(rootGetters, employee) {
+  if (employee.taxeRate === undefined) {
+    let office = rootGetters.offices.find(o => o.id == employee.officeID)
+    let entity = office ? office.entity : undefined
+    employee.taxeRate = entity ? (100 + entity.taxeRate) / 100 : 1
+  }
+  return employee.taxeRate
 }

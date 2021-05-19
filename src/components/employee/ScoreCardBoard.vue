@@ -9,13 +9,17 @@
       :count="fullTimeCount"
     />
     <score-card
-      :title="$t('Payroll')"
-      :count="totalPayroll"
+      :title="$t('Payroll with taxes')"
+      :sub-title="$t('Payroll')"
+      :count="totalPayrollWithTaxe"
+      :sub-count="totalPayroll"
       :unit="getCompanyCurrency"
     />
     <score-card
-      :title="$t('Bonus')"
-      :count="totalBonus"
+      :title="$t('Bonus with taxes')"
+      :sub-title="$t('Bonus')"
+      :count="totalBonusWithTaxe"
+      :sub-count="totalBonus ? totalBonus : undefined"
       :unit="getCompanyCurrency"
     />
   </div>
@@ -32,13 +36,11 @@ export default {
   computed: {
     ...mapGetters([
       'employees',
-      'getCurrentCompany',
-      'getCurrencyById',
-      'currencies',
-      'getPayrollAmount',
-      'getBonusAmount',
+      'getCompanyCurrency',
       'getTotalPayrollAmount',
-      'getTotalBonusAmount'
+      'getTotalPayrollAmountWithTaxe',
+      'getTotalBonusAmount',
+      'getTotalBonusAmountWithTaxe',
     ]),
 
     headcount() {
@@ -52,15 +54,15 @@ export default {
     totalPayroll() {
       return this.getTotalPayrollAmount(this.employees)
     },
+    totalPayrollWithTaxe() {
+      return this.getTotalPayrollAmountWithTaxe(this.employees)
+    },
     totalBonus() {
       return this.getTotalBonusAmount(this.employees)
     },
-    getCompanyCurrency() {
-      return this.getCurrencyById(1) ? this.getCurrencyById(1).symbol : ''
+    totalBonusWithTaxe() {
+      return this.getTotalBonusAmountWithTaxe(this.employees)
     }
-  },
-  beforeMount() {
-    this.$store.dispatch('getCurrencies')
   }
 }
 </script>

@@ -5,7 +5,12 @@ export default {
     all: []
   },
   getters: {
-    companies: state => state.all
+    companies: state => state.all,
+    getCompanyCurrency: (state, getters, rootState, rootGetters) => {
+      let company = rootGetters.getCurrentCompany
+      let currency = rootGetters.getCurrencyById(company.defaultCurrencyID)
+      return currency.symbol
+    }
   },
   mutations: {
     UPDATE_COMPANY: (state, company) => {

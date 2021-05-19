@@ -6,6 +6,12 @@
     <div class="Content__ScoreBody">
       {{ count }} {{ unit }}
     </div>
+    <div
+      v-if="subCount !== undefined"
+      class="Content__ScoreFooter"
+    >
+      {{ subTitle ? subTitle + ':' : '' }} {{ subCount }} {{ unit }}
+    </div>
   </div>
 </template>
 
@@ -19,6 +25,16 @@ export default {
     count: {
       type: Number,
       required: true
+    },
+    subTitle: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    subCount: {
+      type: Number,
+      required: false,
+      default: undefined
     },
     unit: {
       type: String,

@@ -30,17 +30,19 @@
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('Payroll')"
+        :label="$t('Payroll with taxes')"
       >
         <template slot-scope="props">
-          {{ getPayrollAmount(props.row) }}
+          <b>{{ getPayrollAmountWithTaxe(props.row) }}</b><br>
+          <span style="font-size:11px">{{ $t('Payroll') + ': ' + getPayrollAmount(props.row) }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('Bonus')"
+        :label="$t('Bonus with taxes')"
       >
         <template slot-scope="props">
-          {{ getBonusAmount(props.row) }}
+          <b>{{ getBonusAmountWithTaxe(props.row) }}</b><br>
+          <span style="font-size:11px">{{ $t('Bonus') + ': ' + getBonusAmount(props.row) }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -90,10 +92,10 @@ export default {
   computed: {
     ...mapGetters([
       'employees',
-      'getPayrollAmount',
       'getBonusAmount',
-      'getTotalPayrollAmount',
-      'getTotalBonusAmount'
+      'getBonusAmountWithTaxe',
+      'getPayrollAmount',
+      'getPayrollAmountWithTaxe',
     ]),
   },
   created() {
@@ -116,3 +118,8 @@ export default {
 }
 </script>
 
+<style>
+.el-table .cell {
+    word-break: normal;
+}
+</style>

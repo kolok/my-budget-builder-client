@@ -51,11 +51,15 @@ export default {
       return this.budgets.length > 0
     }
   },
+  beforeCreate() {
+    this.$store.dispatch('getCurrencies'),
+    this.$store.dispatch('getEntitiesWithOffices')
+  },
   created() {
     this.setActiveBudget()
   },
   methods: {
-    ...mapActions(['getBudgets']),
+    ...mapActions(['getBudgets', 'getEntitiesWithOffices']),
     setActiveBudget() {
       this.getBudgets().then(budgets => {
         if (budgets !== undefined && budgets.length > 0) {

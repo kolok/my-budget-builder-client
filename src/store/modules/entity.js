@@ -10,9 +10,16 @@ export default {
     offices: state => state.entities.map(entity =>
         entity.offices.map(office => {
             office.fullName = [entity.name,office.name].join(' > ')
+            office.entity = entity
             return office
         })
-    ).flat()
+    ).flat(),
+    applyTaxe: (state, getters, rootState, rootGetters) => (officeID,expense) => {
+      let office = rootGetters.offices.find(o => o.id == officeID)
+      let entity = office ? office.entity : undefined
+      let ratio = entity ? (100 + entity.taxeRate) / 100 : 1
+      return ratio * expense
+    },
   },
   mutations: {
     SET_ENTITIES: (state, entities) => {
