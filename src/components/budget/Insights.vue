@@ -6,13 +6,13 @@
       </h2>
     </div>
     <div style="display: flex; flex-direction: row; justify-content: center;">
-      <div style="width:20%;">
+      <div style="width:30%;">
         <highcharts :options="expensesOptions" />
       </div>
-      <div style="width:20%;">
+      <div style="width:30%;">
         <highcharts :options="payrollsOptions" />
       </div>
-      <div style="width:20%;">
+      <div style="width:30%;">
         <highcharts :options="bonusOptions" />
       </div>
     </div>
@@ -137,27 +137,31 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['employees', 'getExpensesAmount', 'getBonusAmount', 'getPayrollAmount']),
-    
+    ...mapGetters([
+      'employees', 
+      'getExpensesAmountWithTaxe', 
+      'getBonusAmountWithTaxe', 
+      'getPayrollAmountWithTaxe'
+    ]),
   },
   watch: {
     'employeeList': function(employees) {
       this.expensesOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getExpensesAmount(e)
+          y: this.getExpensesAmountWithTaxe(e)
         }
       })
       this.payrollsOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getPayrollAmount(e)
+          y: this.getPayrollAmountWithTaxe(e)
         }
       })
       this.bonusOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getBonusAmount(e)
+          y: this.getBonusAmountWithTaxe(e)
         }
       })
     }

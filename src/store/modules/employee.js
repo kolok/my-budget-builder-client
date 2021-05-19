@@ -36,11 +36,13 @@ export default {
       let bonus = employees.map( employee => getters.getBonusAmountWithTaxe(employee))
       return bonus.reduce((a,b) => a + b, 0)
     },
-
     getExpensesAmount: () => employee => {
-        return employee.expenses.reduce( (a,b) => a + b.amount, 0 )
+      return employee.expenses.reduce( (a,b) => a + b.amount, 0 )
     },
-  },
+    getExpensesAmountWithTaxe: (state, getters, rootState, rootGetters) => employee => {
+      return employee.expenses.reduce( (a,b) => a + b.amount * getOfficeRatio(rootGetters, employee), 0 )
+    },
+},
   mutations: {
     SET_EMPLOYEES: (state, employees) => {
       state.employees = employees
