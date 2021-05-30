@@ -1,5 +1,4 @@
 import TeamResource from '../../api/team.service'
-import OfficeResource from '../../api/office.service'
 
 // Build the team tree to display it as a tree
 function buildTree(teams) {

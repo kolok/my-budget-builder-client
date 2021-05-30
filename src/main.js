@@ -30,6 +30,7 @@ import style from './styles/main.scss';
 
 /** Highcharts **/
 import Highcharts from "highcharts";
+import Sunburst from "highcharts/modules/sunburst";
 //import Gantt from "highcharts/modules/gantt";
 //import XRange from "highcharts/modules/xrange";
 //import Stock from "highcharts/modules/stock";
@@ -37,7 +38,7 @@ import HighchartsVue from "highcharts-vue";
 
 //Gantt(Highcharts);
 //XRange(Highcharts);
-//Stock(Highcharts);
+Sunburst(Highcharts);
 Vue.use(HighchartsVue);
 
 /** Manage ElementUI loading and locale **/

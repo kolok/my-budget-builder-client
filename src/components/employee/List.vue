@@ -29,6 +29,17 @@
           </span>
         </template>
       </el-table-column>
+
+      <el-table-column
+        :label="$t('Teams')"
+        prop="team"
+      >
+        <template slot-scope="props">
+          {{ getTeams(props.row.positions) }}
+        </template>
+      </el-table-column>
+
+
       <el-table-column
         :label="$t('Payroll with taxes')"
       >
@@ -96,12 +107,14 @@ export default {
       'getBonusAmountWithTaxe',
       'getPayrollAmount',
       'getPayrollAmountWithTaxe',
+      'teams',
     ]),
   },
   created() {
     this.$store.dispatch('getEmployees', {budgetID: this.budgetID}).then(() => {
       this.loading = false
     })
+    this.$store.dispatch('getTeams')
   },
   methods: {
     handleSelectionChange: function(val) {
@@ -113,6 +126,9 @@ export default {
     },
     getPartTime: function(positions) {
       return positions ? positions.reduce( (a,b) => a + b.parttime, 0) : 0
+    },
+    getTeams: function(positions) {
+      return positions ? positions.map( p => this.teams.find( t => t.id == p.teamID).name ).join(', ') : ''
     },
   }
 }

@@ -85,18 +85,22 @@ export default {
       multipleSelection: [],
     }
   },
+  beforeCreate() {
+    this.$store.dispatch('getCountries')
+  },
   computed: {
     ...mapGetters(['entities'])
   },
   created() {
-    this.$store.dispatch('getCountries'),
     this.$store.dispatch('getEntitiesWithOffices').then(() => {
       this.loading = false
     })
   },
   methods: {
     getCountry: function(countryID) {
-      return this.$store.getters.getCountryById(countryID).name
+      if (this.$store.getters.getCountryById(countryID)) {
+        return this.$store.getters.getCountryById(countryID).name
+      }
     },
     getCurrency: function(currency_id) {
       var currency = this.$store.getters.getCurrencyById(currency_id)

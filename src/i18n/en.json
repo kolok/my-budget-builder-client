@@ -66,6 +66,15 @@
   "Entities & Offices": "Entities & Offices",
   "Entity name can't be blank": "Entity name can't be blank",
   "Entity": "Entity",
+
+  "Expense by team": "Expense by team",
+  "Expense by entity and office": "Expense by entity and office",
+  "Expense by employee": "Expense by employee",
+  "Payroll by employee": "Payroll by employee",
+  "Bonus by employee": "Bonus by employee",
+  "Expense by entity": "Expense by entity",
+  "Expense by office": "Expense by office",
+
   "February": "February",
   "Fiscal year start month": "Fiscal year start month",
   "Forgot Password": "Forgot Password",

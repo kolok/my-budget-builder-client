@@ -62,8 +62,10 @@ export default {
     ...mapActions(['getBudgets', 'getEntitiesWithOffices']),
     setActiveBudget() {
       this.getBudgets().then(budgets => {
-        if (budgets !== undefined && budgets.length > 0) {
-          this.$store.dispatch('setActiveBudgetID', budgets[0].id)
+        if (this.activeBudgetID === undefined || this.activeBudgetID == 0) {
+          if (budgets !== undefined && budgets.length > 0) {
+            this.$store.dispatch('setActiveBudgetID', budgets[0].id)
+          }
         }
       })
     }
