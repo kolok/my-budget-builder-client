@@ -16,7 +16,7 @@ import router from '../../router'
 
 // A new instance of axios with a custom config.
 let HTTP = axios.create({
-  baseURL: process.env.API_URL || 'https://komber-komber-server.k8s.pipauls.com/api/v1/'
+  baseURL: process.env.API_URL || 'https://api-dot-mybudgetpipauls.ew.r.appspot.com/api/v1/'
 })
 
 // Add a request interceptor
