@@ -85,11 +85,11 @@ export default {
       multipleSelection: [],
     }
   },
-  beforeCreate() {
-    this.$store.dispatch('getCountries')
-  },
   computed: {
     ...mapGetters(['entities'])
+  },
+  beforeCreate() {
+    this.$store.dispatch('getCountries')
   },
   created() {
     this.$store.dispatch('getEntitiesWithOffices').then(() => {

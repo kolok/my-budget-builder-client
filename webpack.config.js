@@ -42,7 +42,7 @@ module.exports = function(env) {
         },
         {
           test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-          use: 'url-loader?limit=1024'
+          use: 'file-loader'
         }
       ]
     },

@@ -2,7 +2,6 @@
   <div>
     <score-card-board />
     <div style="display: flex; flex-direction: row; justify-content: center;">
-
       <div style="width:50%;">
         <p style="text-align: center; font-size: large">
           {{ $t('Expense by team') }}
@@ -53,7 +52,10 @@ function sumTeamValue(id, teams) {
     return team.value
   } else {
     let team = teams.find(team => team.id == id)
-    team.value = teams.find(team => team.id == id).value || 0 + children.reduce( (a,b) => a + sumTeamValue(b.id, teams), 0 )
+    team.value = teams.find(team => team.id == id).value || 0 + 
+      children.reduce( 
+        (a,b) => a + sumTeamValue(b.id, teams), 0 
+      )
     return team.value
   }  
 }
@@ -190,9 +192,9 @@ export default {
           dataLabels: {
             format: '{point.name}',
             filter: {
-                property: 'innerArcLength',
-                operator: '>',
-                value: 16
+              property: 'innerArcLength',
+              operator: '>',
+              value: 16
             },
             rotationMode: 'circular'
           },
@@ -200,11 +202,11 @@ export default {
             level: 1,
             levelIsConstant: false,
             dataLabels: {
-                filter: {
-                    property: 'outerArcLength',
-                    operator: '>',
-                    value: 64
-                }
+              filter: {
+                property: 'outerArcLength',
+                operator: '>',
+                value: 64
+              }
             }
           }, {
             level: 2,
@@ -213,8 +215,8 @@ export default {
           {
             level: 3,
             colorVariation: {
-                key: 'brightness',
-                to: -0.5
+              key: 'brightness',
+              to: -0.5
             }
           }]
         }],
@@ -228,8 +230,10 @@ export default {
         chart: {
           height: '100%'
         },
-        // Let the center circle be transparent
-        colors: ['transparent'].concat(Highcharts.getOptions().colors),
+        /*
+         * Let the center circle be transparent
+         *        colors: ['transparent'].concat(Highcharts.getOptions().colors),
+         */
         title: {
           text: null
         },
@@ -241,9 +245,9 @@ export default {
           dataLabels: {
             format: '{point.name}',
             filter: {
-                property: 'innerArcLength',
-                operator: '>',
-                value: 16
+              property: 'innerArcLength',
+              operator: '>',
+              value: 16
             },
             rotationMode: 'circular'
           },
@@ -251,11 +255,11 @@ export default {
             level: 1,
             levelIsConstant: false,
             dataLabels: {
-                filter: {
-                    property: 'outerArcLength',
-                    operator: '>',
-                    value: 64
-                }
+              filter: {
+                property: 'outerArcLength',
+                operator: '>',
+                value: 64
+              }
             }
           }, {
             level: 2,
@@ -264,8 +268,8 @@ export default {
           {
             level: 3,
             colorVariation: {
-                key: 'brightness',
-                to: -0.5
+              key: 'brightness',
+              to: -0.5
             }
           }]
         }],
@@ -288,10 +292,6 @@ export default {
       'teams',
       'getCurrentCompany'
     ]),
-  },
-  beforeCreate() {
-    this.$store.dispatch('getTeams')
-
   },
   watch: {
     'employeeList': function(employees) {
@@ -317,8 +317,10 @@ export default {
       let byOffice = {}
       let byEntity = {}
       let byTeam = {}
-      //TODO: manage the color of the sunburst
-      //TODO: manage the period of the budget
+      /*
+       *TODO: manage the color of the sunburst
+       *TODO: manage the period of the budget
+       */
       let byEntityOfficeData = [{
         id: 'company',
         parent: '',
@@ -327,8 +329,8 @@ export default {
 
       for (let employee of employees) {
         let office = this.offices.find( o => o.id == employee.officeID )
-        byEntity[office.entity.id] = (byEntity[office.entity.id] || 0 ) + this.getExpensesAmountWithTaxe(employee);
-        byOffice[employee.officeID] = (byOffice[employee.officeID] || 0 ) + this.getExpensesAmountWithTaxe(employee);
+        byEntity[office.entity.id] = (byEntity[office.entity.id] || 0 ) + this.getExpensesAmountWithTaxe(employee)
+        byOffice[employee.officeID] = (byOffice[employee.officeID] || 0 ) + this.getExpensesAmountWithTaxe(employee)
         let parttime = employee.positions.reduce((a,b) => a + b.parttime, 0)
         for (let position of employee.positions) {
           byTeam[position.teamID] = this.getExpensesAmountWithTaxe(employee) * position.parttime / parttime
@@ -356,7 +358,7 @@ export default {
       sumTeamValue('company', byTeamSimpleData)
       byTeamSimpleData = byTeamSimpleData.filter( team => team.value > 0)
 
-      for ( let [entityID,expense] of Object.entries(byEntity) ) {
+      for ( let entityID of Object.keys(byEntity) ) {
         let entity = this.entities.find( e => e.id == entityID )
         byEntityOfficeData.push({
           id: entity.id,
@@ -365,18 +367,22 @@ export default {
         })
       }
       for ( let [officeID,expense] of Object.entries(byOffice) ) {
-          let office = this.offices.find( o => o.id == officeID )
-          byEntityOfficeData.push({
-            id: office.id,
-            parent: office.entityID,
-            name: office.name,
-            value: expense
-          })
+        let office = this.offices.find( o => o.id == officeID )
+        byEntityOfficeData.push({
+          id: office.id,
+          parent: office.entityID,
+          name: office.name,
+          value: expense
+        })
       }
       this.byEntOffOptions.series[0].data = byEntityOfficeData
       this.byTeamSubteamOptions.series[0].data = byTeamSimpleData
 
     }
+  },
+  beforeCreate() {
+    this.$store.dispatch('getTeams')
+
   }
 }
 </script>
