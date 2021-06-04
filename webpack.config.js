@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 // Simplifies creation of HTML files to serve your webpack bundles
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const path = require('path')
@@ -7,9 +8,6 @@ const path = require('path')
 module.exports = function(env) {
   var CONFIG = {
     entry: ['babel-polyfill', './src/main.js'],
-    plugins: [
-      new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
-    ],
     output: {
       /*global __dirname*/
       path: path.resolve(__dirname, 'dist'),
@@ -48,7 +46,12 @@ module.exports = function(env) {
     },
     plugins: [
       new HtmlWebpackPlugin({template: './index.html'}),
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
+      new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
+      new CopyWebpackPlugin([{ 
+        from: "./static", 
+          to: "static"
+      }]),
     ],
     optimization: {
       runtimeChunk: 'single',
