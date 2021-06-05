@@ -60,7 +60,7 @@ resource "google_storage_bucket" "bucket" {
 data "archive_file" "client" {
   type        = "zip"
   source_dir = ".."
-  excludes    = [ "node_modules", "terraform" ]
+  excludes    = [ "node_modules", "terraform", "tests", "src", "static", ".git" ]
   output_path = "sources/my-budget-pipauls-client.zip"
 }
 
