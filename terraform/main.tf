@@ -61,11 +61,11 @@ data "archive_file" "client" {
   type        = "zip"
   source_dir = ".."
   excludes    = [ "node_modules", "terraform", "tests", "src", "static", ".git" ]
-  output_path = "sources/my-budget-pipauls-client.zip"
+  output_path = "sources/my-budget-pipauls-client-${timestamp()}.zip"
 }
 
 resource "google_storage_bucket_object" "object" {
-  name   = "my-budget-builder-client.zip"
+  name   = "my-budget-builder-client-${timestamp()}.zip"
   bucket = google_storage_bucket.bucket.name
   source = data.archive_file.client.output_path
 }

@@ -46,18 +46,12 @@ import Highcharts from 'highcharts'
 function sumTeamValue(id, teams) {
   //if no children, return value
   let children = teams.filter(team => team.parent == id)
-  if (children.length == 0) {
-    let team = teams.find(team => team.id == id)
-    team.value = teams.find(team => team.id == id).value || 0
-    return team.value
-  } else {
-    let team = teams.find(team => team.id == id)
-    team.value = teams.find(team => team.id == id).value || 0 + 
-      children.reduce( 
-        (a,b) => a + sumTeamValue(b.id, teams), 0 
-      )
-    return team.value
-  }  
+  let team = teams.find(team => team.id == id)
+  team.value ||= 0
+  for (let child of children) {
+    team.value += sumTeamValue(child.id, teams)
+  }
+  return team.value
 }
 
 export default {
@@ -356,7 +350,6 @@ export default {
         team.parent ||= team.parentTeamID === null ? 'company' : team.parentTeamID
       }
       sumTeamValue('company', byTeamSimpleData)
-      byTeamSimpleData = byTeamSimpleData.filter( team => team.value > 0)
 
       for ( let entityID of Object.keys(byEntity) ) {
         let entity = this.entities.find( e => e.id == entityID )
@@ -376,7 +369,7 @@ export default {
         })
       }
       this.byEntOffOptions.series[0].data = byEntityOfficeData
-      this.byTeamSubteamOptions.series[0].data = byTeamSimpleData
+      this.byTeamSubteamOptions.series[0].data = byTeamSimpleData.filter( team => team.value > 0)
 
     }
   },
