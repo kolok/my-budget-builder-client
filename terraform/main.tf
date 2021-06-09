@@ -54,13 +54,13 @@ resource "google_app_engine_standard_app_version" "client" {
 }
 
 resource "google_storage_bucket" "bucket" {
-  name = "appengine-client-sources"
+  name = "appengine-sources"
 }
 
 data "archive_file" "client" {
   type        = "zip"
   source_dir = ".."
-  excludes    = [ "node_modules", "terraform", "tests", "src", "static", ".git" ]
+  excludes    = [ "node_modules", "terraform", "tests", ".git" ]
   output_path = "sources/my-budget-pipauls-client-${timestamp()}.zip"
 }
 
