@@ -1,5 +1,21 @@
 <template>
   <div>
+    <el-alert
+      :title="$t('Warning')"
+      type="warning"
+      style="margin-bottom:12px"
+      v-if="this.offices === undefined || this.offices.length == 0">
+      {{$t('To be able to use Budget and create employee, first, you need to create ')}}
+      <a @click="redirectToEntitiesOffices">{{ $t('entities and offices') }}</a>
+    </el-alert>
+    <el-alert
+      :title="$t('Warning')"
+      type="warning"
+      style="margin-bottom:12px"
+      v-if="this.teams === undefined || this.teams.length == 0">
+      {{$t('To be able to use Budget and create employee, first, you need to create ')}}
+      <a @click="redirectToTeams">{{ $t('teams') }}</a>
+    </el-alert>
     <div class="Content__ObjectManagement">
       <budget-selector :exists-budgets="existsBudgets" />
     </div>
@@ -46,7 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['budgets', 'employees', 'activeBudgetID']),
+    ...mapGetters(['budgets', 'employees', 'activeBudgetID', 'teams', 'offices']),
     existsBudgets: function() {
       return this.budgets.length > 0
     }
@@ -54,6 +70,7 @@ export default {
   beforeCreate() {
     this.$store.dispatch('getCurrencies'),
     this.$store.dispatch('getEntitiesWithOffices')
+    this.$store.dispatch('getTeams')
   },
   created() {
     this.setActiveBudget()
@@ -68,6 +85,12 @@ export default {
           }
         }
       })
+    },
+    redirectToEntitiesOffices: function() {
+      this.$router.push({ name: 'Account', params: {  activeRedirect: 'entities' } })
+    },
+    redirectToTeams: function() {
+      this.$router.push({ name: 'Account', params: {  activeRedirect: 'teams' } })
     }
   }
 }
