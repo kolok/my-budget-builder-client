@@ -128,7 +128,10 @@ export default {
       return positions ? positions.reduce( (a,b) => a + b.parttime, 0) : 0
     },
     getTeams: function(positions) {
-      return positions ? positions.map( p => this.teams.find( t => t.id == p.teamID).name ).join(', ') : ''
+      return positions ? positions.map( p => {
+        let team = this.teams.find( t => t.id == p.teamID)
+        return team ? team.name : ''
+      }).join(', ') : ''
     },
   }
 }

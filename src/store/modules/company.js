@@ -8,8 +8,8 @@ export default {
     companies: state => state.all,
     getCompanyCurrency: (state, getters, rootState, rootGetters) => {
       let company = rootGetters.getCurrentCompany
-      let currency = rootGetters.getCurrencyById(company.defaultCurrencyID)
-      return currency.symbol
+      let currency = company ? rootGetters.getCurrencyById(company.defaultCurrencyID) : undefined
+      return currency ? currency.symbol : ''
     }
   },
   mutations: {

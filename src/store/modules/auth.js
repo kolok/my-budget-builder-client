@@ -60,6 +60,7 @@ export default {
     // logout action
     logout: ({ commit }) => {
       commit('LOGOUT')
+      commit('RESET_BUDGETSTATE')
     },
 
     autoLogin: ({commit}, user) => {

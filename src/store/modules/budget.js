@@ -1,11 +1,14 @@
 import BudgetResource from '../../api/budget.service'
 
-export default {
-  state: {
+function reset () {
+  return {
     budgets: [],
     activeBudget: {},
     activeBudgetID: 0,
-  },
+  }
+}
+export default {
+  state: reset(),
   getters: {
     budgets: state => state.budgets,
     activeBudgetID: state => state.activeBudgetID,
@@ -14,6 +17,9 @@ export default {
   mutations: {
     SET_BUDGETS: (state, budgets) => {
       state.budgets = budgets
+    },
+    RESET_BUDGETSTATE: (state) => {
+      Object.assign(state, reset())
     },
     SET_ACTIVEBUDGETID: (state, id) => {
       state.activeBudgetID = id
