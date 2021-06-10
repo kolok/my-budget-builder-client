@@ -333,6 +333,17 @@ $min-sider_width: 200px;
     font-size: 14px;
     padding-right: 8px;
   }
+  &__FormLink {
+    @extend .Content;
+    width:100%;
+    display: flex;
+    &--Right {
+      @extend .Content__FormLink;
+      flex-direction: row-reverse;
+    }
+    margin-bottom: 12px;
+    margin-top: -12px;
+  }
 }
 
 .Dialog__Form {

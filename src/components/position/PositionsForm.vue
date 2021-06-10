@@ -29,6 +29,9 @@
             clearable
           />
         </el-form-item>
+        <div class="Content__FormLink--Right">
+          <a @click="redirectToTeams">{{ $t('Manage Teams') }}</a>
+        </div>
       </div>
       <div style="width:20%">
         <el-form-item
@@ -99,6 +102,9 @@ export default {
     },
     deletePosition(counter){
       this.employeeForm.positions.splice(counter,1)
+    },
+    redirectToTeams: function() {
+      this.$router.push({ name: 'Account', params: {  activeRedirect: 'teams' } })
     }
   }
 }

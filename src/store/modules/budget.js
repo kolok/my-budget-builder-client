@@ -4,7 +4,7 @@ function reset () {
   return {
     budgets: [],
     activeBudget: {},
-    activeBudgetID: 0,
+    activeBudgetID: "0",
   }
 }
 export default {

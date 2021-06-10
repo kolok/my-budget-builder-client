@@ -22,6 +22,9 @@
             :my-form="employeeForm"
             prop="officeID"
           />
+          <div class="Content__FormLink--Right">
+            <a @click="redirectToEntitiesOffices">{{ $t('Manage Entities and Offices') }}</a>
+          </div>
           <div class="Content__ColumnForm1o2Column">
             <el-form-item 
               prop="payroll" 
@@ -155,7 +158,10 @@ export default {
     },
     handleCancel: function() {
       this.$emit('cancel')
-    }
+    },
+    redirectToEntitiesOffices: function() {
+      this.$router.push({ name: 'Account', params: {  activeRedirect: 'entities' } })
+    },
   }
 }
 </script>

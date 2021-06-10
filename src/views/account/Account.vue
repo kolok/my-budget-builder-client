@@ -46,9 +46,16 @@ export default {
     EntityCreate,
     TeamTree,
   },
+  props: {
+    activeRedirect: {
+      type: String,
+      default: 'company'
+    }
+  },
   data() {
+    console.log(this.activeRedirect)
     return {
-      activeName: 'company'
+      activeName: this.activeRedirect
     }
   },
   computed: {

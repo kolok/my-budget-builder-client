@@ -32,7 +32,8 @@ export const routesUser = [
     meta: {
       requiresAuth: true,
       title: 'Pipauls - Account'
-    }
+    },
+    props: true
   },
   {
     path: '/userCreate',
