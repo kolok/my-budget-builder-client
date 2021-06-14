@@ -11,7 +11,7 @@ module.exports = function(env) {
     output: {
       /*global __dirname*/
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].bundle.js',
+      filename: '[name].[contenthash].js',
     },
     module: {
       rules: [
@@ -45,7 +45,10 @@ module.exports = function(env) {
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin({template: './index.html'}),
+      new HtmlWebpackPlugin({
+        title: 'Caching',
+        template: './index.html'
+      }),
       new VueLoaderPlugin(),
       new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
       new CopyWebpackPlugin([{ 
