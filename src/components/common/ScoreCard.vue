@@ -4,13 +4,13 @@
       {{ title }}
     </div>
     <div class="Content__ScoreBody">
-      {{ count }} {{ unit }}
+      {{ formatNumber(count) }} {{ unit }}
     </div>
     <div
       v-if="subCount !== undefined"
       class="Content__ScoreFooter"
     >
-      {{ subTitle ? subTitle + ':' : '' }} {{ subCount }} {{ unit }}
+      {{ subTitle ? subTitle + ':' : '' }} {{ formatNumber(subCount) }} {{ unit }}
     </div>
   </div>
 </template>

@@ -49,3 +49,11 @@ export const i18n = new MyI18n({
   locale: myLocale, // set locale
   messages, // set locale messages
 })
+
+Vue.mixin({
+  methods: {
+    formatNumber: num => {
+      return num.toLocaleString(myLocale, { maximumFractionDigits: 2, useGrouping: false})
+    }
+  }
+})

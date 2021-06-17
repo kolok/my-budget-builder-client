@@ -78,7 +78,8 @@ export default {
           text: null
         },
         tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€'
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€',
+          valueDecimals: 2
         },
         accessibility: {
           point: {
@@ -112,7 +113,8 @@ export default {
           text: null
         },
         tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€'
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€',
+          valueDecimals: 2
         },
         accessibility: {
           point: {
@@ -146,7 +148,8 @@ export default {
           text: null
         },
         tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€'
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b><br>{point.y}€',
+          valueDecimals: 2
         },
         accessibility: {
           point: {
@@ -217,7 +220,8 @@ export default {
 
         tooltip: {
           headerFormat: '',
-          pointFormat: '{point.name}<br/>{point.value}€'
+          pointFormat: '{point.name}<br/>{point.value}€',
+          valueDecimals: 2
         }
       },
       byTeamSubteamOptions: {
@@ -270,7 +274,8 @@ export default {
 
         tooltip: {
           headerFormat: '',
-          pointFormat: '{point.name}<br/>{point.value}€'
+          pointFormat: '{point.name}<br/>{point.value}€',
+          valueDecimals: 2
         }
       },
     }
@@ -292,19 +297,19 @@ export default {
       this.expensesOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getExpensesAmountWithTaxe(e)
+          y: this.getExpensesAmountWithTaxe(e, true)
         }
       })
       this.payrollsOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getPayrollAmountWithTaxe(e)
+          y: this.getPayrollAmountWithTaxe(e, true)
         }
       })
       this.bonusOptions.series[0].data = employees.map( e => {
         return {
           name: e.name, 
-          y: this.getBonusAmountWithTaxe(e)
+          y: this.getBonusAmountWithTaxe(e, true)
         }
       })
 
@@ -323,11 +328,11 @@ export default {
 
       for (let employee of employees) {
         let office = this.offices.find( o => o.id == employee.officeID )
-        byEntity[office.entity.id] = (byEntity[office.entity.id] || 0 ) + this.getExpensesAmountWithTaxe(employee)
-        byOffice[employee.officeID] = (byOffice[employee.officeID] || 0 ) + this.getExpensesAmountWithTaxe(employee)
+        byEntity[office.entity.id] = (byEntity[office.entity.id] || 0 ) + this.getExpensesAmountWithTaxe(employee, true)
+        byOffice[employee.officeID] = (byOffice[employee.officeID] || 0 ) + this.getExpensesAmountWithTaxe(employee, true)
         let parttime = employee.positions.reduce((a,b) => a + b.parttime, 0)
         for (let position of employee.positions) {
-          byTeam[position.teamID] = this.getExpensesAmountWithTaxe(employee) * position.parttime / parttime
+          byTeam[position.teamID] = this.getExpensesAmountWithTaxe(employee, true) * position.parttime / parttime
         }
       }
       let byTeamData = this.teams
@@ -375,7 +380,6 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('getTeams')
-
   }
 }
 </script>
