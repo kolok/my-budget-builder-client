@@ -11,7 +11,7 @@ module.exports = function(env) {
     output: {
       /*global __dirname*/
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].[contenthash].js',
+      filename: '[name].[hash].js',
     },
     module: {
       rules: [
