@@ -9,3 +9,7 @@ variable "region" {
 variable "zone" {
   default = "europe-west1-b"
 }
+
+variable "server_service" {
+  default = "server"
+}
