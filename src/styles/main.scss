@@ -1,7 +1,7 @@
 //this is a test
 @import "./base";
 
-$header-background-color: #fff;
+$header-footer-background-color: #FAFAFA;
 $color: #495060;
 $min-sider_width: 200px;
 
@@ -12,109 +12,19 @@ $min-sider_width: 200px;
 // Visual
 // OtherProperties
 
-.Layout{
-  // Positioning
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  // BoxModel
-  height: 100vh;
-  // Typography
-  // Visual
-  // OtherProperties
-}
-
 .Body {
   // Positioning
   display: flex;
   flex-direction: row;
   align-content: flex-start;
   // BoxModel
-  height: 100%;
+  // height: 100%;
   width: 100%;
   // Typography
   // Visual
   // OtherProperties
 }
 
-.Header{
-  // Positioning
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:space-between;
-  // BoxModel
-  padding: 0;
-  padding-top: 4px;
-  height: 60px;
-  // Typography
-  // Visual
-  background-color: $header-background-color;
-  border-bottom: solid 1px #e6e6e6;
-  // OtherProperties
-  &__LogoContainer {
-    @extend .Header;
-    // Positioning
-    // BoxModel
-    padding-top: 0px;
-    width: $min-sider_width;
-    height: 60px;
-    border: 0 none;
-    // Typography
-    // Visual
-    // OtherProperties
-  }
-  &__Logo {
-    @extend .Header;
-    // Positioning
-    position: relative;
-    float: left;
-    // BoxModel
-    padding-top: 0px;
-    width: 90px;
-    height: 30px;
-    border: 0 none;
-    // Typography
-    // Visual
-    border-radius: 3px;
-    // OtherProperties
-  }
-  &__Dorpdown {
-    @extend .Header;
-    // Positioning
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:flex-end;
-    // BoxModel
-    padding-top: 0px;
-    border: 0 none;
-    width: 200px;
-    // Typography
-    // Visual
-    // OtherProperties
-  }
-  &--Left {
-    @extend .Header;
-    // Positioning
-    // BoxModel
-    padding-top: 0px;
-    padding-left: 20px;
-    // Typography
-    // Visual
-    // OtherProperties
-  }
-  &--Right {
-    @extend .Header;
-    // Positioning
-    // BoxModel
-    padding-top: 0px;
-    padding-right: 20px;
-    // Typography
-    // Visual
-    // OtherProperties
-  }
-}
 
 .ContentContainer {
   width: 100%;
@@ -348,6 +258,113 @@ $min-sider_width: 200px;
 
 .Dialog__Form {
   max-width:600px;
+}
+
+.Footer{
+  // Positioning
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: auto !important;
+  // BoxModel
+  padding: 0;
+  height: 60px;
+  // Typography
+  // Visual
+  background-color: $header-footer-background-color;
+  border-top: solid 1px #e6e6e6;
+}
+
+.Header{
+  // Positioning
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  // BoxModel
+  padding: 0;
+  padding-top: 4px;
+  height: 60px;
+  // Typography
+  // Visual
+  background-color: $header-footer-background-color;
+  border-bottom: solid 1px #e6e6e6;
+  // OtherProperties
+  &__LogoContainer {
+    @extend .Header;
+    // Positioning
+    // BoxModel
+    padding-top: 0px;
+    width: $min-sider_width;
+    height: 60px;
+    border: 0 none;
+    // Typography
+    // Visual
+    // OtherProperties
+  }
+  &__Logo {
+    @extend .Header;
+    // Positioning
+    position: relative;
+    float: left;
+    // BoxModel
+    padding-top: 0px;
+    width: 90px;
+    height: 30px;
+    border: 0 none;
+    // Typography
+    // Visual
+    border-radius: 3px;
+    // OtherProperties
+  }
+  &__Dorpdown {
+    @extend .Header;
+    // Positioning
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-end;
+    // BoxModel
+    padding-top: 0px;
+    border: 0 none;
+    width: 200px;
+    // Typography
+    // Visual
+    // OtherProperties
+  }
+  &--Left {
+    @extend .Header;
+    // Positioning
+    // BoxModel
+    padding-top: 0px;
+    padding-left: 20px;
+    // Typography
+    // Visual
+    // OtherProperties
+  }
+  &--Right {
+    @extend .Header;
+    // Positioning
+    // BoxModel
+    padding-top: 0px;
+    padding-right: 20px;
+    // Typography
+    // Visual
+    // OtherProperties
+  }
+}
+
+.Layout{
+  // Positioning
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  // BoxModel
+  height: 100vh;
+  // Typography
+  // Visual
+  // OtherProperties
 }
 
 .Sider {
